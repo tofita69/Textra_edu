@@ -1,0 +1,951 @@
+{
+    "chunks": [
+        "HAL open science Combining Internal- and Extemal-Tainimglond: to Predict Non-Contact Injuries in Soccer Emmanuel Vallance, Nicolas Sutton-Charani, Abdelhak Imoussaten, Jacky Montmain, Stéphane Perrey > To cite this version: Emmanuel Vallance, Nicolas Sutton-Charani, Abdelhak Imoussaten, Jacky Montmain, Stéphane Per- rey. Combining Internal- and Extemal-Tmaininglonds to Predict Non-Contact Injuries in Soccer.",
+        "Applied Sciences, 2020, 10 (15), pp.5261. 103390/app10156261. hal-02913576 HAL Id: hal-02913576 https//Imt-mines-altes.halsciemce/hal-02913576v1 Submitted on 10 Aug 2020 HAL is a multi-disciplinary open access L'archive ouverte pluridisciplinaire HAL, est archive for the deposit and dissemination of sci- destinée au dépôt et à la diffusion de documents",
+        "entific research documents, whether they are pub- scientifiques de niveau recherche, publiés ou non, lished or not. The documents may come from émanant des établissements d'enseignement et de teaching and research institutions in France or recherche français ou étrangers, des laboratoires",
+        "abroad, or from public or private research centers. publics ou privés. FIFF applied MDPI sciences Article Combining Internal- and Extema-Training-loads to Predict Non-Contact Injuries in Soccer Emmanuel Vallance 1,20, Nicolas Sutton-Charani 100, Abdelhak Imoussaten 10, Jacky Montmain 10 and Stéphane Perrey 1,*",
+        "1 EuroMov Digital Health in Motion, Univ Montpellier, IMTI Mines Ales, 340901 Montpellier, France; emmanuelvallanceaumontpelier.f: (E.V.); nicolassulton-charani@mines-alesf: (N.S.-C.); abdelhakimousaten@mines-alesf: (A.I.); dymommanéninesalstr (.M.) 2 Valenciennes Football Club, 59300 Valenciennes, France Correspondence: Pmepenymompler check for Received: 26 June 2020; Accepted: 27 July 2020; Published: 30 July 2020 updates",
+        "Abstract: The large amount of features recorded from GPS and inertial sensors (external load) and well-being questionnaires (internal load) can be used together in a multi-dimensional non-linear machine learning based model for a better prediction of non-contact injuries. In this study we put",
+        "forward the main hypothesis that the use of such models would be able to inform better about injury risks by considering the evolution of1 both internal and external loads over two horizons (one week and one month). Predictive models were trained with data collected by both GPS and subjective",
+        "questionnaires and injury data from 40 elite male soccer players over one season. Various classification machine-learning algorithms that performed best on external and internal loads features were compared using standard performance metrics such as accuracy, precision, recall and the area under",
+        "the receiver operator characteristic curve. In particular, tree-based algorithms based on non-linear models with an important interpretation aspect were privileged as they can help to understand internal and external load features impact on injury risk. For 1-week injury prediction, internal load",
+        "features data were more accurate than external load features while for 1-month injury prediction, thel best performances of classifiers were reached by combining internal and external load features. Keywords: injury prediction; training load monitoring; non-linear machine learning; well-being questionnaires; one-month and one-week time horizons; sport science 1. Introduction",
+        "Injuries are commonplace in professional soccer. According to a recent study [1), the overall incidence of injuries in elite male soccer players ranges from 2.5 to 9.4 injuries per 1000 h of exposure. These authors also showed that the risk of injury is higher during matches than training sessions.",
+        "One of the last epidemiological studies highlighting the increase of injuries over the past 16 years, has emphasized that muscle incidents were the main cause [2]. Injuries being ubiquitous in this type of complex sport [3] there are several risk factors such as the number of played matches,",
+        "the accumulation of fatigue induced by the workload during and following training sessions, etc. Within this context, non-contact injuries are often regarded as preventable and linked to internal and external risk factors related to workload [4). It is therefore essential to quantify properly,",
+        "over time, the training and competitive match workloads for any injury prediction approach in soccer. In addition, the total training load tends to increase along with the annual performance objectives. Therefore, monitoring the internal load experienced by thej player as the combination of the",
+        "physiological (heart rate measurements [5]) and psychological (perception questionnaires [6]) stresses and the external load (i.e., the mechanical work completed by the player) during both training and Appl. Sci. 2020, 10, 5261; dol103390/app1015261 wmdplam/pumiypid Appl. Sci. 2020, 10, 5261 2of 20",
+        "competition is of fundamental importance to allow the individualization of training activities [7] as well as the identification of potential injury risk at the individual player level. Many studies have already examined soccer activity. Randers et al. [8] indicated that analytical",
+        "tools such as video and wearable technology like Global Positioning System (GPS) devices and inertial sensors can provide accurate mechanical data about players activities both during training and in competition. Several important performance-related features have been highlighted, such as distances",
+        "travelled at different speeds, accelerations, decelerations and maximum speed [9]. For instance, the average distance travelled in matches by elite soccer players is of 9 to 12 km [9,10]. Sprinting in particular is often considered as a major component of performance, but ultimately it only represents",
+        "10% of the total distance covered during matches [11]. These various metrics among others (e.g., acceleration and deceleration ranges, changes of direction) are regularly used to quantify external load. Both high and low external loads lead to injury risk, with suggestions that there may be an",
+        "optimum load threshold for individuals [12]. Besides objective physical tests, it is also possible to use subjective measures to predict injury risk. The session Rating of Perceived Exertion (RPE) has been used for injury risk estimation [13-15). Indeed, recent research in elite soccer recording contact and",
+        "non-contact injuries has identified a link between internal workload (using session RPE) and injury incidence [16] while no relationship between internal load and non-contact injuries was observed in other studies [14]. The large amount of features recorded from the assessment of external load (GPS and inertial",
+        "sensors) and internal load (associated with subjective well-being questionnaires and RPE) can be used together in order to better capture the relationship between both internal and external loads [17] and predict in turn players injury. However, the more massive collected data, the more complex their",
+        "managing. It is now acknowledged that machine learning methods applied to sport can provide accurate diagnostic and decision tools for training management and injury risk assessment but are not yet widely used in the latest scientific studies (see for a review Claudino et al. [18]). One of the first",
+        "investigations that tried to predict non-contact: injuries in team-sports using machine-learning methods was conducted by Rossi et al. [19]. Starting from the observation thati injury risk assessment by applying the so-called açute:chronic workload ratio (e.g., used in Raya-Gonzaled et al. [14]) led to inaccurate and",
+        "poor prediction abilities, Rossi et al. [19] proposed a multi-dimensional approach to injury prediction in professional soccer based on external load data collected through GPS measurements. For that purpose, they trained decision trees that predict whether or not a player is likely to get injured in",
+        "the next match or training session. Such non-linear models applied only to external training load showed better performance: metrics than traditional statistical methods for predicting injury risk [19]. However these performances are far from being optimal for the prediction of injuries, i.e., 50% of",
+        "precision and 80% of recall. Altogether, it appears that, to our knowledge, the scientific literature remains very scarce on the problem of injury prediction in elite soccer from internal and external loads together in a multi-dimensional non-linear machine learning based model.",
+        "Therefore, given the amount of data collected in modern elite soccer regarding both external and internal loads, it's nowadays relevant to apply machine-learning methods to a pre-established set of variables in order to provide useful information for professional coaching. We put forward the main",
+        "hypothesis that using such type machine-learning methods would be able to inform us with good prediction performance. about injury risks over two. horizons (one week and one month) by considering the combined evolution of both internal and external training loads. The results of the present study,",
+        "as being the first one coupling the two types of training loads, could guide the programming and individualization of physical training with the aim of controlling and thus reducing the risk of injury. The evaluation of the proposed approach in this study is done in two steps. First, combining external",
+        "and internal loads features is proposed to predict injuries with better performances as compared to past studies using only external load. Second, some classification algorithms that perform best on these features are selected. For this aim, various standard machine learning algorithms are compared using",
+        "standard evaluation metrics such as accuracy, precision, recall and the area under the receiver operator Appl. Sci. 2020, 10, 5261 3of 20 characteristic curve (AUC). In particular, tree-based algorithms with an important interpretation aspect are privileged as they can help to identify and understand how GPS and questionnaires variables",
+        "impact on injury risk. 2. Materials and Methods 2.1. Procedures and Data Collection Forty players (mean t SD; age 29.4 t 5.8 years; height 175.3 t 5.2 cm; body mass 76.5 t 8.21 kg) classified from all offensive and defensive position groups (9 central defenders, 8 fullbacks, 10 central",
+        "midfielders, 6 wide midfielders, 7 forwards) from the same elite soccer club competing in the French Ligue 2 participated in one: full-season (2017/2018) data collection. The study was conducted according to the requirements of the Declaration of Helsinki. Participants gave their written informed consent",
+        "to participate in the study. Approval for the study was obtained from the Club as player's data were routinely collected throughout the season. The training workload, perceptive well-being questionnaires and injury data were monitored over the pre-season period and during the entire competitive period from June 2017 to May 2018,",
+        "taking into account the different breaks between these periods, the international truces and the winter truce. A total of 245 training sessions, 38 Domino's Ligue 2 matches, 2 Coupe de la Ligue matches and 3 Coupe de France matches were recorded and analyzed. Altogether, the average recording time in",
+        "training and match was 68 t 24 min and 105 t 11 min, respectively. The average distance covered by all players for both training session and match was 4817 t 1965 m and 7694 t 1527 m, respectively;",
+        "and the average duration was 65 t 13 min per training session and 78 t 16 min per match. During those periods, 142 injuries were inferred from the training notes containing the list of injured players for each training session. The injuries concerned 33 different players. Figure 1",
+        "represents the number of injuries per players: 12 players were injured only once, 5 players were injured 6 times and 1 player had 12 injuries. It is important to note that the real injury times and reasons were",
+        "not known. It was alleged that when a player was referred as injured in a training session, it was in fact at the last training session that his injury really occurred. The injury labels contain therefore some uncertainty that was not taken into account in this study. 12- 10 8-",
+        "6 # 4 2- l., 0 2 3 4 5 6 7 8 9 10 11 12 # injuries Figure 1. Number of injuries per players. Various types of training load features (see Table 1) regarding a professional soccer club were",
+        "collected from 40 players during official competitive: matches, pre-season preparation matches, before, during and after training sessions. A first set of features concerned the player's activity using a GPS tracking system. The GPS system allows real-time player tracking and an early a posteriori analysis",
+        "for coaching staff. This first set of features reflects the external training load, i.e., the objective physical work performed by the player. The player's physical activity during each training session and match Appl. Sci. 2020, 10, 5261 4of20",
+        "was measured using a portable 10 Hz GPS system (Optimeye $5, Catapult Innovations, Melbourne, Australia) integrated with a 100 Hz triaxial accelerometer and a gyroscope. The accelerometer and gyroscope components combined with 10 Hz GPS systems have shown acceptable levels of reliability",
+        "and validity in team sports for distance and high-speed distance-based metrics [20,21]. Four main external load features were measured: maximum speed, total distance covered, and number of accelerations and decelerations. Based on the dedicated literature [22,23] the following external",
+        "training load features were retained: the total distance travelled in each specific speed zone (0-1 km/h, 0-6 km/h, 6-15 km/h, 15-20 km/h, 20-25km/h, > 25 km/h) and the PlayerLoad TM (athlete's mechanical fatigue index according to Barrett, Midgley, and Lovell [24]), which is a modified vector",
+        "magnitude expressed as the square root of the sum of the squared instantaneous rated of change in acceleration in each of the three planes and divided by 100. Table 1. Set of features used in the study. GPS is corresponding to features of external loads while",
+        "questionnaires (based on a 10 cm visual analog scale, VAS10) are dealing with internal loads. Type of Data Name Definition age age at thel beginning of the 2017 season weight weight at the beginning of the 2017 season personnal features height height at thel beginning of the 2017 season BMI",
+        "Body Mass Index role role tot_dur total duration tot_dist total distance covered tot_PL total Player Load vel_B1 distance covered between 0 and 1 km/h vel_B2 distance covered between 0 and 61 km/h vel_B3 distance covered between 6 and 15 km/h GPS vel_B4 distance covered between 15 and 20 km/h vel_B5",
+        "distance covered between 20 and 25 km/h vel_B6 distance covered at more than 25 km/h acc_B2 number of accelerations above 2 m/s? acc_B3 number of decelerations above 2m/s2 max_vel maximum: speed in m/s sleep-qual (VAS10) sleep quality fatigue (VAS10) fatigue state of the player shape (VAS10) being in good shape",
+        "pre-session questionnaire mood (VAS10) actual mood of the player pain (yes or no) perceived pain inj.worry (if pain, VAS10) worry in relation to pain ill sick or not RPE (VAS10) rating of perceived exertion of the session post-session questionnaire satisfaction (VAS10) satisfaction during his performance pleasure (VAS10)",
+        "pleasure during the session 2.2. Predicting Injuries This section presents our approach to predict injuries based on a dataset containing both external load and internal load features. As external load features (GPS) have already shown good results for",
+        "injury prediction in soccer [19], this study aims to unveil the predictive power of internal load features (questionnaires) relatively to external load ones. Several classifiers were optimised and compared in terms of predictive performance. Two prediction perspectives (horizons) were considered in this study:",
+        "injury at 1 week and injury at 1 month. The models thus constructed can therefore serve as an alert for any new training session for which the model would predict an injury and can be used as an aid to training planning and adjustment. Appl. Sci. 2020, 10, 5261 5of20",
+        "Moreover, the models interpretation can provide knowledge for expert in order to have a better understanding of when, how and why injuries happen. 2.3. Data Pre-Processing and Evaluation Protocol Imputation by mean (for numerical variables) and frequency (for categorical variables) was",
+        "performed upstream the model comparison was made. Categorical variables were transformed into binary dummy ones in order to be handled by all models. Once the dataset was built, all models hyper-parameters were tuned using a Bayesian optimisation procedure (python package scikit-optimise) according to the different evaluation metrics. Since this",
+        "step was done for models tuning upstream some comparisons between models behaviors and features sets and not for strict model selection with the aim of being directly used for some new unlabelled data, bayesian optimisation was performed before the main experiments and not included inside our",
+        "evaluation protocol. The values of the tuned hyper-parameters are given in Appendix A (see Tables A1 and A2). Finally, the models were evaluated by 10-fold cross-validations using 4 measures of predictive performance (see Table 2) according to the two predictive horizons previously mentioned (1 week and",
+        "1-month). This process was repeated 10 times to check the stability of the model's performances. Table 2. Binary measures of predictive performance. TP+TN How many examples accuracy TPFPTNFN we correctly predicted How many of those precision TFP predicted injury are actually injury recall TEN Of all injury examples,",
+        "how many of those we correctly predicted Area Under the ROC Curve (AUC) ROC =1 rate (TP/FP) 2.4. Predictive Models The learning models considered in this study are the following: K-Nearest Neighbours (KNN) Linear Discriminant Analysis (LDA)[25,26). Logistic regression (logit) Ridge classifier (Ridge) Gaussian Naive Bayes classifier (GNB) [27,28].",
+        "Classification tree (tree) [29]. Random forest (forest) [30]. Support Vector Machine (SVM) [31). Multi-Layer Perceptron (MLP) [32-34]. eXtreme Gradient Boosting (XGB) KNN classifiers are very simple to compute but have the main drawbacks of involving high",
+        "computation times for large data-sets and to be hard to interpret since in distances computation between examples, no explicit feature selection or weighting can be directly computed. Classification trees are basic classifiers which can be used in non-linear contexts. They are often used for their",
+        "graphical outputs which are easily interpretable and provide visualisation of multi-dimensional features impact on class variables. In our context, such tools could help experts to gain knowledge about the relation between training loads and injury risk. They were compared to different generalised",
+        "linear classifiers which are usually categorized as generative or discriminative: models [35]. Naive Bayes classifier and LDA were used as standard generative models, logit, Ridge, MLP and SVM as Appl. Sci. 2020, 10, 5261 6of 20",
+        "discriminative ones. In Rossi et al. [19], the authors found that classification tree had higher predictive performance than other models (including random forest), but since ensemble models are usually more accurate than simple trees, forest and XGB: models were also included in this study. Moreover,",
+        "all tree-based classifiers (tree, forest and XGB) provide features weights which are precious in terms of models interpretation. Different sets of attributes (see Table 3) were considered in order to highlight the potential predictability of injuries levels. First, only the number of past injuries was used as predictor of future",
+        "injury, then personal features (age, height, weight and BMI) were added to the learning data. The GPS and questionnaire data were first separately considered (in addition to past injuries and personal features) and finally the largest set of variables included all together the different input variables (see Table 1).",
+        "Table 3. Attributes sets. Set Name Past Injuries Personal Features GPS Data Questionnaires Data only injuries x personal features x X GPS x x x questionnaires X X x all x x X x All models were compared to a baseline approach (B) which consists in predicting systematically the",
+        "most frequent class (e.g., if there is 75% no injury and 25% injury, inNode will systematically predict no injury). All experiments were performed on Python with the following libraries: pandas, xgboost, xgboost, matplotlib, IPython, pydotplus and performance results were plotted with the 8gplot2 package of R. 3. Results",
+        "3.1. Predictive Performance In this section, results are displayed and analysed in terms of the predictive performance. Figures 2 and 3 represent boxplots of the predictive performance of all models according to the different feature sets described in Table 3. Table 2 contains a reminder of the notions of accuracy,",
+        "precision, recall and AUC. In this study, the accuracy is not given priority since it assumes equal weight for different labels whilst on the one hand injuries are highly more sensitive than non-injuries and",
+        "our dataset is naturally unbalanced since injury is relatively rare. AUC is a standard metric for the evaluation of predictive models given unbalanced dataset but its interpretation is not easy. Therefore precision and recall have the highest priority in some part of this study, recall being slightly prioritised",
+        "since missing an injury prediction has more severe consequence than falsely predicting one (in terms of health and career). The best performances were obtained with the KNN, tree, forest and XGB classifiers. The logit and GNB classifiers do not seem to be significantly more accurate than the baseline",
+        "B for all considered feature sets and time-horizons. The same observation can be done for the Ridge classifier and MLP but only for 1-week horizon predictions. For all models, performances were better when personal features are included as inputs than when only the number of past injuries is used as",
+        "predictor of future ones. The addition of GPS and/or questionnaires data in features enabled much higher performances most of the time except for some models (e.g., see Figure 3 the recall of the LDA",
+        "model for one-month prediction decreases when questionnaire data are used, or in Figure 2 as it is the case of the precision of MLP for one-week prediction). Appl. Sci. 2020, 10, 5261 7of20 ACCURACY PRECISION 0.95 a - B 0.90 0.90 0.854 0.851 0.80 0.751 0.80 0.70 0.75",
+        "KNN LDA logit Ridge GNB tree forest SVM MLP XGB KNN LDA logit Ridge GNB tree forest SVM MLP XGB type E onlyinjuries E personnalleatures E GPS E questionnaires E all type E onlyinjuries E personnal leatures E GPS E questionnaires E RECALL AUC P hosne 0.8 0.8 0.61 0.6",
+        "0.4 0.4 0.24 KNN LDA logit Ridge GNB tree forest SVM MLP XGB KNN LDA logit Ridge GNB tree forest SVM MLP XGB type E onlyinjuries E personnal leatures E GPS E questionnaires E all type E onlyinjuries E personnal leatures E GPS E questionnaires E all",
+        "Figure 2. One-week predictive performance of ten machine learning methods according to five types (in color) of data sets. Predictive: results are presented as box plots, in which the box indicates quartile values; the whiskers indicate the upper and lower values; circle indicates outlier.",
+        "According to those remarks, Figures 4 and 5 represent the results obtained for KNN and tree-based classifiers with features including past injuries, personal features and GPS or/and questionnaires data. The terms 'GPS' and 'questionnaire' 'features sets' will implicitly include past injuries and",
+        "personal features in the following of this manuscript. It appears clearly that the choice of features has a higher impact on short terms (1 week) predictions than on mid term (1 month) ones. It is also noticeable that higher performance can be obtained for 1 month predictions with maximum",
+        "values around 97% for all metrics, probably due to less important labels imbalance (considering 1-week horizon, injury is a much more rare event than for 1-month time windows). In the latter configuration best performances were always obtained with XGB closely followed by random forest.",
+        "For 1 week predictions, the best accuracy and recall were obtained by random forest with GPS data, the highest precision with classification tree and the best AUC was achieved by XGB. It is remarkable that for 1 week horizon, best predictions are always obtained with questionnaires data with",
+        "a significant difference comparing to GPS data for the same models. In that time window, GPS data even seem to worsen injury prediction quality (e.g., for tree we have Perfommamaqeliommair, > performance(GPS + questionnaire)). This could be explained by the fact that internal load has a more",
+        "\"readable\" impact on short-term injury risk through the expressiveness of questionnaires contrary to Appl. Sci. 2020, 10, 5261 8of 20 external load which tends be more objective and correlated to injury risk on accumulation over time periods when exceeding some natural thresholds. ACCURACY PRECISION * - 6 0.94 0.9 0.8",
+        "0.7 0.7 0.6 0.61 0.5 KNN LDA logit Ridge GNB tree forest SVM MLP XGB KNN LDA logit Ridge GNB tree forest SVM MLP XGB type E onlyinjuries E personnalleatures E GPS E questionnaires E all type a onlyinjuries E personnals leatures E GPS E questionnaires E l RECALL AUC",
+        "- - bn 0.91 0.9 0.8 0.81 0.7 0.7 .6 0.6 0.5 0.5 KNN LDA logit Ridge GNB tree forest SVM MLP XGB KNN LDA logit Ridge GNB tree forest SVM MLP XGB type E onlyinjuries E personnall leatures E GPS E questionnaires E all",
+        "type E onlyinjuries E personnals leatures E GPS E questionnaires E Figure 3. One-month predictive performance of ten machine learning methods according to five types (in color) of data sets. Predictive: results are presented as box plots, in which the box indicates quartile",
+        "values; the whiskers indicate the upper and lower values; circle indicates outlier. For 1 month predictions, with the most performing classifier (XGB), GPS data (without questionnaires). enabled better predictions than questionnaires features. In that configuration (for XGB)",
+        "the highest accuracy, prediction and recall were obtained with the largest features set (GPS with questionnaires data) while the highest AUC was obtained with GPS data alone. This last finding about 1-month predictions has to be put into perspective since on the one hand XGB performance",
+        "differences according to features sets were not very high, and random forest performance differences have often the opposite sign of XGB's ones (with no significant performance differences between those two classifiers): for forests, predictions computed with questionnaires data were more efficient than with GPS data. Appl. Sci. 2020, 10, 5261",
+        "9of20 ACCURACY PRECISION 0.975 0.975 = - E E 0.950 0.950 0.925 0.925 0.900 0.900 KNN tree forest XGB KNN tree forest XGB RECALL AUC 0.975 0.975 5 - E 5 * 0.950 0.950 0.925 0.925 0.900 0.900 0.875 0.850 KNN tree forest XGB KNN tree forest XGB",
+        "type GPS questionnaires all Figure 4. One-month predictive performance of best models according to three types (in color) of data sets. Predictive: results are presented as box plots, in which the box indicates quartile values; the whiskers indicate the upper and lower values; circle indicates outlier.",
+        "Appl. Sci. 2020, 10, 5261 10 of 20 ACCURACY PRECISION 0.93- 0.94 0.92 0.93 0.92 0.91 E 0.91 0.90 0.90 0.89 KNN tree forest XGB KNN tree forest XGB RECALL AUC 0.95 TE 0.94- 0.94 E 0.93 -T 0.92 - 0.92 0.90 0.91 0.90 0.88 KNN tree forest XGB KNN",
+        "tree forest XGB type GPS questionnaires all Figure 5. One-week predictive performance of best models according to three types (in color) of data sets. Predictive results are presented as box plots, in which the box indicates quartile values; the whiskers indicate the upper and lower values; circle indicates outlier.",
+        "3.2. Predictive Explanation In order to obtain as much information as possible from the predictive models used, 2 types of representation. are proposed here: graphs corresponding to decision trees for legitimate configuration (i.e., when decision tree performs well according to Section 3.1)",
+        "the weights of predictive variables obtained from tree-based models In both cases, the models were learned over the entire dataset sO as to use the maximum available information. Appl. Sci. 2020, 10, 5261 11 of 20",
+        "Table 4 represents the best (feature set & classifier) couples for all configurations (horizons & metrics) according to Figures 4 and 5. Thus, classification tree learnt on the questionnaires data is the best 1-week injury prediction model for precision.",
+        "Figure 6 represents the top of the classification trees obtained for 1-week prediction of injuries with a hyper-parameters tuning toward precision evaluation metric on questionnaires data (according to Table 4). The complete tree is given in Appendix A (see Figure A1). Table 4. Features importance configurations. Horizon Metric",
+        "Set Name Classifier 1 week precision questionnaires tree 1 week recall questionnaires forest 1 month precision all XGB 1 month recall all XGB All nodes contain different information: a discriminative condition relatively to 1 feature (with a numerical threshold) that determines",
+        "which is the next node to be considered given features values (e.g., RPE3w S 4.43 for the initial node). the proportion of the learning dataset that falls into the node (e.g., 100% for the initial node).",
+        "the labels proportions of the examples contained in the node (e.g., the initial node contains 13.1% of injured players and 86.9% of not injured ones). the label attached to the node which is the most frequent one in the subset of the learning examples it contains.",
+        "If a node's condition is verified (for any new example), the next node to read is the left child one (\"True\" branch below the initial node) and the right one if not. In Figure 6, only the 6 first depth levels of the tree are represented in order to be",
+        "readable as possible to the naked eye. The most significant players set (17.7% of the dataset) at high injury risk (P(injury risk) = 0.201) felt depressed precisely during the last week (RPE_3w S 4.43 and RPE_2w > 2.992), were relatively worried about injury during the last month",
+        "(0.18 < injworry4w < 0.969) and tall (height > 171 cm). This draws a player profile (tall player recently depressed and consistently worried) for which short-term injury risk seems reliable. Figure 6. Decision tree learnt on questionnaires dataset for one-month injury prediction optimised for precision metric.",
+        "Figures 7 and 8 respectively represent the 101 highest features importance for 1-week and 1-month injury predictions computed with thel best (classifier, feature set) configuration according to Table 4. Appl. Sci. 2020, 10, 5261 12of 20 The features importance weights are calculated with two different approaches: CART impurity",
+        "decrease which is available only for tree-based classifiers and features permutation scrambling sensitivity which can be computed on any predictive: model. In CART approach the: features importance weights correspond to the average impurity decrease along the tree achieved by the different",
+        "feature during split selection. With the permutation approach, features are randomly scrambled several times and their importance weights are computed as the mean classifiers sensitivity in terms of predictive performance to the features scrambling. Those methods should therefore be",
+        "interpreted differently, CART features importance weights represent an information on the features informational power whereas the permutation weights are measure of sensitivity of features reliability on predictive performance. Classification tree - CART approach - optimised measure: precision s pleasure.4w satisfaction,3w RPE_2w RPE_lw RPE_3w RPE_4w pleasure.2w pleasure.lw satisfaction,2ws satisfaction.4w",
+        "Classification tree - permutation approach optimised measure: precision - - satisfaction 2w satisfaction,3w RPE_2w pleasure.2w pleasure.lw RPE_3W pleasure.4w RPE_lw satisfaction shape_3w Random forest - CART approach optimised measure: recall 3 - - - - - I - - RPE_4w RPE_3W pleasure_4w RPE_2w satisfaction.3w RPE_1w satisfaction.4w pleasure_Iw pleasure.3w pleasure.2w 21 16",
+        "Random forest permutation approach optimised measure: recall 1 14 12 10 - RPE2w RPE_3w RPE_4w satisfaction3w RPEIw pleasure.lw pleasure 4w RPE pleasure.2w pleasure_ 3w Figure 7. Best features importance for 1-week injury prediction. According to Figure 7, where classifiers are learnt on the questionnaires features sets, the average",
+        "pleasure and satisfaction of players computed over the last month are the most important features for 1-week injury prediction in terms of precision, and thej perceived effort (RPE) during thel last four weeks (computed separately) is the second set of important features followed by recent pleasure and satisfaction.",
+        "Appl. Sci. 2020, 10, 5261 13of 20 Considering these variables, it can be noticed that the precision and recall of most of these features seem to be highly sensitive to their reliability but with a different importance order (e.g., pleasure_4w",
+        "is the most important feature in terms of information but is the 7th most important feature in terms of reliability precision-sensitivity). Globally, the different features related to satisfaction, pleasure and RPE appear to be the most important in terms of precision and recall for 1-week injury prediction.",
+        "XGB - CART approach optimised measure: precision 2.51 820 E 1.5 pain_no max.vel_cum ini_worry ini_worry.4w max_vel_4w fatigue_3w shape._4w totPL fatigue_4w shape_lw & XGB - permutation approach optimised measure: precision E Eas 201 15 01 - RPE_Iw satisfaction,lw satisfaction.4w RPE_2w totPL_lw RPE pleasure.2w il.4w_yes vel_B3_1w veL_B6_1w",
+        "XGB - CART approach - optimised measure: recall 3.5 83.01 E2s E 151 1.0 0.5 0.0 pain.3w_no shape_3w pain,2w_no shape_4w age shape_lw weight tot.dur_cum tot_dist injworry a XGB - permutation approach - optimised measure: recall E 01 satisfaction.4w RPE_Iw vel_B1 pleasure RPE ill_4w_yes veL_B3_1w vel_B6_1w veL_B5_lw velB4_1w",
+        "Figure 8. Best features importance for 1-month injury prediction. For 1-month predictions (Figure 8), which are computed from the largest features set (see Table 4) including questionnaires and GPS data, the most important features are. highly different for precision",
+        "and recall and between CART and permutation approaches. The current pain seems the mosti important feature in order to be sure of an injury prediction (i.e., for precision metric) and past average pain",
+        "computed over the last 2 or 3 weeks appears to detect injury risk accurately (i.e., is important in terms of recall). Nevertheless, it should be noted that the reliability of pain related features does not have high impact neither on precision nor on recall. The fact max_vel_cum and max_vel_4w are",
+        "respectively the second and 5th most important features in terms of precision according to CART approach. They can be interpreted as injury risk being particularly precise when past velocity exceeds some natural threshold probably specific to the different soccer players. Similarly, the total distance Appl. Sci. 2020, 10, 5261",
+        "14 of 20 travelled by players during current and past training seems to have a relative importance on recall values. Overall, pain and shape related features as well as personal features (age and weights) appear",
+        "to be thei most important features for accurate injury risk detection (i.e., to get high recall values) and pain; worry as well as fatigue and external load variables are important to get reliable 1-month injury prediction (i.e., with high precision values). 4. Discussion",
+        "In view of the overall results of this study, some notable facts should be noted. First, for 1-week injury prediction, questionnaire (internal load features) data are more accurate than GPS (external load features) ones, which even tend to deteriorate: injury prediction when included in the learning data.",
+        "For 1-month injury prediction, the classifiers learnt from GPS or questionnaire data show roughly the same performance levels, the best one being usually reached when combining GPS and questionnaire data. In terms of interpretation, decision trees graphs and features importance weights computation",
+        "have highlighted a specific player profile at high injury risk and some specific features involved in precision and recall optimisation. To the best of our knowledge, the work of Rossi et al. [19] is the single that used a non-linear",
+        "classifier, decision tree, in a multi-dimensional context to predict injuries in elite soccer. Thus, we decided to focus part of our discussion to this study. For comparison, the decision trees used in the",
+        "study by Rossi et al. [19] detected about 80% of the injuries in the sample analyzed with an accuracy of approximately 50% (with external load features). As a result, the algorithm used in our machine learning approach would be able to classify more accurately the so-called at-risk players regarding the",
+        "past occurrence of injuries and thus be able to continue to perform without being disturbed by \"false alarms\". The accuracy of this tree, particularly at 1 week, which differs from Rossi et al. [19], is made possible by linking GPS data and subjective questionnaires throughout the classifiers, which justifies",
+        "the contribution of this work to the current literature linking data science and sport science [17,19,36]. In the present study, we showed that subjective variables have a very high predictive/explanatory potential (compared to objective variables) but they are more expensive, i.e., having all players",
+        "completing questionnaires before and after training can be complicated given their tight schedules and their willingness. Nevertheless, professional teams that can not outfit players with GPS sensors for practical or economic reasons should consider use questionnaires in order to detect players at high injury risk [37,38].",
+        "Another point that validates the choice of tree-based classifiers is that those models naturally provide feature importance weights that can help coaches to monitor some specific indicators and be used as useful decision support tools for training optimization. It should be noted that in this case,",
+        "subjective questionnaires are very valuable especially for short-term prediction even when they are completed by only some players at some training sessions. Except for 1-week injury risk precision, ensemble models seem preferable compared to single trees even if they do not provide single tree",
+        "graphs. In addition, the interest of this study lies in the coupling of the machine learning methods and the variations of the training load (internal and external). It can be noticed that even when both types",
+        "of features (GPS and questionnaires) are used as inputs, the most important and sensitive features are almost always associated with subjective variables. It can therefore be hypothesized that with these data and this sample in this particular situation, internal load would be a determining factor in the",
+        "prediction of injury. In other words, it would be essential for each coach to pay particular attention to the athletes' feelings before and after training sessions in order to prevent injuries from occurring. To conclude, the fact that questionnaires features can replace GPS ones and even increase",
+        "predictive performance by doing sO suggests that a part of the information related to external load is included in the internal load's one. While an individual may perform the same external load, their ability to respond to this output (internal load) may differ [17,39]. Utilizing both measures",
+        "provides a comprehensive view on whether an individual is in a state of \"readiness\" and able to tolerate high loads, or in a state \"fatigue\" and potentially at risk of injury or decreased performance. Appl. Sci. 2020, 10, 5261 15 of 20",
+        "Internal load being reflected by the external load provides additional information of the players that the external load could not take into consideration. In our study, we highlighted that several subjective questionnaires reflect likely different aspects of the training load related to the stress that thej players",
+        "may support. For instance, monitoring pre-training perceived fatigue, mood, pain, shape and sleep for each player may offer an indication on the quality of the external output that might be produced prior to a session and provides coaches with the ability to make adjustments if warranted. Monitoring is not",
+        "limited to either subjective or objective measures, instead they can be used to complement each other. This is consistent with recommendations [38]. To sump up, the potential efficacy of subjective measures for soccer player monitoring has been established, however optimal implementation practices are yet to be determined.",
+        "Limitation and Future Directions However, in a study with preliminary data, some limitations exist, but are: in fact potential sources of improvement. As a result, a larger sample size, extending to several teams with different training strategies over multiple seasons, would allow more general conclusions to be drawn about injury",
+        "prediction. In addition, the GPS data and questionnaires collection and imputations methods can also be improved. With regard to the completed questionnaires, the influence of greater diligence in the use of these questionnaires by players would be fundamental to observe. As for GPS data, they are",
+        "present in an average form compared to their initial acquisition frequency of 10 Hz. In the race for performance, it would be interesting to observe the consequences of using all the raw values acquired at this frequency. Also, due to the differences between players, individualization could be considered",
+        "in regards to the variables relating to external load (data extracted from GPS), by computing speed and acceleration thresholds specific to each player beyond which injuries is likely to occur. By doing sO, the predictive potential of GPS variables could be greatly increased, and could have an influence",
+        "on the training strategies implemented by coaches. Since not-injured players are: much easier to find in datasets and injury is not a controllable factor, data augmentation could be used in order to simulate more injury examples from the real ones. Those artificial examples would probably improve the",
+        "predictive performances of classifiers. 5. Conclusions The objective of this study was to address the issue of using various machine learning methods for injury prediction from the athlete' 's internal and external loads conjointly. The results of this study",
+        "show that depending on the complexity of the predictive model, the different predictive metrics values for injury prediction are close to 100%, especially with a 1-month time horizon. In addition, it appears that the subjective variables (i.e., internal load) of the pre-session questionnaire (such as",
+        "sleep quality, fatigue, shape, mood) as well as post-session questionnaire (satisfaction and pleasure) and RPE are found to be determining factors in the occurrence of injuries. Overall, our findings provide further justification for the implementation of a team-wide monitoring strategy of internal load in elite soccer players.",
+        "Finally, although the preliminary results of this paper appear encouraging and relevant, future research with a larger sample size by involving several teams from the same championship can provide sufficient data to move from specific conclusions to general ones about machine learning methods.",
+        "Author Contributions: Conceptualization, E.V., N.S.-C. and A.I.; Formal analysis, E.V. and N.S.-C.; Investigation, E.V.; Methodology, N.S.-C. and A.L; Project administration,) J.M. and S.P,; Supervision,' S.P,; Validation, E.V., N.S.-C., J.M. and S.P; Writing original draft, E.V.; Writing -review & editing, N.S.-C., A.I. and S.P,; All authors have read",
+        "and agreed to the published version of the manuscript. Funding: This research received no external funding. Conflicts of Interest: The authors declare that there are no conflicts of interest regarding the publication of this paper. Appl. Sci. 2020, 10, 5261 16 of 20 Appendix A",
+        "Table A1. Optimal hyper-parameters for 1-week injury prediction. Model Parameter Accuracy Precision Recall AUC KNN K 1 2 1 1 LDA tol 1.30 x10-4 9.87 x10-2 1.75 x10-5 1.65 x10 -5 criterion entropy entropy entropy entropy tree max depth 8083 10,000 10,000 10,000 min samples split 2 2 2 12",
+        "min impurity decrease 0 0 0 0.00332908 gaussianNB var smoothing 0.04 0.04 0.00 0.02 n estimators 10,000 10 8145 10,000 criterion entropy entropy entropy entropy forest max depth 63 100 93 10 min samples split 2 2 2 2 min impurity decrease 0 0 0 0 max features 0.5 0.01",
+        "0.5 0.5 C 823,469 442,788 397,591 1,000,000 SVM gamma 2.9 2.8 2.6 0 degree 7 8 8 1 hidden layer sizes (100, 100, 50) (100, 50, 50) (50, 100, 100) (100, 100, 100) MLP activation tanh relu relu relu alpha 1.00 x10-5 0.0001 1 x10-5 1 x10-5 penalty 12 12",
+        "12 12 logit tol 0.45 0.51 0.08 1 x10-6 C 516,729 9658 270,370 1x106 11 ratio 0 1 0 1 penalty 12 none 12 11 Elasticnet tol 0.48 0.00 1.00 0.00 C 250,061 1 x106 0 227,702 11 ratio 0 1 0 1 max depth 5 10 3 10",
+        "n estimators 946 1x103 1x103 654 XGB eta 0.01 0.01 0.59 0.12 gamma 0 5 0 0 sampling method gradient based gradient based gradient based uniform Ridge alpha 6.39 x10-1 0 0 6.83 x101 tol 1 0 0 1 Appl. Sci. 2020, 10, 5261 17of 20",
+        "Table A2. Optimal hyper-parameters for 1-month injury prediction. Model Parameter Accuracy Precision Recall AUC KNN K 1 1 1 4 LDA tol 5.12 x10-6 0 0 0 criterion entropy gini entropy entropy max depth 50 1513 10,000 9529 tree min samples split 2 2 2 25 min impurity decrease 0",
+        "1.35 x10-4 0 3.5 x10-3 gaussianNB var smoothing 0.0325 0 1 x10-4 0.13 n estimators 1 x105 415 252 5269 criterion entropy gini entropy entropy forest max depth 87 29 92 75 min samples split 2 2 2 5 min impurity decrease 0 0 0 0 max features 0.5 0.195",
+        "0.5 0.3638 C 176530 1x107 1 x106 816,071 SVM gamma 1.11 1 x10-6 1 x10-6 1 x10-6 degree 3 8 1 7 hidden layer sizes (50. 100. 100) (50. 50. 100) (100. 100. 50) (100. 100. 100) MLP activation relu relu relu relu alpha 1 x10-5 1 x10-5 1 x10-5",
+        "1 x10-5 penalty 12 12 12 12 logit tol 0.98 0.01459 0.38 0.0028 C 3125 2976 999,758 2275 11 ratio 0 0 0 1 penalty elasticnet 11 elasticnet 11 elasticnet tol 7 x10-4 1 x10-6 1 x10-4 1 x10-6 C 966341 1x106 1 x106 683,586 11 ratio 0 1 0",
+        "1 max depth 5 4 5 10 n estimators 737 594 875 904 XGB eta 0.256 0.45327 0.4529 0.03162 gamma 0 0 0 0 sampling method uniform uniform gradient based uniform Ridge alpha 33 17.1 0 0 tol 1 0 1 0 Appl. Sci. 2020, 10, 5261 18 of 20",
+        "Figure A1. Complete decision tree learnt on questionnaires dataset for one-month injury prediction optimised for precision metric. Appl. Sci. 2020, 10, 5261 19 of 20 References 1. Della Villa, F.; Mandelbaum, B.R.; Lemak, L.J. The Effect of Playing Position on Injury Risk in Male Soccer",
+        "Players: Systematic Review of the Literature and Risk Considerations for Each Playing Position. Am. J. Orthop. 2018, 47, 1-11. [CrossRef] [PubMed] 2. Jones, C.M.; Griffiths, PC.; Mellalieu, S.D. Training Load and Fatigue Marker Associations with Injury and Illness: A Systematic Review ofLongitudinal Studies; Springer International: Publishing: Berlin/Heidelberg, Germany,",
+        "2017; Volume 47. 3. Gomez-Piqueras, P.; Gonzalez-Villora, S.; Sainz de Baranda Andujar, M.; Contreras-Jordan, O. Functional Assessment and Injury Risk in a Professional Soccer Team. Sports 2017,5,9. [CrossRef] [PubMed] 4. Gabbett, T.J. The development and application of an injury prediction model for noncontact, soft-tissue",
+        "injuries in elite collision sport athletes. J. Strength Cond. Res. 2010, 24, 2593-2603. [CrossRef]! [PubMed] 5. Borresen, J.; Ian Lambert, M.; Lambert, M.I. The quantification of training load, the training response and the effect on performance. Sports Med. 2009, 39, 779-795. [CrossRef]",
+        "6. Impellizzeri, F.M.; Rampinini, E.; Coutts, A.J.; Sassi, A.; Marcora, S.M. Use of RPE-based training load in soccer.Med. Sci. Sports Exerc. 2004, 36, 1042-1047. [CrossRef] 7. Casamichana, D.; Castellano, J.; Calleja-Gonzalez, J; RomaN, J.S.; Castagna, C. Relationship between",
+        "indicators of training load in soccer players. J. Strength Cond. Res. 2013, 27, 369-374. [CrossRef] 8. Randers, M.B.; Mujika, L; Hewitt, A.; Santisteban, J.; Bischoff, R.; Solano, R.; Zubillaga, A.; Peltola, E.; Krustrup, P.; Mohr, M. Application of four different football match analysis systems: A comparative. study.",
+        "J. Sports Sci. 2010, 28, 171-182. [CrossRef] 9. Vigne, G.; Gaudino, C.; Rogowski, L; Alloatti, G.; Hautier, C. Activity profile in elite Italian soccer team. Int. J. Sports Med. 2010, 31, 304-310. [CrossRef] 10. Di Salvo, V.; Baron, R.; Tschan, H.; Calderon Montero, F.J.; Bachl, N.; Pigozzi, F. Performance characteristics",
+        "according to playing position in elites soccer. Int. J. Sports Med. 2007, 28, 222-227. [CrossRef] 11. Carling, C.; Bloomfield, J.; Nelsen, L.; Reilly, T. The role of motion analysis in elite soccer: Contemporary performance measurement techniques and work rate data. Sports Med. 2008, 38, 839-862. [CrossRef]",
+        "12. Colby, M.J.; Dawson, B.; Heasman, J.; Rogalski, B.; Gabbett, T.J. Accelerometer and GPS-derived running loads and injury risk in elite Australian footballers. J. Strength Cond. Res. 2014, 28, 2244-2252. [CrossRef] [PubMed] 13. Akenhead, R.; Nassis, G.P. Training load and player monitoring in high-level football: Current practice and",
+        "perceptions. Int. J. Sports Physiol. Perform. 2016, 11, 587-593. [CrossRef] [PubMed] 14. Raya-Gonzalez, J.; Nakamura, FY.; Castillo, D.; Yanci, J.; Fanchini, M. Determining the relationship between internal load markers and noncontact: injuries in young elite soccer players. Int. J. Sports Physiol. Perform. 2019, 14, 421-425. [CrossRef] [PubMed]",
+        "15. Haddad, M.; Padulo,J.; Chamari, K. The usefulness of session rating of perceived exertion for monitoring training load despite several influences on perceived exertion. Int. J. Sports Physiol. Perform. 2014, 9, 882-883. [CrossRef] [PubMed]",
+        "16. Malone, S.; Roe, M.; Doran, D.A.; Gabbett, T.J.; Collins, K. High chronic training loads and exposure to bouts of maximal velocity running reducei injury risk in elite Gaelic football. J. Sci. Med. Sport 2017, 20, 250-254. [CrossRef] [PubMed]",
+        "17. Bartlett, J.D.; O'Connor, F.; Pitchford, N.; Torres-Ronda, L.; Robertson, S.J. Relationships between internal and external training load in team-sport athletes: Evidence for an individualized approach. Int. J. Sports Physiol. Perform. 2017, 12, 230-234. [CrossRef]",
+        "18. Claudino, J.G.; de Capanema, D.O.; de Souza, TV; Serrao, J.C.; Machado Pereira, A.C.; Nassis, G.P. Current Approaches to the Use of Artificial Intelligence for Injury Risk Assessment and Performance Prediction in Team Sports: A Systematic Review. Sports Med. Open 2019, 5, 28. [CrossRef]",
+        "19. Rossi, A.; Pappalardo, L.; Cintia, P.; Iaia, F.M.; Fernandez, J.; Medina, D. Effective injury forecasting in soccer with GPS training data and machine learning. PLoS ONE 2018, 13, e0201264. [CrossRef] [PubMed]",
+        "20. Roe, G.; Darrall-Jones, J.; Black, C.; Shaw, W.; Till, K.; Jones, B. Validity of 10 Hz GPS and Timing Gates for Assessing Maximum Velocity in Professional Rugby Union Players. Int. J. Sports Physiol. Perform. 2017, 12, 836-839. [CrossRef] Appl. Sci. 2020, 10, 5261 20 of 20",
+        "21. Rampinini, E.; Alberti, G.; Fiorenza, M.; Riggio, M.; Sassi, R.; Borges, T.O.; Coutts, A.J. Accuracy of GPS devices for measuring high-intensity running in field-based team sports. Int. J. Sports Med. 2015, 36, 49-53. [CrossRef]",
+        "22. Rampinini, E.; Bishop, D.; Marcora, S.M.; Ferrari Bravo, D.; Sassi, R.; Impellizzeri, F.M. Validity of simple field tests asi indicators of match-related physical performancei in top-level professional soccer players. Int. J. Sports Med. 2007, 28, 228-235. [CrossRef] [PubMed]",
+        "23. Di Salvo, V; Gregson, W.; Atkinson, G.; Tordoff, P.; Drust, B. Analysis of high intensity activity in premier league soccer. Int. J. Sports Med. 2009, 30, 205-212. [CrossRef] [PubMed] 24. Barrett, S.; Midgley, A.; Lovell, R. PlayerLoadTM: Reliability, convergent validity, and influence of unit",
+        "position during treadmill running. Int. J. Sports Physiol. Perform. 2014, 9, 945-952. [CrossRef] [PubMed] 25. Fisher, R.A. The Use of Multiple Measurements in Taxonomic Problems. Ann. Eugen. 1936, 7, 179-188. [CrossRef] 26. McLachlan, G. Discriminant. Analysis and Statistical Pattern Recognition; Wiley: Hoboken, NJ, USA, 2004.",
+        "27. Maron, M.E. Automatic Indexing: An Experimental Inquiry. J. ACM 1961, 8, 404-417. [CrossRef] 28. Rish, I. An empirical study of the naive Bayes classifier. In Proceedings of the International Joint Conference Artificial Intelligence 2001 Work Empir Methods Artificial Intelligence, Seattle, WA, USA, 4-10 August 2001; PP. 41-46.",
+        "29. Breiman, L.; Friedman, J; Stone, C.J. Classification Algorithms and Regression Trees. Classif. Regres. Trees 1984, 246-280. 30. Breiman, L. Random Forests. Mach. Learn. 2001, 45, 5-32. [CrossRef] 31. Boser, B.E.; Guyon, LM.; Vapnik, VN. A training algorithm for optimal margin classifiers. In Proceedings of",
+        "the 5th Annual Workshop on Computational Learning Theory (COLT'92), Pittsburgh, PA, USA, 27-29 July 1992; PP. 144-152. 32. Werbos, P. Beyond Regression: New Tools for Prediction and Analysis in the Behavioral Sciences. Ph.D. Thesis, Department of Applied Mathematics, Harvard University, 1974, unpublished.",
+        "33. McCulloch, W.S.; Pitts, W.A. logical calculus nervous activity. Bull. Math. Biol. 1943, 52, 99-115. [CrossRef] 34. Rosenblatt, F. Frosenblatt. Psychol. Rev. 1958, 65, 1-23. 35. Jebara, T. Machine Learning: Discriminative and Generative; Kluwer Academic; Springer: Berlin/Heidelberg, Germany, 2004.",
+        "36. Jaspers, A.; De Beéck, T.O.; Brink, M.S.; Frencken, W.G.; Staes, F.; Davis, JJ.; Helsen, W.F. Relationships between the external and internal training load in professional soccer: What can we learn from machine learning? Int. J. Sport. Physiol. Perform. 2018, 13, 625-630. [CrossRef]",
+        "37. Saw, A.E.; Main, L.C.; Gastin, P.B. Monitoring the athlete training response: Subjective self-reported measures trump commonly used objective measures: A systematic review. Br. J. Sport. Med. 2016, 50, 281-291. [CrossRef] [PubMed] 38. Halson, S.L. Monitoring training load to understand fatigue in athletes. Sport. Med. 2014, 44, 139-147. [CrossRef] [PubMed]",
+        "39. Clemente, F.M.; Mendes, B.; Nikolaidis, PT.; Calvete, F; Carrico, S.; Owen, A.L. Internal training load and its longitudinal relationship with seasonal player wellness in elite professional soccer. Physiol. Behav. 2017, 179, 262-267. [CrossRef] [PubMed] 20201 by the authors. Licensee MDPI, Basel, Switzerland. This article is an open access (cc)",
+        "article distributed under the terms and conditions of the Creative Commons Attribution BY (CC BY) license (http://creativecommons.org/licenses/by/4.0/)."
+    ],
+    "summaries": [
+        {
+            "chunk_id": 1,
+            "summary": "Authors: Vallance, Emmanuel, Sutton-Charani, Nicolas, Montmain, Jacky, Perrey"
+        },
+        {
+            "chunk_id": 2,
+            "summary": "Proceedings of the 11th International Conference on Materials Science and Engineering, Imt-mines-al"
+        },
+        {
+            "chunk_id": 3,
+            "summary": "The aim of this project is to collect and disseminate research documents, whether they are pub-"
+        },
+        {
+            "chunk_id": 4,
+            "summary": "The French Football Federation (FIFF) is a member of the International Football Association (IFA)"
+        },
+        {
+            "chunk_id": 5,
+            "summary": "Correspondence: Pmepenymompler, Emmanuelvallanceaumontpelier.f: (E"
+        },
+        {
+            "chunk_id": 6,
+            "summary": "The aim of this study is to develop a machine learning based model for predicting non-contact injuries"
+        },
+        {
+            "chunk_id": 7,
+            "summary": "The aim of this study was to train predictive models to predict the risk of injury in a group of high-"
+        },
+        {
+            "chunk_id": 8,
+            "summary": "The aim of this study is to develop a machine-learning algorithm that is able to identify"
+        },
+        {
+            "chunk_id": 9,
+            "summary": "The aim of this study was to develop a new method for predicting the risk of injury in"
+        },
+        {
+            "chunk_id": 10,
+            "summary": "The performance of a machine learning system for predicting the long-term health and well-being of footballers has been"
+        },
+        {
+            "chunk_id": 11,
+            "summary": "The risk of injury in elite male soccer players ranges from 2.5 to 9.4 injuries per 1000 h of exposure."
+        },
+        {
+            "chunk_id": 12,
+            "summary": "The number of sports-related injuries has increased significantly in recent years [1]."
+        },
+        {
+            "chunk_id": 13,
+            "summary": "Non-contact injuries are one of the most common causes of work-related death and disability in"
+        },
+        {
+            "chunk_id": 14,
+            "summary": "This study aims to investigate the relationship between the player's training load and the player's risk"
+        },
+        {
+            "chunk_id": 15,
+            "summary": "The purpose of this study is to investigate the relationship between the following:"
+        },
+        {
+            "chunk_id": 16,
+            "summary": "The aim of this study is to examine the impact of football training on player performance."
+        },
+        {
+            "chunk_id": 17,
+            "summary": "Wearable technology is playing an increasingly important role in football."
+        },
+        {
+            "chunk_id": 18,
+            "summary": "Sprinting is a sport in which athletes sprint at high speeds at short distances."
+        },
+        {
+            "chunk_id": 19,
+            "summary": "The distance covered by the ball during a football match is measured in km."
+        },
+        {
+            "chunk_id": 20,
+            "summary": "The aim of this study is to develop a tool to assess the risk of injury in elite football players."
+        },
+        {
+            "chunk_id": 21,
+            "summary": "The use of inertial measurement units (IMU) has been associated with an increase in non-contact injuries"
+        },
+        {
+            "chunk_id": 22,
+            "summary": "The use of load sensors in sport has been increasing in recent years."
+        },
+        {
+            "chunk_id": 23,
+            "summary": "The use of artificial intelligence (AI) in sport has come a long way in recent years."
+        },
+        {
+            "chunk_id": 24,
+            "summary": "The use of machine-learning methods to predict non-contact: injuries in team-sports using machine"
+        },
+        {
+            "chunk_id": 25,
+            "summary": "A team of researchers has proposed a novel approach to injury prediction in professional soccer based on load data collected through"
+        },
+        {
+            "chunk_id": 26,
+            "summary": "A non-linear model for predicting the risk of injury in football matches has been developed."
+        },
+        {
+            "chunk_id": 27,
+            "summary": "We present a novel machine learning based model for injury prediction in elite soccer, based on a"
+        },
+        {
+            "chunk_id": 28,
+            "summary": "In the world of professional football, there's no such thing as a one-size-fits"
+        },
+        {
+            "chunk_id": 29,
+            "summary": "The aim of this study is to investigate the use of machine-learning methods to predict the risk of injury"
+        },
+        {
+            "chunk_id": 30,
+            "summary": "The aim of this study is to propose a new approach to the control of physical training by combining the two types of"
+        },
+        {
+            "chunk_id": 31,
+            "summary": "In this paper, two methods are proposed to improve the prediction of sports injuries."
+        },
+        {
+            "chunk_id": 32,
+            "summary": "The aim of this paper is to develop a tree-based algorithm for the estimation of the accuracy of global positioning"
+        },
+        {
+            "chunk_id": 33,
+            "summary": "The purpose of this study is to: 1."
+        },
+        {
+            "chunk_id": 34,
+            "summary": "The aim of this study was to investigate the relationship between the number of players from the same club competing"
+        },
+        {
+            "chunk_id": 35,
+            "summary": "The Football Association (FA) has approved a study into the impact of training and playing time on mental well-being"
+        },
+        {
+            "chunk_id": 36,
+            "summary": "The French Professional Football League (Ligue 1 and 2, Coupe de France and Coupe de France) and the"
+        },
+        {
+            "chunk_id": 37,
+            "summary": "The results of the two-day training session and one-day match between Sri Lanka"
+        },
+        {
+            "chunk_id": 38,
+            "summary": "The number of injuries suffered by Premier League players during training sessions and matches was revealed in a study published in the"
+        },
+        {
+            "chunk_id": 39,
+            "summary": "BBC Sport tracks all the injuries suffered by players in the Premier League this season."
+        },
+        {
+            "chunk_id": 40,
+            "summary": "The results of the study were published in the British Journal of Sports Medicine."
+        },
+        {
+            "chunk_id": 41,
+            "summary": "The following table shows the number of injuries suffered by players in the Premier League over the past"
+        },
+        {
+            "chunk_id": 42,
+            "summary": "The Italian football federation (FIFPro) has launched a new player tracking system."
+        },
+        {
+            "chunk_id": 43,
+            "summary": "A player's training load is defined as the amount of time that the player spends"
+        },
+        {
+            "chunk_id": 44,
+            "summary": "This study compares the reliability of a portable 10 Hz GPS system with a 100 Hz triaxial accelerometer"
+        },
+        {
+            "chunk_id": 45,
+            "summary": "The aim of this study was to investigate the influence of external loads on the performance of"
+        },
+        {
+            "chunk_id": 46,
+            "summary": "The following changes have been made to the training load model for the ITU World Para-athletics Championships in"
+        },
+        {
+            "chunk_id": 47,
+            "summary": "The study was carried out using the Global Positioning System (GPS)."
+        },
+        {
+            "chunk_id": 48,
+            "summary": "BMI is a measure of body fat as a percentage of height."
+        },
+        {
+            "chunk_id": 49,
+            "summary": "Player Load vel_B1 distance covered between 0 and 61 km/h vel_B2 distance covered"
+        },
+        {
+            "chunk_id": 50,
+            "summary": "What is the maximum speed at which a player can perform a given task?"
+        },
+        {
+            "chunk_id": 51,
+            "summary": "The results of this study are as follows:"
+        },
+        {
+            "chunk_id": 52,
+            "summary": "The following is a list of all the papers presented at the annual conference of the European"
+        },
+        {
+            "chunk_id": 53,
+            "summary": "We have developed a novel classifier for football injury prediction."
+        },
+        {
+            "chunk_id": 54,
+            "summary": "The aim of this study is to develop a model that predicts the likelihood of an injury during a training session."
+        },
+        {
+            "chunk_id": 55,
+            "summary": "The aim of this paper is to develop a computer model that can be used to estimate the"
+        },
+        {
+            "chunk_id": 56,
+            "summary": "The aim of this project is to build and evaluate a large-scale data set on the impact of climate change"
+        },
+        {
+            "chunk_id": 57,
+            "summary": "In this paper we present a step-by-step approach to model selection and tuning."
+        },
+        {
+            "chunk_id": 58,
+            "summary": "The results of this study are published in Plos One."
+        },
+        {
+            "chunk_id": 59,
+            "summary": "In this study, we used a regression model to predict the likelihood of a football player sustaining an injury during a"
+        },
+        {
+            "chunk_id": 60,
+            "summary": "The results of this study are as follows:"
+        },
+        {
+            "chunk_id": 61,
+            "summary": "In: Proceedings of the International Conference on Machine Learning and Deep Learning (ICML"
+        },
+        {
+            "chunk_id": 62,
+            "summary": "The aim of this paper is to improve the performance of classification trees on large data-sets."
+        },
+        {
+            "chunk_id": 63,
+            "summary": "The aim of this study was to develop a set of tools to assess the impact of training loads"
+        },
+        {
+            "chunk_id": 64,
+            "summary": "In this paper, we present a new type of classifier, a spatio-temporal"
+        },
+        {
+            "chunk_id": 65,
+            "summary": "The aim of this study was to compare the performance of classification tree and ensemble models on the classification of"
+        },
+        {
+            "chunk_id": 66,
+            "summary": "The aim of this study was to develop a tree-based classifier which could be used to predict the likelihood of future"
+        },
+        {
+            "chunk_id": 67,
+            "summary": "The results of this study have been published in the British Journal of Sports Medicine."
+        },
+        {
+            "chunk_id": 68,
+            "summary": "The results of this study are presented in Table 3."
+        },
+        {
+            "chunk_id": 69,
+            "summary": "The following experiments have been carried out to investigate the performance of inNode on large datasets."
+        },
+        {
+            "chunk_id": 70,
+            "summary": "The following table presents the results of a series of experiments on the use of machine learning to predict the likelihood of a"
+        },
+        {
+            "chunk_id": 71,
+            "summary": "The aim of this study is to investigate the effect of different hand sizes on"
+        },
+        {
+            "chunk_id": 72,
+            "summary": "In this study we have used a population-based approach to estimate the likelihood of an injury in a group of"
+        },
+        {
+            "chunk_id": 73,
+            "summary": "The performance of classifiers on predicting football injuries has been investigated."
+        },
+        {
+            "chunk_id": 74,
+            "summary": "The following table shows the best classifiers for predicting the long-term health of rugby union players."
+        },
+        {
+            "chunk_id": 75,
+            "summary": "The results of this study are published in the journal Plos One."
+        },
+        {
+            "chunk_id": 76,
+            "summary": "A model for one-week prediction of the UK general election is presented in Figure 1 (see Fig."
+        },
+        {
+            "chunk_id": 77,
+            "summary": "BBC News NI looks at some of the key findings from this year's National Disability Insurance Scheme (NDIS)"
+        },
+        {
+            "chunk_id": 78,
+            "summary": "Logit Ridge GNB tree forest SVM MLP XGB type E onlyinjuries E personnal"
+        },
+        {
+            "chunk_id": 79,
+            "summary": "One-week predictive performance of ten machine learning methods according to five types (in color) of data"
+        },
+        {
+            "chunk_id": 80,
+            "summary": "Figures 4 and 5 have been published in the journal Plos One by researchers at the University of"
+        },
+        {
+            "chunk_id": 81,
+            "summary": "This study aims to investigate the impact of the choice of personal features on short and long-term predictions of the"
+        },
+        {
+            "chunk_id": 82,
+            "summary": "The best performances were obtained with XGB closely followed by random forest."
+        },
+        {
+            "chunk_id": 83,
+            "summary": "For 2 week predictions, the best accuracy and recall were obtained by random forest with GPS data, the highest precision"
+        },
+        {
+            "chunk_id": 84,
+            "summary": "In this study, we compare the performance of two different injury prediction models, one with and one without GPS"
+        },
+        {
+            "chunk_id": 85,
+            "summary": "The relationship between short-term injury risk and external load on the musculoskeletal system has been investigated."
+        },
+        {
+            "chunk_id": 86,
+            "summary": "The following table shows the number of people who have died as a result of being bitten by a dog in the past"
+        },
+        {
+            "chunk_id": 87,
+            "summary": "- - - - - - - - - - - - - - - - - - - -"
+        },
+        {
+            "chunk_id": 88,
+            "summary": "This paper presents one-month predictive performance of ten machine learning methods according to five types (in"
+        },
+        {
+            "chunk_id": 89,
+            "summary": "The following table lists the best classifiers and questionnaires for predicting the long-term"
+        },
+        {
+            "chunk_id": 90,
+            "summary": "The results of this study show that it is possible to predict the XGB performance over a period of 1"
+        },
+        {
+            "chunk_id": 91,
+            "summary": "We compare the performance of two classifiers: XGB and GPS."
+        },
+        {
+            "chunk_id": 92,
+            "summary": "The latest figures from the European Union's statistics agency, Eurostat, show that the number of trees in"
+        },
+        {
+            "chunk_id": 93,
+            "summary": "One-month predictive performance of best models according to three types of data sets."
+        },
+        {
+            "chunk_id": 94,
+            "summary": "Researchers at the University of California, Los Angeles, and the University of California, Berkeley, have discovered a new type"
+        },
+        {
+            "chunk_id": 95,
+            "summary": "Tree forest XGB type GPS questionnaires all Figure 5."
+        },
+        {
+            "chunk_id": 96,
+            "summary": "The aim of this paper is to investigate the use of decision trees to predict the likelihood of a"
+        },
+        {
+            "chunk_id": 97,
+            "summary": "Two new models have been developed for predicting the likelihood of a person dying from a"
+        },
+        {
+            "chunk_id": 98,
+            "summary": "Table 4 shows the best (feature set & classifier) couples for all configurations (horizon"
+        },
+        {
+            "chunk_id": 99,
+            "summary": "Figure 6 represents the top of the classification trees obtained for 1-week prediction of injuries with a hyper-parameters"
+        },
+        {
+            "chunk_id": 100,
+            "summary": "The following table lists the most common questions asked in the BBC's YouGov polls."
+        },
+        {
+            "chunk_id": 101,
+            "summary": "node is a list of nodes that are considered to be the next steps in a"
+        },
+        {
+            "chunk_id": 102,
+            "summary": "The following table lists the labels of the examples contained in the node (e.g., the initial"
+        },
+        {
+            "chunk_id": 103,
+            "summary": "The tree below shows the condition of each node in the tree."
+        },
+        {
+            "chunk_id": 104,
+            "summary": "This table shows the number of players who felt depressed or worried about injury during the last week."
+        },
+        {
+            "chunk_id": 105,
+            "summary": "A decision tree has been developed to predict a player's short-term injury risk based on a player"
+        },
+        {
+            "chunk_id": 106,
+            "summary": "Table 1 shows the highest features importance for each week and month of the year."
+        },
+        {
+            "chunk_id": 107,
+            "summary": "In this paper we present CART, a new approach for the classification of: features."
+        },
+        {
+            "chunk_id": 108,
+            "summary": "In this paper, we present a new approach to the classification of mixed martial arts ("
+        },
+        {
+            "chunk_id": 109,
+            "summary": "The Classification Tree Approach ( CART) is a tree-based approach to the problem of classification."
+        },
+        {
+            "chunk_id": 110,
+            "summary": "Researchers at the University of California, Los Angeles, have developed a new approach to the study of trees."
+        },
+        {
+            "chunk_id": 111,
+            "summary": "The best features importance for 1-week injury prediction are shown in Figure 7."
+        },
+        {
+            "chunk_id": 112,
+            "summary": "The following table lists the most important features for injury prediction in terms of precision, and the recent pleasure and satisfaction"
+        },
+        {
+            "chunk_id": 113,
+            "summary": "In this study, we investigate the relationship between a number of different variables, such as the"
+        },
+        {
+            "chunk_id": 114,
+            "summary": "The different features related to satisfaction, pleasure and RPE appear to be the most important in terms of precision"
+        },
+        {
+            "chunk_id": 115,
+            "summary": "Here is a list of the most common approaches used to assess the quality of life for people living with"
+        },
+        {
+            "chunk_id": 116,
+            "summary": "A look at some of the approaches used to measure the effect of exercise on people's health."
+        },
+        {
+            "chunk_id": 117,
+            "summary": "The most important features of a football injury prediction study are illustrated in Figure 8."
+        },
+        {
+            "chunk_id": 118,
+            "summary": "The aim of this study is to investigate the relationship between current pain and"
+        },
+        {
+            "chunk_id": 119,
+            "summary": "The results of this study suggest that the accuracy of the max_vel_cum and max_vel_4w"
+        },
+        {
+            "chunk_id": 120,
+            "summary": "The distance between a ball and a player's foot is determined by the distance between the ball and the player"
+        },
+        {
+            "chunk_id": 121,
+            "summary": "BBC Sport looks at some of the key findings from a study of more than"
+        },
+        {
+            "chunk_id": 122,
+            "summary": "What are the most important features for accurate injury risk detection (i.e., to get"
+        },
+        {
+            "chunk_id": 123,
+            "summary": "The aim of this study was to investigate the relationship between injury prediction using questionnaire and learning using GPS."
+        },
+        {
+            "chunk_id": 124,
+            "summary": "This paper presents a novel approach to the prediction of long-term injuries in football by using a"
+        },
+        {
+            "chunk_id": 125,
+            "summary": "In a paper published in the British Journal of Sports Medicine, Rossi et al."
+        },
+        {
+            "chunk_id": 126,
+            "summary": "In this paper, we present a new approach to the problem of predicting"
+        },
+        {
+            "chunk_id": 127,
+            "summary": "In this paper, we present a machine learning-based approach to the classification of football players who are at risk of"
+        },
+        {
+            "chunk_id": 128,
+            "summary": "This paper presents a tree-based classifier for the prediction of a gymnast's performance after an injury."
+        },
+        {
+            "chunk_id": 129,
+            "summary": "The aim of this study was to investigate the relationship between subjective variables and sport performance."
+        },
+        {
+            "chunk_id": 130,
+            "summary": "The use of Global Positioning System (GPS) sensors in football has led to a rise in the use of"
+        },
+        {
+            "chunk_id": 131,
+            "summary": "The use of tree-based classifiers in football training is a good example of how artificial intelligence (AI"
+        },
+        {
+            "chunk_id": 132,
+            "summary": "The aim of this study is to develop an ensemble model for predicting the long-term injury risk of"
+        },
+        {
+            "chunk_id": 133,
+            "summary": "The aim of this study is to find out whether there is a relationship between the"
+        },
+        {
+            "chunk_id": 134,
+            "summary": "The aim of this study is to investigate the relationship between subjective variables and internal load."
+        },
+        {
+            "chunk_id": 135,
+            "summary": "A study published in the British Journal of Sports Medicine shows that questionnaires can be used to assess the level of"
+        },
+        {
+            "chunk_id": 136,
+            "summary": "predictive performance by doing sO suggests that a part of the information related to external load is included in"
+        },
+        {
+            "chunk_id": 137,
+            "summary": "The purpose of this paper is to provide an overview of the current state of knowledge on fatigue and"
+        },
+        {
+            "chunk_id": 138,
+            "summary": "In this study, we investigated the impact of the player's internal load and the player's external"
+        },
+        {
+            "chunk_id": 139,
+            "summary": "The use of artificial intelligence (AI) in sport has revolutionised the way coaches and players are monitored."
+        },
+        {
+            "chunk_id": 140,
+            "summary": "The use of subjective and objective measures to monitor the health and well-being of a soccer player has been"
+        },
+        {
+            "chunk_id": 141,
+            "summary": "The results of this study suggest that the use of high-intensity interval training (HIIT) as a means of"
+        },
+        {
+            "chunk_id": 142,
+            "summary": "The aim of this study is to improve the accuracy of the Global Positioning System (GPS) data collection and"
+        },
+        {
+            "chunk_id": 143,
+            "summary": "In this paper, we study the effect of the player's position on the acquisition frequency of the player'"
+        },
+        {
+            "chunk_id": 144,
+            "summary": "The aim of this paper is to investigate the potential of spatio-temporal (sO) analysis of GPS data"
+        },
+        {
+            "chunk_id": 145,
+            "summary": "The aim of this paper is to investigate the impact of training on football players' injuries."
+        },
+        {
+            "chunk_id": 146,
+            "summary": "The aim of this study was to address the issue of injury prediction from the athlete'"
+        },
+        {
+            "chunk_id": 147,
+            "summary": "In this paper, we present a novel predictive model for the prediction of sports-related injuries in a"
+        },
+        {
+            "chunk_id": 148,
+            "summary": "The effects of training load (i.e."
+        },
+        {
+            "chunk_id": 149,
+            "summary": "The aim of this paper is to investigate the potential of artificial intelligence (AI) and machine learning"
+        },
+        {
+            "chunk_id": 150,
+            "summary": "The purpose of this paper is to present the results of a study on the impact of climate change on the"
+        },
+        {
+            "chunk_id": 151,
+            "summary": "The authors have no financial interest in the publication of this paper."
+        },
+        {
+            "chunk_id": 152,
+            "summary": "A model for predicting the long-term impact of an injury on a player's performance has been developed."
+        },
+        {
+            "chunk_id": 153,
+            "summary": "entropy entropy entropy entropy entropy entropy entropy entropy entropy entropy entropy entropy entropy entropy entropy entropy entropy entropy entropy entropy entropy entropy entropy"
+        },
+        {
+            "chunk_id": 154,
+            "summary": "Scientists have discovered a new type of supermassive black hole."
+        },
+        {
+            "chunk_id": 155,
+            "summary": "Match reports from Saturday's Premier League matches."
+        },
+        {
+            "chunk_id": 156,
+            "summary": "Sampling method gradient based gradient based Ridge alpha 6.39 x10-1 0 6.83 x101 tol"
+        },
+        {
+            "chunk_id": 157,
+            "summary": "A model for predicting the likelihood of a long-term injury is presented."
+        },
+        {
+            "chunk_id": 158,
+            "summary": "           "
+        },
+        {
+            "chunk_id": 159,
+            "summary": "C 176530 1x107 1 x106 816,071 SVM gamma 1.11 1 x10-6 1 x"
+        },
+        {
+            "chunk_id": 160,
+            "summary": "1 x10-5 penalty 12 12 12 12 logit tol 0.98 0.01459 0.38 0.0028 C 3"
+        },
+        {
+            "chunk_id": 161,
+            "summary": "A new method for sampling the Earth's crust has been developed by scientists at the Massachusetts Institute of Technology (MIT"
+        },
+        {
+            "chunk_id": 162,
+            "summary": "The Effect of Playing Position on Injury Risk in Male Soccer."
+        },
+        {
+            "chunk_id": 163,
+            "summary": "Jones, C.M.; Griffiths, PC.; Mellalieu, S.D."
+        },
+        {
+            "chunk_id": 164,
+            "summary": "The Journal of Sports Medicine and Exercise Science."
+        },
+        {
+            "chunk_id": 165,
+            "summary": "Borresen, J.; Lambert, M.I."
+        },
+        {
+            "chunk_id": 166,
+            "summary": "The relationship between training load and performance: a case study."
+        },
+        {
+            "chunk_id": 167,
+            "summary": "Randers, M.B.; Mujika, L.; Hewitt, A.; Santiste"
+        },
+        {
+            "chunk_id": 168,
+            "summary": "Activity profile in elite Italian soccer team. Activity profile in elite Italian soccer team."
+        },
+        {
+            "chunk_id": 169,
+            "summary": "The role of motion analysis in elite soccer: Contemporary performance measurement techniques and work rate data."
+        },
+        {
+            "chunk_id": 170,
+            "summary": "Training load and player monitoring in high-level football."
+        },
+        {
+            "chunk_id": 171,
+            "summary": "In: Raya, J., Nakamura, FY., Castillo, D., Yanci,"
+        },
+        {
+            "chunk_id": 172,
+            "summary": "The usefulness of perceived exertion for monitoring training load despite several influences on perceived exertion"
+        },
+        {
+            "chunk_id": 173,
+            "summary": "High chronic training loads and exposure to bouts of maximal velocity running reducei injury risk in"
+        },
+        {
+            "chunk_id": 174,
+            "summary": "Relationships between internal and external training load in teamsport athletes: Evidence for an"
+        },
+        {
+            "chunk_id": 175,
+            "summary": "A review of current Approaches to the Use of Artificial Intelligence for Injury Risk Assessment and Performance Prediction in Team"
+        },
+        {
+            "chunk_id": 176,
+            "summary": "Soccer injury forecasting with GPS training data and machine learning."
+        },
+        {
+            "chunk_id": 177,
+            "summary": "The impact of GPS and timing Gates on maximum Velocity in professional rugby union."
+        },
+        {
+            "chunk_id": 178,
+            "summary": "Accuracy of GPS devices for measuring high-intensity running in field-based team"
+        },
+        {
+            "chunk_id": 179,
+            "summary": "A simple field test as an indicator of match-related physical performance in top-level"
+        },
+        {
+            "chunk_id": 180,
+            "summary": "Analysis of high intensity activity in premier league soccer."
+        },
+        {
+            "chunk_id": 181,
+            "summary": "In: McLachlan, G., et al."
+        },
+        {
+            "chunk_id": 182,
+            "summary": "An empirical study of the naive Bayes classifier."
+        },
+        {
+            "chunk_id": 183,
+            "summary": "The following is a list of papers published in the past year."
+        },
+        {
+            "chunk_id": 184,
+            "summary": "Proceedings of the 5th Annual Workshop on Computational Learning Theory (COLT'92), Pittsburgh,"
+        },
+        {
+            "chunk_id": 185,
+            "summary": "In: Rosenblatt, F., and Pitts, W."
+        },
+        {
+            "chunk_id": 186,
+            "summary": "In: Jaspers, A., De Beéck, T.O., Brink"
+        },
+        {
+            "chunk_id": 187,
+            "summary": "In: Saw, A.E.; Main, L.C.; Gastin, P.B."
+        },
+        {
+            "chunk_id": 188,
+            "summary": "Internal training load and its longitudinal relationship with seasonal player wellness in elite professional soccer."
+        },
+        {
+            "chunk_id": 189,
+            "summary": "In our series of letters from African journalists, filmmaker"
+        }
+    ]
+}

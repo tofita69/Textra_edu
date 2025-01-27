@@ -1,0 +1,1136 @@
+{
+    "chunks": [
+        "HAL open science Data Treatment of In Situ Monitoring Systems in Selective Laser Melting Machines Pinku Yadav, Olivier Rigo, Corinne Arvieu, Emilie Le Guen, Eric Lacoste To cite this version: Pinku Yadav, Olivier Rigo, Corinne Arvieu, Emilie Le Guen, Eric Lacoste. Data Treatment of In Situ",
+        "Monitoring Systems in Selective Laser Melting Machines. Advanced Engineering Materials, 2021, 23 (5), pp.2001327. 10100adem212I32T. hal-03483384 HAL Id: hal-03483384 https/halsclence/hal-0348384V1 Submitted on 16 Dec 2021 HAL is a multi-disciplinary open access L'archive ouverte pluridisciplinaire HAL, est",
+        "archive for the deposit and dissemination of sci- destinée au dépôt et à la diffusion de documents entific research documents, whether they are pub- scientifiques de niveau recherche, publiés ou non, lished or not. The documents may come from émanant des établissements d'enseignement et de",
+        "teaching and research institutions in France or recherche français ou étrangers, des laboratoires abroad, or from public or private research centers. publics ou privés. CC) Distributed under a Creative Commons Attribution 4.0 International License Data Treatment of In-Situ Monitoring Systems in Selective Laser Melting",
+        "Pinku Yadavb, Olivier Rigo\", Corinne Arvieu', Emilie Le Guen, Eric Lacosteb\" SIRRIS, Rue du Bois Saint-Jean 12, 4102 Seraing, Belgium bUniversité Bordeaux, I2M, UMR 5295, CNRS, F-33400 Talence, France * Corresponding Author: Enclacoste@u-pordeauxr Abstract",
+        "Quality assurance of the final build part in L-PBF is greatly influenced by the various process steps such as Powder handling, Powder bed spreading, and Laser-material interaction. Each process step is interlinked",
+        "to each other and can affect the overall behavior of the succeeding steps. Therefore, it is vital to monitor each step individually, post-process, and establish a link among the data to develop an approach to quantify the defects via inline monitoring. This study focuses on using pre-and post-exposure powder bed",
+        "image data and in-situ melt pool monitoring data to monitor the build's overall quality. Two Convolutional Neural Networks have been trained to treat the pre and post-exposure images with a trained accuracy of 93.16 % and 96.20 %, respectively. The supervised machine-learning algorithm called \"Support Vector",
+        "Machine\" is used to classify and post-process the photodiodes data obtained from the melt pool monitoring. A case study on \"Benchmark Part\" is presented to check the proposed algorithms' overall working and detect abnormalities at three different process steps (Pre and Post-Exposure, Melt Pool",
+        "Monitoring) individually. This study shows the potential of machine learning approaches to improve the overall reliability of the L-PBF process by inter-linking the different process steps. Keywords: Machine Learning, Laser powder bed fusion, Quality assurance, Melt pool monitoring, Defect detection 1. Introduction",
+        "Recently, Additive manufacturing (AM) has observed tremendous growth in various industries such as aerospace, biomedical, automotive, energy, and tooling due to its capability to manufacture complex parts with ease. According to Wohler's report of 2019, the metal additive manufacturing industry has",
+        "shown record growth with an increase of 41.9 % [1). The reported growth indicates that the AM industry has significant potential in patient-specific medical implants, lightweight components for the aerospace and automotive sector, which eventually reduced fuel consumption. However, the process repeatability",
+        "and reliability remain a significant concern in AM [2]. Therefore, the need for implementing in-situ or real- time monitoring sensors is inevitable. Laser-powder bed fusion (L-PBF) also, commonly known as selective laser melting (SLM) or direct laser",
+        "melt sintering (DMLS), is one of the many additive manufacturing techniques. L-PBF uses the metal powder material deposited in a layer by layer fashion to create a 3-Dimensional (3-D) model from a digital computer-aided design (CAD) design. After each powder recoating layer, the laser fuses the metal powder",
+        "material selectively fort that specific layer; afterward, the next new layer of powder is uniformly distributed by the recoater. The process repeats until the whole 3D model is manufactured. The total manufacturing time can vary from hours to days, based on the part's geometrical features. Despite tremendous",
+        "technological advancements in developing the latest commercial L-PBF systems, the process reliability and repeatability still need to materialize. Thus, the L-PBF process has many input parameters that can significantly influence the part's overall quality [3-5]. For instance, Van Elsen has listed at least 50",
+        "parameters that can affect the final part quality [6]. The expensive and time-consuming non-destructive techniques (NDT) such as computer tomography (CT) is used to check the overall part health and quantify the defects [6]. Therefore, to improve the comprehensive quality assurance and monitor the process in",
+        "real-time, active research is directed on using in-situ sensors based on real-time monitoring, data analytics, and process control. The overall thrust has been developing the models with hardware and data analytics techniques to isolate the type, location, and severity of the defects in real-time [7). The final aim",
+        "can be achieved by developing a closed feedback control loop to mitigate these defects inline. In the literature, different means of measurement, such as infrared thermography, pyrometry, optical spectroscopy, ultrasonic sensors, etc., are reported to monitor the L-PBF process [8]. Considering the",
+        "subject's vast scope, we focus mainly on reviewing the recent development in fault detection in the L-PBF process using machine learning based on sensors' responses. A large scale of data being generated with an increase in the number of sensors used to monitor the",
+        "process. An extensive set of data also poses a significant challenge related to storage and post-processing. Machine learning (ML) is an alternative way to cope with the challenges mentioned above. Furthermore, ML can post-process the data in real-time. Many powerful and sophisticated ML models have been",
+        "developed with advanced hardware in the last decade, capable of identifying complex non-linear relationships from massive data [9-12]. Ideally, ML approaches can be divided into three subgroups: supervised, semi-supervised, and unsupervised approaches. Supervised ML requires a labeled dataset to",
+        "train the specific model. In other words, each training datapoint has a label, e.g., \"good\" and \"bad,\" and users must know the ground truth of the training dataset before learning. In many applications such as",
+        "AM, sometimes, it is a very costly and laborious task to understand the data points' labels. Whereas in the unsupervised ML approach, there is no prior requirement of the labels for the training dataset. The",
+        "algorithm tries to find a pattern based on some relationships among the dataset. As the name suggests, the semi-supervised learning approach uses a combination of supervised and unsupervised approaches at the same time. In other words, it requires both labeled and unlabeled datasets. This approach can be",
+        "helpful where obtaining the ground truth dataset is a very challenging task [13-16]. Abdelrahman et al. proposed in-situ flaw detection using a layerwise optical imaging system that captures the powder bed's images before and post-printing in the L-PBF process. The images were captured in",
+        "different lighting conditions to enhance the chances of flaw detection. The proposed approach showed a sensitivity of 91.5 % and specificity of 84 % [17). Scime and Beuth used a visible range optical camera to",
+        "capture the powder bed images, which were then used to detect powder bed flaws such as \"Part- Hopping, part failure, streaking, super-elevation, .etc by using computer vision and machine learning approaches. In their earlier work, they have proposed a machine learning algorithm called \"bag of words\"",
+        "to classify the flaws mentioned above with an accuracy ranging from 65% to 99 % [18]. Their recent work has proposed a multi-scale Convolutional neural network (CNN) based using a transfer learning approach, which showed an accuracy of 72.7 % [19]. Okaro et al. developed a semi-supervised model using",
+        "photodiode data to classify the finished parts based on their mechanical properties. The reported model showed an accuracy of 77 % [20]. Gobert et al. proposed a supervised ML approached based on the layerwise in-situ images captured using a digital single-lens reflex camera. The proposed supervised ML",
+        "approach was able to predict cracking, porosity, lack of fusion defects with a reported accuracy of 85 %. The anticipated MLI results were matched with the CT scans results as well [21]. Ye et al. and Schevchik et",
+        "al. used an acoustic signals-Dased ML model for defect detection. The proposed model showed an accuracy of 70 % on raw data and 93 % for the Fourier transformed processed data [22, 23]. Khanzadeh et al. compared different supervised ML approaches for the melt pool monitoring images. The k-nearest",
+        "neighbor algorithm showed the best results with an accuracy of 98 % to label melt pool signatures as regular melt pools or pores [24]. Yuan et al. developed a CNN model to monitor the single deposited",
+        "tracks' quality using co-axial high-speed video camera data. The training dataset was prelabeled using the offline characterization techniques such as macroscopic analysis of the deposited tracks, which was further used to predict the deposited consistency using a trained CNN model [25]. Imani et al. fabricated",
+        "cylindrical samples with varying power, scanning speed, and hatch distance to induce varied samples' varied porosity. The obtained samples were quantified for the distribution of the porosity using computer tomography. In parallel, the parts' in-situ images were analyzed using the spectral graph approach, and",
+        "extracted features were further used as input for machine learning algorithms [26]. Recently, Williams et al. developed a deep learning (DL) model called densely connected convolutional block architecture for multi-modal image regression (DCB-MIR) to detect defects such as porosity and geometric deviations in",
+        "titanium and Inconel parts. They have used the optical image derived from the acoustic velocity maps as the proposed model's input data. Williams et al. proposed a cosine similarity ranging from 25 % to 60 %",
+        "between optical signature and optical micrographs derived from DCB-MIR [27). Clijsters et al. proposed a novel data analytics method to check the quality ofthe parts in the L-PBF process. The melt pool signatures were captured with a combination of near-infrared range CMOS camera and photodiode. Later, a mapping",
+        "algorithm was modeled to capture the phenomenon's like overheating, detection ofthe pore in 2-D space, and 3-D space based on the data from both sensors [28]. Recently, Chen et al. studied the effect of recoating orientation, hatching pattern, height, and width on the roughness of the thin-wall structures by",
+        "using a model based on the computer tomography images and CAD design of the part [29]. Machine learning techniques have recently gained much attention from many AM field researchers due to their easy applicability and versatile nature to solve the problems related to post-processing of the in-",
+        "situ data in the AM process. The use of machine learning approaches in L-PBF processes is summarized in [8]. Before proceeding further, it shall be essential to discuss the challenges associated with the machine learning approaches in the AM process, especially with L-PBF, which are as follows: 1.",
+        "The artificial neural networks (ANN) predominately works on a large set of the labeled training dataset, which is a very challenging and laborious task in the L-PBF process. It is very challenging to quantify and detect defects in the captured in-situ data and often requires expensive and time-consuming",
+        "techniques such as computer tomography for quantification of the defects. Therefore, the inherent challenge to the L-PBF process is that the ML approaches developed tend to be a part, material, or geometry specific. 2. Secondly, the multi-scale nature of the L-PBF process defects is another major challenge. The",
+        "defects, such as internal porosity, can be < 100 um, whereas the geometric distortion can be > 1mm. Therefore, it not feasible to use one type of sensor to detect all types of defects. With an increasing number of sensors, there is multiplication in data generation, eventually increasing post-processing complexity.",
+        "3. Thirdly, the defects are also linked with the different steps in the process itself. Therefore, it is vital to monitor the process at all possible levels such as powder health, powder spread quality, post-",
+        "exposure quality, monitoring while printing, final part health, etc. All steps are interlinked with each other. Therefore, overall monitoring will improve the quality assurance and reliability of the process. This study focuses on using a combination of ML and DL algorithms to monitor the L-PBF process at three",
+        "different stages, i.e., Pre-Exposure step, Post-Exposure Step, and Exposure (Fig. 1). We have used two separate CNN models for treating the Pre and Post-Exposure images captured using Layer Control System (LCS) and a Support Vector Machine (SVM) classifier to post-process the photodiodes data obtained from",
+        "Melt Pool Monitoring. We present a case study on \"Benchmark Part\" to check the robustness of the proposed algorithms. This study serves as the initial step to discuss the possibilities of interlinking the different monitoring steps via post-processing ofthe data and improving the confidence interval regarding",
+        "the product health. The working principle of CNN Models and SVM classifier can be found in supporting material. Melt Pool Pre- Post- Part Monitoring Exposure Exposure (MPM) Quality Convolutional Neural Convolutional Neural Support Vector Network (CNN) Network (CNN) Machine (SVM) Fig. 1. Flow chart of the proposed working model.",
+        "2. Experimental Methods 2.1. Materials and methods The gas atomized AISI7Mg0.6 spherical powder supplied by SLM Solutions was used to print specimens with varying process parameters. The particle size distribution was 20 - 63 m with a mean diameter of",
+        "41.88 um as specified by the supplier. The powder's apparent density was 1.53 g/cm3, and the chemical composition of the as-received powder is tabulated in Table 1. Table 1. Elemental composition of as received AISi7Mg0.6 powder (All the values are given in wt %). Element Al Cu",
+        "Fe Mg Mn Si Ti Zn Others Minimum [wt %] Balance 0.45 6.50 The Actual [wt %] Balance <0.01 0.08 0.55 <0.01 6.90 0.07 0.01 <0.03 Maximum [wt %] Balance 0.05 0.19 0.70 0.10 7.50 0.25 0.07 0.03",
+        "commercial SLM 280HL (SLM Solutions Group AG, Lubeck, Germany) equipped with 700 W twin continuous wave (CW) ytterbium fiber lasers with an emitting wavelength of 1070 nm and a spot diameter of 115 m",
+        "was used for printing. The build envelope volume is 280 X 280 X 365 mm3, and the build chamber was maintained in the Ar gas environment with an oxygen level below 0.1 %. The Aluminium base plate was",
+        "preheated to 150 C before printing to reduce thermal stresses in part [30]. The SLM 280HL machine is also equipped with the in-situ monitoring devices called 'Melt Pool Monitoring, which consists of two on-axis photodiodes to monitor the melt pool, and Layer Control System (LCS) to",
+        "check the powder bed spreading. The specifications and working principles are discussed in sections 2.3 and 2.4, respectively. 2.2. Part geometry and process parameters To prepare a training dataset for the CNN models (CNN 1: For pre-exposure images, CNN 2: For post-",
+        "exposure images) and SVM classifier (For melt pool monitoring), a balanced dataset comprising an equal number of each label is necessary. An artificial drift is introduced in the samples to obtain the balanced ground-truth dataset of each label. Therefore, the unique geometrical specimens were printed, as shown",
+        "in Fig. 2. The process parameters tabulated in Table 2 were varied to obtain varied volumetric energy density in the range of 40-73 J/mm3 for each shown geometry. The decision to vary the process",
+        "parameters in the above-specified range was made based on the fact that drift is created in the final parts due to power, scanning speed, and hatch distance. A total of 81 samples were fabricated, combining",
+        "varied parameters as tabulated in Table 2. The overhang samples (Fig. 2. (a), and 2. (b)) with an overhang of 5 mm was printed without any support structure. No down-skin parameters were used for the overhang",
+        "layer. As sometimes, due to bad powder spreading, there is non-uniformity in the powder bed, and some regions are not covered with the powder uniformly for a few layers. Nevertheless, in the next recoating",
+        "passes, the areas with a lack of powder are uniformly covered, but then the laser prints a thicker layer compared to other regions with uniform powder spreading [31). Therefore, to simulate a lack of fusion",
+        "samples, an internal cuboid type groove with dimensions 10 *8 * 0.09 mm3 was printed (Fig.2. (c)). The groove's thickness was set to 0.09 mm, i.e., three times the layer thickness of 30 microns. Based on the",
+        "trial and error method, it was noticed that the thickness of 0.09 mm was able to create a lack of fusion defect in the final part. Fort testing the CNN models and SVM classifier, a case study part called \"Benchmark",
+        "Part\" shown in Fig. 2. (d) was printed with optimized process parameters (Marked in bold italics in Table 2). The optimized parameters are selected based on the density level (>99.99 %) using the trial and error method. 10r mm 2mm 2 mm a mm 10 mm 10 mm * k",
+        "0 mm 10 mm (10x8x0.09 V KI O mm T0 mm (a) (b) (c) (d) Fig. 2. Sketch of the specimens (a) cubic overhang (size 10*10 *10 mm3), (b) cylindrical overhang (diameter: 10 mm and height 10 mm), (c) specimen with inner groove, and (d) Benchmark part (125*125*775 mm3).",
+        "Table 2. Varied process parameters for printing. Varied Parameter Values Power (W) 300, 350, and 400 Scanning speed (mm/s) 1200, 1400, 1650, and 1900 Hatch distance (mm) 0.13, 0.26, and 0.52 Layer thickness (mm) 0.03 Scanning strategy Stripes Rotation in layers () 67 2.3. Melt Pool Monitoring System",
+        "The co-axial melt pool monitoring (MPM) system installed on the commercial machine SLM 280HL was used to collect thermal emissions from the melt pool formed due to laser-powder interaction. The melt pool systems are co-axial systems, which means it is in the laser path's alignment and collects the real-",
+        "time emissions from the laser path at an acquisition frequency of 100 kHz. The MPM module consists of two photodiodes with different sensitive areas. The spectral range of the photodiodes cannot be revealed due to confidentiality issues. However, both the photodiodes capture the thermal emission in the near-",
+        "infrared region. The schematic diagram of the MPM system is shown in Fig. 3. Only the emissions traveling perpendicular to the build platform are considered. The thermal radiations follow the same path as the",
+        "laser and are directed into the MPM module with a semi-transparent mirror, which does not allow laser wavelength to pass. The signal is split into two different spectral ranges and captured, respectively, by the two photodiodes. The received signal is forwarded to associated ADCs (Analog to digital convertor) and",
+        "provided in an FPGA feld-programmable gate array) by thei individual photodiodes. The captured thermal emissions from photodiodes 1 and 2 are stored along with the x/y-coordinates (16-bit). The values are",
+        "stored parallel with the laser on/off signal from FPGA to PC in every 10 s. All the data is stored for every MPMN Module Scanner Mirrors Thermal Emissions Collimator 3D-Focus) Beam unit LCSC Camera Beams Splitter Am Process Chamber",
+        "Fig. 3. Schematic of Melt pool monitoring system, and Layer control system installed on SLM 280HL. layer in a data file, accessed as 2D representation in MPM software provided by the SLM Solutions [32].",
+        "The new file is created automatically for each layer after the complete exposure. For this work, no additional modifications are made to the installed hardware. 2.4. Layer Control. System The layer control system (LCS) installed on SLM 280HL includes a visible range camera that captures each",
+        "layer's images for pre-post-exposure. The chamber is illuminated with LEDs from the build chamber's sidewalls to maintain uniformity of light distribution on the overall build plate. The camera is placed",
+        "outside on top of the build chamber at a specific angle of 650 w.r.t normal direction of the build plate, as shown in Fig. 3. The geometric correction of the captured images is performed by the machine supplier",
+        "fori the installed equipment. The camera captures a JPEG image of 1500*1460 px2 size covering an area of 280*280 mm2 of the build plate and neighboring region outside of the build plate that needed to be",
+        "cropped before processing. The camera has a pixel size of 4.4 um and a lens focal length of 9 mm. 3. Definitions This section elaborates the definitions of the keywords used in this study in context to post-processing of Powder bed images and MPM data.",
+        "3.1. Terminology related to Powder Bed Images 1. OK: The \"OK\" label is used fori the block (image patch), free from other considered anomalies such as Recoater Streaking, Uneven Powder Spread, Part Hopping, and Part Overheating.",
+        "2. Uneven Powder Spread: The \"Un-even Powder Spread\" indicates the areas where the lack of uniformity in powder spread is observed. Such anomaly can be caused due to recoater silicon lip failure, lack of powder, and part failure.",
+        "3. Part Overheating: The \"Part-Overheating\" is the area of the part which is distorted due to poor heat conductivity. The poor heat flow phenomenon is linked to the lack of proper support structures beneath the part [33). This anomaly is considered only for the post-exposure images.",
+        "4. Part Hopping: The area of the part which is above the powder spread and not fully covered by the powder spread is termed \"Powder Hopping. \" This anomaly is considered only for the pre- exposure images. In the context of this study, the part hopping serves as cross-validation criteria",
+        "for the anomaly part-overheating\" in the post-exposure images. 5. Recoater Streaking: Recoater streaking is the horizontal lines observed in the powder bed images due to distortion of the soft silicon lip of the recoater. Recoater streaking is detected in post pre and post-exposure images. 3.2. Terminology related to MPM data",
+        "1. Hotspot: The layer's area is termed as \"Hotspot,\" which has higher thermal counts than the rest of the layer. These hotspots are the most probable areas of causing drift in the final part. The",
+        "same hypothesis is also confirmed by Mohr et al. where they showed the link between the porosity in the final part with the melt pool hot spot regions [34] 2. Drift Layer: The layers which comprise the hotspots mentioned above are termed as \"Drift Layer.\"",
+        "Identifying hotspots and labeling the layers as \"Drift Layer\" was done manually suing MPM viewer provided by SLM Solutions. 3. No-Drift Layer: The absence of the hotspots in the respective layers are defined as \"No-Drift Layer.\" 4. Image Preprocessing",
+        "The captured raw images (1500*1460 px?) possess difficulties such as in-homogeneity in light intensity. Therefore, they cannot be used directly for CNN operations. As the camera and environment conditions remain unchanged for all the captured images, the same homogeneity correction factor can be used for",
+        "all images. For light intensity homogenization, we have used the in-built functions of MATLAB called 'imcomplement, and 'imreducehaze\" [35-37]. For our studies, we have used the maximum haze value of 1, which removes the maximum haze from the image. Firstly, the captured raw image was converted",
+        "to a grayscale image to reduce the operation's complexity and our CNN model's requirement. The grayscale image was then complemented, which means it inverts the pixel values. In other words, the black is converted into white and vice-versa. Then the 'imreducehaze\" function was used on the complemented image (Equation 1):",
+        "I(x) = J(x)T(x) + L(1 = T(x)) (1) I(x): Observed Intensity; J(x): Scene Radiation, L(x): Atmospheric Light, and T(x): Transmission map of the light reaching the camera. Dezhaing operation estimates the Scene radiation J(x) by estimating the T(x), and L(x), which is given by equation 2:",
+        "J(x) = (I(x) = A)/(max (T(x),T(0) + A) (2) The dehazing function involves steps as follows: 1. Firstly, the atmospheric light (L(x)) is estimated using a dark channel. 2. Secondly, the transmission map (T(x)) is estimated. 3. Refinement of the estimated transmission map (T(x)). 4. Restoration of the image.",
+        "5. Lastly, perform contrast enhancement on the restored image. Fig. 4 shows an example of a raw image and image after preprocessing operation. It can be observed that even after the preprocessing operation, the light intensity is not entirely homogenized at the edges.",
+        "Therefore, we do not take into consideration the edges for CNN operation and start the algorithm only for an area of 1000*1000 px? as marked in the red rectangle box. The dimensions oft the region ofi interest",
+        "are selected intuitively; most of the time, parts are built at the build plate's center. Intentionally, cropping of the image is avoided to minimize the border effect and prevent operation padding, significantly",
+        "affecting border patches results. If we consider the borders, it will not be possible to select the blocks with the same center as the sizes vary enormously. Secondly, the light intensity at the borders may also affect the accuracy of the overall model. Area considered for CNN operation (a) (b)",
+        "Fig. 4. An Example of (a) captured raw image, and (b) pre-processed image. 5. Anomalies Description 5.1. For Pre-Exposure Images Our study has considered four cases: the CNN network's detection features, which serve as the SO-",
+        "called \"labels\" shown in Fig. 5. Pre-exposure images can have critical information regarding the overall quality of the powder bed spreading. It shall be noted that the labels' selection is based on the visual inspection of the images, and only the most common human visually verified powder bed spread",
+        "anomalies are considered, which are presented as follows. Recoater-Streaking is the most common anomaly that occurs due to damage to the silicone lip due to part-hopping (Fig. 5. (b)). Another critical anomaly called \"incomplete spreading\" or \"Uneven Powder Spreading\" can also be captured by pre-",
+        "exposure images (Fig. 5. (c)). It shall be noted that the pre-exposure image captures not only the powder spreading quality for a particular layer but also captures the information regarding the quality of printing in the preceding step. Part-hopping\" is such an anomaly which mainly influenced by the",
+        "quality of printing in the previous step (Fig. 5. (a)). The fourth category, (Fig. 5.(d) and (e)) called \"OK,\" represents the areas that are free from above-discussed anomalies. The Fig. 5. (d) is the \"OK\" image",
+        "for the case where there is no printed area underneath. In contrast, Fig. 5. (e) represents the printed part covered with the powder layer. (a) (b) (c) (d) (e) Fig. 5. An example of anomalies extracted from pre-exposure images (a)Part-Hopping, (b) Recoater",
+        "streaking, (c) Uneven powder spreading, (d) OK powder layer, and (e) OK part layer. 5.2. Post-Exposure Images Post-exposure images can serve as the verification step and contain vital information about the part and powder's quality. In our study, we have considered the same cases as pre-exposure images for",
+        "our labels. Instead of \"Part hopping,\" we have labeled it as the areas likely to an undergone overheating phenomenon, which leads to hopping in the next recoating step due to internal residual stresses. The labels are summarized in Fig. 6. For training the CNN models, a dataset of 500 images",
+        "for each label was prepared for pre-and post-exposure images. We have considered the most common: anomalies, which does not mean these are the only anomalies that occur during the process. Other anomalies such as spatter ejection and burn-out areas are not considered due to the lack of",
+        "artificial reproducibility of these anomalies for the CNN models' training. (a) (b) (c) (d) (e) Fig. 6. An example of anomalies extracted from post-exposure images ()Part-overheating, (b) Recoater streaking, (c) Uneven powder spreading, (d) OK powder layer, and (e) OK part layer. 5.3. Melt Pool Monitoring Anomalies",
+        "As explained in section 2.3, the melt pool monitoring system captures the thermal emissions during laser- powder interaction in the near-infrared region. The captured thermal emissions layer shows the areas with higher thermal emissions values, termed as \"hot-spot regions.\" These hot spots regions are the",
+        "highest potential areas of inducing defects in the final part. The same hypothesis is also confirmed by Mohr et al., where they showed the link between the porosity in the final part with the melt pool hot spot",
+        "regions [34]. Therefore, in our study, we have termed layers with hotspots as \"Drift\" and the layers with no hot-spots as \"No-Drift.\" However, it is essential to highlight that the hotspots are the most probable",
+        "areas of causing a defect. Still, it cannot be guaranteed that there will be a defect at that location due to the complexity of the L-PBF process itself. 5.4. Scale Variant of Anomalies in Pre and Post-Exposure cases",
+        "The scale of the detection area dramatically influences the detection of any particular anomaly. For example, as shown in Fig. 7, if we take the scale of 20*20 px2 (Case 1- red box) for uneven powder spread,",
+        "it may not be detectable similarly if we consider 150*150 px2 (Case 2 - green box) for Part-Hopping\" we may end up incorporating other anomalies such as Recoater-streaking: * Moreover, not all anomalies have the same spatial detection scale. Therefore, it is of great importance to choose the correct spatial",
+        "scale of the described anomalies such as \"Part-Hopping,\" - overheating, recoater-streaking, and uneven powder spread. Therefore, in our study, we have chosen three different scales for the above-described anomalies based on the trial-error method. Scale 1, i.e., 20* 20 px2 block, was set for \"Part-Hopping\" and",
+        "overheating, as this anomaly should be captured with as small as possible scale. The 20* 20 px2 scale is a good compromise between the computational time and the proposed CNN model's accuracy. Scale 2, i.e.,",
+        "75*75 px?, was chosen for Recoater-Streaking: \" whereas scale 3, i.e., 150*150 px?, was set for uneven powder spread. It is also noted that all three scale blocks were extracted from the same center, and also",
+        "the scale 1 blocks were non-overlapping, whereas the scale 2 and scale 3 are over overlapping blocks that stride with a step of the smallest block size. Case 1 Case 2 - D",
+        "Fig. 7. An example of scale variance of different types of anomalies is shown. Red box represents the scale 1 of size 20*20 px2 whereas the scale 3 represented by green box which has size of 150*150 px?. 6. Training and Testing of Models 6.1. Training CNN models",
+        "The CNN training aims to find the optimal kernels for the given case. In our CNN model, we have used the standard loss function for regression predictions and cross-entropy loss, which is shown as H(p,q) =",
+        "- Lx q(x) logp(x) where p(x) is the classification function from softmax operation corresponding to the input image used for classification operation whereas q(x) is the ground-truth label of that image. The minimization of loss function during training is the optimal criterion for the selection of optimal kernels.",
+        "During training, kernel weights are recursively updated by using the training images. The prediction error gradient decides the updating of the weights for each layer backpropagated for that layer. It shows the direction of weight adjustment, which allows a steep decrease in prediction error. For our CNN model, we",
+        "have utilized the sgdm optimizer with an initial learning rate of 10-3 for regression, batch size of 20, and max training epoch number of 100. L2 regularization is applied to all the weights for suppressing over-",
+        "fitting. The regularization coefficient is set as 10-3. For both CNN models, i.e., CNN 1 and CNN 2, the best- fit settings are the same, which showed the highest training accuracy for both pre and post-exposure",
+        "images. The reported training accuracy of CNN 1 and the CNN 2 models is 93.16 % and 96.20 % for pre and post-exposure images. 6.2. Training SVM Classifier For this study, artificial drifts, i.e., overheating drift due to overhang and lack of fusion in the parts with",
+        "special geometrical features (see Fig. 6) and by the varying process, were created. The careful selection of the layers from the build parts (81 parts) and labeling it as 'Drift' and 'No-drift' was performed by",
+        "analyzing the layers in the MPM software provided by the SLM solutions and statistical analysis. For our study, we have chosen the mean and median of each layer as the input features. As we know, the mean",
+        "and median measures the data'scentral tendency and gives us information regarding the data's skewness. Median is an important feature when the data has extreme values. It is also important to mention that other features such as standard deviation and root mean square for each layer were also studied. Still,",
+        "SVM results were not satisfactory compared to mean and median. The drawback of choosing two points as thei features per layer is that it compresses the whole layer data into two issues. Therefore, in the study,",
+        "individual hotspots' exact location in a particular layer is not studied. A balanced labeled dataset of 170 data points, which comprises an equal number of \"drift\" and \"no-drift\" data points SO that the biasing of the SVM model can be avoided, was prepared.",
+        "The best-fitting parameters are to be selected for the SVM classifier to increase the classifier's success rate. A Bayesian optimization algorithm was used to find the best-suited hyperparameters for the model. A hyperparameter is an internal parameter of an algorithm that needs to be optimized. For example, in",
+        "our case (SVM model), the box constraint, kernel-function, and kernel-scale are the hyperparameters. These parameters can significantly influence the performance of the algorithm. Thus, optimization of the hyperparameters is advisable. However, optimization is difficult and time-consuming. Therefore, Bayesian",
+        "optimization is well suited for classification and regression algorithms in machine learning. The Bayesian optimization algorithm minimizes the objective function f(x) for X in a bounded domain. The f(x) can be scholastic or deterministic, which means it can return different results for the same point X.",
+        "Table 3. Bayesian optimization results of SVM classifier for different hyperparameters. SVM Model Photodiode 1 Photodiode 2 Linear SVM 98.8 % 99.2 % Quadratic SVM 97.8 % 98.4 % Cubic SVM 98.0 % 97.8 % Fine Gaussian SVM 97.8 % 97.7 % Medium Gaussian SVM 96.4 % 98.9 %",
+        "Coarse Gaussian SVM 90.4 % 75.7 % The 10-fold cross-validation of the optimized SVM classifier was performed on the training dataset. The whole dataset was partitioned into 70 % and 30 % sub-datasets to cross-validate and check the SVM",
+        "model's performance of different hyperparameters. The performance and accuracy % of the different hyperparameters are tabulated in Table 3. The linear SVM has the highest accuracy with a cross-validation success rate of 98.8 % and 99.2 % for photodiode 1 and photodiode 2, respectively. Fig. 8 shows the labels",
+        "of the trained linear SVM classifier for both photodiodes. 600 700 550 500 600 450 500 400 350 400 2 300 2 300 250 200 200 150 No-Drift Layers 00 DriftLayers No-Drift! Layers \"ga 200 300 400 500 600 700 DrifLayers 200 400 600 800 1000 Feature 1 (Mean)",
+        "Feature 1 (Mean) (a) (b) Fig. 8. SVM trained data for (a) photodiode 1, and (b) photodiode 2. 6.3. Testing of CNN Model 6.3.1. Labeling Test Images Several conditions shall be imposed on the pre and post labeled data to minimize the probability of",
+        "mislabeling, and the conditions are differentf for both pre and post-exposure images. As mentioned earlier, we extract three different scales (20*20 px?,75*75 px?, 150*150 px?) blocks from the same center, leading to having three different labels for the same center. Therefore, it is necessary to take specific conditions",
+        "for each block. The conditions for pre-exposure test images are as follows (Fig. 9): Firstly, scale 1, i.e., 20*20 px2 block, will be extracted and passed through the trained CNN 1 model. If the scale 1 block overlaps with the part area and has labeled \"Part-Hopping 1 the",
+        "program will skip the training operation for scale 2 and: scale 31 for that specific center and proceed to another center. In case the label is not \"Part-Hopping, \" the center will not save the predicted label for scale 1 for",
+        "that center and will make a decision based on scale 2 and scale 3, which is decided by the decision matrix shown in the Table 4. The reason for this particular condition is that, when the \"Part-",
+        "Hopping\" occurs, other anomalies cannot happen at the same center. However, when there is no Part-Hopping,\" 1 then there could be Recoater-Streaking: 1 \"Uneven Powder Spreading, 1 and \"OK\" part labels. Labels for See Decision Matrix level 2 and 3 150*150 Pre-Exposure Image Scale 1: 20*20 px2",
+        "Trained Label for Label: \"Part Yes- Skip Scale 2 Resize px2 CNN 1 Scale 1 Hopping\" and 3 Scale 2: 75*75 px2 No Resize 150*150 px2 Scale 3: 150*150 px2 No Resize 150*150 px2 Fig. 9. Flow chart for labeling the pre-exposure test images.",
+        "The conditions for post-exposure test images are as follows (Fig. 10): After the exposure step, there is no powder in the part area. Therefore, it is impossible to have defects such as uneven powder spread and \"Recoater-Streaking' in that particular area. Thus, the",
+        "scale 1 block, i.e., 20*20 px, will first pass to a precondition to check whether the block overlaps or intersects with the part are or not. If not, the scale 1 labels will not be predicted for that specific",
+        "center as it is not in the part area. If yes, then the possible labels can be Part-Overheating or \"Part OK.\" If the predicted label is other than \"Part-Overheating\" and \"Part OK,\" the label will be marked as mislabeling.",
+        "If the scale 1 block does not intersect with the part area, then there can be labels related to powder anomalies, i.e., Recoater-Streaking: 1 \"Uneven Powder Spreading,\" n or \"OK.\" Therefore, for that specific center, the labels will be predicted for scale 2 and scale 3, i.e., 75*75 px2 and",
+        "150*150 px?. The final decision will be made based on the decision matrix shown in Table 4, like for the pre-exposure procedure. 1.F Part-overheating 2. OK 3. Mislabel Labels for Scale 1 Post-Exposure Image Scale 1: 20*20 px2 150*150 px2 Gotersects Seale the block par Resize area",
+        "Yes Trained Labels for See Decision Matrix CNN: 2 level 2 and 3 Scale 2: 75*75 px2 No Resize 150*150 px2 Scale 3:1 150*150 px2 No Resize 150-150 px2 Fig. 10. Flow chart for labeling the post-exposure test images.",
+        "Table 4: The decision matrix for scale 2 and scale 3 labels. Scale 2 Labels Scale 3 Labels Final (75*75 px?) (150*150 px?) Decision Uneven Uneven Uneven Part Hopping/Overneating Uneven Uneven Uneven Streaking Mislabel Uneven Part Hopping/Overneating Uneven OK OK OK Part Hopping/Overneating OK OK Uneven OK OK Part Hopping/Overheating",
+        "Part Hopping/Overheating Mislabel Part Hopping/Overheating Streaking Streaking OK Part Hopping/Overneating OK OK Streaking Mislabel OK Uneven Uneven Streaking Part Hopping/Overneating Streaking Streaking Streaking Streaking Streaking Uneven Mislabel Streaking OK Streaking 6.3.2. Confusion Matrices The training dataset was divided into three subcategories, i.e., training set, validation set, and test set",
+        "with 60:20:20 ratios. The training process aims to fit the ML model to the training dataset. The training process's performance is evaluated by the validation set, which, in return, can be used to find the best-",
+        "fitted design parameters to obtain the highest validation accuracy. However, it is essential to note that the model may overfit or underfit the validation set and training set. Therefore, the ML model's actual performance is attributed to the testing dataset, and the confusion matrix evaluates the algorithm. The",
+        "confusion matrix compares the ground truth labels with the predicted labels. In other words, the false positive and false negative attributes of the ML model is indicated by the confusion matrix representation. The confusion matrices for both cases, i.e., pre and post-exposure images, are shown in Fig. 11, where the",
+        "output class represents the ground-truth label. The target class denotes the predicted label. It is Confusion Matrix Confusion! Matrix 103 0 3 0 97.2% 98 0 1 1 98.0% 24.4% 0.0% 0.7% 0.0% 2.8% 24.5% 0.0% 0.3% 0.3% 2.0% 2 0 103 6 8 88.0% 2 0 99 1",
+        "0 99.0% 0.0% 24.4% 1.4% 1.9% 12.0% 0.0% 24.8% 0.3% 0.0% 1.0% 3 3 0 92 14 84.4% 3 0 1 94 1 97.9% 0.7% 0.0% 21.8% 3.3% 15.6% 5 0.0% 0.3% 23.5% 0.3% 2.1% 0 2 5 83 92.2% 2 0 4 98 94.2% 0.0% 0.5% 1.2% 19.7% 7.8%",
+        "0.5% 0.0% 1.0% 24.5% 5.8% 97.2% 98.1% 86.8% 79.0% 90.3% 98.0% 99.0% 94.0% 98.0% 97.3% 2.8% 1.9% 13.2% 21.0% 9.7% 2.0% 1.0% 6.0% 2.0% 2.7% f Target Class Target Class (a) (b) Fig. 11. Confidence matrices for trained CNN models for (a) pre-exposure images, and (b) post-exposure images.",
+        "noticeable that the \"Uneven powder spread\" and \"OK\" labels are the most difficult labels to predict for the trained CNN 1 model and often confused among each other. Similarly, CNN 2, which predicts labels for post-exposure images, is often confused in predicting \"Uneven powder spread\" and \"OK\" labels. This",
+        "inaccurate prediction of labels is due to the uneven spreading anomaly, which has a signature similar to a good powder bed. 6.4. Programming Environment All the programming has been implemented using MATLAB R2020a software, which included the relevant",
+        "add-on packages such as Image Processing Toolbox, Statistics Toolbox, and Deep Learning Toolbox. The system configuration used for implementation is as follows: Operating system: Microsoft Windows 10, System RAM: 4GB, Processor type: Intel(R) Core(TM) i5-6200U CPU@ 2.30 GHz 2.40 GHz, Graphics Card: NVIDIA GEFORCE 940MX. 7. Results: Case Study",
+        "Our study performed the analysis on a so-called \"Benchmark Part,\" used as a benchmark tool in material development in AM. Finding the best fit process parameters is a time-consuming and costly step based",
+        "on trial and error methods. Therefore, specific designs are used as a benchmark tool to find the best process parameters such as critical overhang angle, process settings (Laser Power, Hatch distance, Layer Thickness), border thickness, etc. Knowledge of this angle is essential to position the supports correctly.",
+        "Indeed, as we know, the critical overhang angle for Al alloys is 30°, SO we can conclude that the benchmark part is prone to failure at some point due to the absence of supports below a critical overhang angle [38].",
+        "Another important reason to choose this model as our case study part was that the part's failure could be confirmed via visual inspection without using costly computer tomography techniques. It is then used to",
+        "test the accuracy of our trained CNN model and SVM classifier. Validation of other defects such as porosities requires, on the other hand, expensive techniques such as computer tomography. 7.1. CNN Models The total 2582 images of the benchmark part were analyzed by our trained two CNN models for pre-",
+        "exposure and post-exposure images, respectively. The percentage of the predicted anomalies in a specific layer is calculated and plotted along with the building height to monitor the building part's overall quality. Fig.12 (a) shows the anomalies percentage for the pre-exposure images. It can be observed that in the",
+        "last layers of the build, there is a huge peak for all the anomalies (\"Part-Hopping \" Recoater-Streaking: and \"Uneven Powder Spreading\"). The Part-Hopping\" anomaly percentage gradually starts to increase from layer 2400, whereas the recoating streaking and uneven powder spread anomalies occur after layer",
+        "number 2543 and 2556. The theory can explain that the part hopping destroys the soft silicone lip used for the recoating. When the silicone lip's quality worsens, the recoater lines, also called \"Recoater-",
+        "Streaking, \" start to occur on the powder bed. The center of the scale variant blocks (20*20 px?, 75*75 px?, 150*150 px?) used as the input for the proposed CNN 1 model was saved to locate the location the",
+        "particular predicted anomalies in the specific layer. For example, the layer's raw image numbered 2579, and the location of predicted anomalies for that layer is depicted in Fig.12 (b). 0.9 Parth 0.7 0.8 Recoater EANe Powder Spread 0.6 ra 0.7 - Uneven Powders Spread aN 0.6 05 0.5 0.4",
+        "- 0.4 03 03 0.2 0.2 0.1 VW 0.1 500 1000 1500 2000 2500 2450 2500 2550 Layer Number (a) Raw Image Location of predicted anomalies (b) Fig. 12. (a) The percentage of pre-exposure anomalies predicted by the CNN model along the build height, (b) An",
+        "pre-exposure image example showing the exact location of predicted anomalies (Red: \"Uneven Powder Spreading\", Green: Part-Hopping, and Blue: Recoater-Streaking? for layer 2579. In our study, we used the post-exposure analysis as the cross-validation for the pre-exposure analysis",
+        "results and to make a confident decision regarding the quality of a particular layer. The anomalies such as recoating streaking, uneven powder spread can be present in both cases, i.e., pre and post-exposure at the same location except for the printed area. Part-Overheating anomaly in the post-exposure step due",
+        "to lack of supports can also lead to Part-Hopping\" anomaly in the pre-exposure step for the next succeeding layers. As both the cases (pre and post-exposure) serve as the two different process steps and",
+        "are interlinked, it is crucial to use both images for cross-validation and monitor the build quality. The percentage of the predicted anomalies concerning build height for post-exposure images is plotted in Fig 13. (a). Like the pre-exposure analysis step, the CNN 2 model predicted the highest percentage of all",
+        "anomalies in the last layers. Similar to Part-Hopping, / the Part-Overheating anomaly starts to occur gradually from layer numbered 2121. The location of the individual predicted anomalies for layer number 2580 is shown in Fig. 13. (b). The \"Part-Hopping\" anomaly in pre-exposure images start to gradually",
+        "increase from layer numbered 2400 (marked with a black arrow in Fig. 12. (a)) whereas the \"Part- Overheating\" anomaly starts to appear from layer numbered 2121 (marked with a black arrow in Fig. 13. (a)) in post-exposure images. Therefore, it can be concluded that the Part-Overneating anomaly first",
+        "reaches a limit before it starts to impact the recoating step. The given layer thickness is not enough to fully cover the overheating anomaly, and it starts to appear in the pre-exposure step as a Part-Hopping\" anomaly.",
+        "It is also observed that the mislabel percentage also increases for the last layers in both cases. As shown in the confusion matrix (Fig.11), the proposed CNN models have high confusion probability for \"OK\" and",
+        "\"Uneven Powder Spread\" labels for both cases. As the \"Uneven Powder Spread\" anomaly occurs only in the last layers, the mislabel percentage also increases in the previous layers. 09 06 08 Overhenting 0.7 der Spread 0.5 Fenders E Recoater Streaking Spread 0.6 04 Rematers Sireaking 05 03 - 04 02",
+        "03 02 500 1000 1500 2000 25h0 3000 2000 2200 2400 2600 Layer Number (a) Raw Image Location of predicted anomalies (b) Fig. 13. (a) The percentage of anomalies predicted by the CNN model along the build height, (b) A post-",
+        "exposure image example showing the exact location of predicted anomalies (Red: \"Uneven Powder Spreading\", Green: Part-Overheating, and Blue: Recoater-Streaking? for layer 2580. 7.2. SVM Classifier The two linear SVM classifiers for Photodiode 1 and Photodiode 2, respectively, were trained on the",
+        "certified training dataset, as discussed in section 6.2. The mean and median of each layer was treated as the input features for the trained SVM classifiers. The SVM classifiers predicted the two class labels, i.e.,",
+        "\"Drift\" and \"No-Drift,\" for each layer for the respective photodiode, as shown in Fig.14. (a,b). The layers numbered 2436, 2412, 2498, 2541, 2542, 2552, 2560, 2561, 2562, 2563, 2571, 2572, and 2573 were",
+        "marked as drift layers for photodiode 2, whereas only two layers, i.e., 2541 and 2561, were marked as drift layers for photodiode 1. These predicted last layers lead to failure of the part as well as shown in",
+        "Fig.14. (c). As presented in the previous section 2.3, the spectral detection range of both photodiodes is different. Therefore, it can be concluded that based on the type of material, one photodiode is more sensitive compared to another for specific materials, i.e., low and high melting materials. 180 180 160",
+        "160 140 140 I 120 120 100 2 100 80 E L 60 80 No-Drift Layers 40 No-Drift Layers Drift Layers Drift Layers 60 80 100 120 140 160 180 200 22 20 0 100 200 300 400 500 Feature 1 (Mean) Feature 1 (Mean) (c) (a) (b)",
+        "Fig. 14. SVM classifier predicted labels for benchmark part for (a) photodiode 1, (b) photodiode 2, and (c) printed benchmark part. We have used the MPM viewer installed on the SLM 280HL system to verify the hotspots' presence in the",
+        "predicted \"Drift\" layers. The screenshot of the MPM viewer for layer number 2561 (which was predicted \"Drift\" by both SVM classifiers also circled in red in Fig.14. (a,b)) is shown in Fig.15. It can be observed",
+        "that there are regions (marked in red) that have higher thermal emissions compared to the rest of the layer for both photodiodes. These hotspots are the highest probable regions of producing defects in final",
+        "parts. It is also noticeable that the hotspot regions in photodiode 1 (Fig.15. (a)) are not evident as like for photodiode 2 (Fig.15. (b)), which is because photodiode 2 spectral range is more sensitive to AISi7Mg0.6 (low melting material). Hot-Spots Hot-Spots (a) (b) Recoating Layer 2560 Post-Exposure layer 2561 (c)",
+        "(d) Fig. 15. Screenshot from MPM viewer showing presence of hotspots in layer 2561 for (a) Photodiode 1 with higher thermal emission values, and (b) Photodiode 2, (c) the pre-exposure powder spread image, and (d) post-exposure image.",
+        "The building part layers predicted as drift layers for both photodiodes indicate a link between the powder spread quality and printed part quality. For example, in this particular layer, the pre-exposure image indicates the region of part-hopping, which is because the powder was not uniformly spread over the",
+        "whole part (marked by the green block in Fig.15. (c)).. As a result, the region which was not covered by the powder leads to overheating, i.e., predicted by the CNN model as marked by green boxes in Fig. 15. (d). It",
+        "shall be noted that the additional 4 rectangular bars were also printed along with the benchmark part, which is also visible in Fig. 15. (c,d). These rectangular bars were printed for internal studies and are not",
+        "included in this study. Therefore, it is vital to monitor each process step and establish a link between the different steps to improve the process's overall quality assurance. The confidence interval based on the",
+        "different monitoring steps can separate good and bad parts from a batch of parts (in serial production case). It can serve as a decision to use other non-destructive techniques for good parts for quality",
+        "assessment. It will save time and money by initially marginalizing the bad parts out of good parts. 8. Conclusion Despite technological advancement in L-PBF systems over the last decade, the process's reliability and repeatability are a significant challenge due to uncertainties related to defects in the final parts. These",
+        "defects can have a detrimental effect on the building part's performance, such as small porosities that can significantly degrade the final part's fatigue properties. The need for monitoring the process at each step",
+        "is inevitable for building confidence about the final quality of the part. There are very few studies that have been focused on interlinking or monitoring the process at different steps. Our study aims to monitor and post-process the in-situ data obtained at three different steps, i.e., Pre and",
+        "Post-Exposure, and during exposure. Pre and Post-Exposure images capture critical information regarding the powder-bed spreading and printed layer quality. Therefore, both images were treated in an automated fashion using CNN models to detect the anomalies such as Part-Hopping/Part-Overheating: Recoater-Streaking: and \"Uneven Powder Spreading.\" The scale variant of discussed anomalies is",
+        "considered, and three different scales (20*20 px2,75*75 px?, 150*150 px?) for each anomaly were chosen. Similarly, the Melt Pool Monitoring data were analyzed using the SVM classifier to classify the layers into \"Drift\" and \"No-Drift.\" \" As the two photodiodes have different spatial detection limits, it was observed that",
+        "photodiode 2 captures the drift occurring due to the presence of hotspots much efficiently than photodiode 1. A case study on \"Benchmark Part\" was done to check the proposed CNN model and SVM classifier's accuracy. It was noticed that algorithms successfully predict the above discusses anomalies for both cases.",
+        "The full potential of the installed in-situ monitoring devices can only be realized by developing a closed- loop feedback control system by inter-linking the individual signals from each process step. It will help to improve the overall quality assurance oft the building part. 9. Acknowledgments",
+        "This work was conducted as part of the \"ENABLE\" project funded by the European Union's Marie Sklodowska-Curie Actions (MSCA) Innovative Training Networks (ITN) H2020-MSCA-TN-2017 under the grant agreement Number 764979. 10. References 1. Wohlers, T., et al., Wohlers report 2019: 3D printing and additive manufacturing state of the",
+        "industry. 2019: Wohlers Associates. 2. O'Regan, P., et al., Metal based additive layer manufacturing: variations, correlations and process control. Procedia Computer Science. 2016. 96: p. 216-224. 3. Gibson, I., D.W. Rosen, and B. Stucker, Additive manufacturing technologies. Vol. 17. 2014: Springer. 4.",
+        "Rashid, R., et al., Effect of scan strategy on density and metallurgical properties of 17-4PH parts printed by Selective Laser Melting (SLM). Journal of Materials Processing Technology. 2017. 249: p. 502-511. 5. Gao, W., et al., The status, challenges, and future of additive manufacturing in engineering.",
+        "Computer-Aided Design. 2015. 69: p. 65-89. 6. Van Elsen, M., Complexity of Selective Laser Melting: a new optimisation approach. 2007. 7. Huang, Y., et al., Additive manufacturing: current state, future potential, gaps and needs, and recommendations. Journal of Manufacturing Science and Engineering. 2015. 137(1). 8.",
+        "Yadav, P., et al., In situ monitoring systems of the SLM process: On the need to develop machine learning models for data processing. Crystals. 2020. 10(6): p. 524. 9. Sauer, S., et al., Mindful machine learning. European Journal of Psychological Assessment. 2016.",
+        "10. Rieg, T., et al. High-performance detection of alcoholism by unfolding the amalgamated EEG spectra using the Random Forests method. Proceedings of the 52nd Hawaii International Conference on System Sciences. Proceedings of the 52nd Hawaii International Conference on System Sciences. 2019.",
+        "11. Buettner, R. and M. Schunter. Efficient machine learning based detection of heart disease. IEEE International Conference on E-health Networking, Application & Services (HealthCom). 2019. IEEE. 12. Buettner, R., et al., Real-time prediction of user performance based on pupillary assessment via",
+        "eye tracking. AIS Transactions on Human-Computer: Interaction. 2018. 10(1): p. 26-56. 13. Baumann, F., et al., Hardcore Gamer Profiling: Results from an unsupervised learning approach to playing behavior on the Steam platform. Procedia Computer Science. 2018. 126: p. 1289-1297.",
+        "14. Dougherty, J., R. Kohavi, and M. Sahami, Supervised and unsupervised discretization of continuous features, Machine learning proceedings 1995. 1995, Elsevier. p. 194-202. 15. Buettner, R. Personality as a predictor of Business Social Media Usage: an Empirical Investigation of Xing Usage Patterns. PACIS. 2016.",
+        "16. Chapelle, O., B. Scholkopf, and A.J.I.T.O.N.N. Zien, Semi-supervised learning (chapelle, O. et al., eds.; 2006)[book reviews). 2009. 20(3): p. 542-542. 17. Abdelrahman, M., et al., Flaw detection in powder bed fusion using optical imaging. Additive Manufacturing. 2017. 15: p. 1-11.",
+        "18. Scime, L. and J.J.A.M. Beuth, Anomaly detection and classification in a laser powder bed additive manufacturing process using a trained computer vision algorithm. Additive Manufacturing. 2018. 19: p. 114-126. 19. Scime, L. and. J.J.A.M. Beuth, A multi-scale convolutional neural network for autonomous anomaly",
+        "detection and classification in a laser powder bed fusion additive manufacturing process. Additive Manufacturing. 2018. 24: p. 273-286. 20. Okaro, I.A., et al., Automatic fault detection for laser powder-bed fusion using semi-supervised machine learning. Additive Manufacturing. 2019. 27: p. 42-53.",
+        "21. Gobert, C., et al., Application of supervised machine learning for defect detection during metallic powder bed fusion additive manufacturing using high resolution imaging. Additive Manufacturing. 2018. 21: p. 517-528. 22. Ye, D., et al., Defect detection in selective laser melting technology by acoustic signals with deep",
+        "belief networks. The International. Journal of Advanced Manufacturing Technology. 2018. 96(5-8): p. 2791-2801. 23. Shevchik, S.A., et al., Acoustic emission for in situ quality monitoring in additive manufacturing using spectral convolutional neural networks. Additive Manufacturing. 2018. 21: p. 598-604.",
+        "24. Khanzadeh, M., et al., Porosity prediction: supervised-learing of thermal history for direct laser deposition., Journal of manufacturing systems. 2018. 47: p. 69-82. 25. Yuan, B., et al., Maceninelearingeased Monitoring of Laser Powder Bed Fusion. Advanced Materials Technologies. 2018. 3(12): p. 1800136.",
+        "26. Imani, F., et al., Deep learning of variant geometry in layerwise imaging profiles for additive manufacturing quality control. Journal of Manufacturing Science and Engineering. 2019. 141(11). 27. Williams, J., et al., Defect detection and monitoring in metal additive manufactured parts through",
+        "deep learning of spatially resolved acoustic spectroscopy signals. Smart and Sustainable Manufacturing Systems. 2018. 28. Clijsters, S., et al., In situ quality control of the selective laser melting process using a high-speed, real-time melt pool monitoring system. The International Journal of Advanced Manufacturing Technology. 2014. 75(5-8): p. 1089-1101.",
+        "29. Chen, R., et al., From design complexity to build quality in additive manufacturing- -a sensor- based perspective. IEEE sensors letters. 2018. 3(1): p. 1-4. 30. Buchbinder, D., Meiners, W., Pirch, N., Wissenbach, K., & Schrage, J. (2014). Investigation on",
+        "reducing distortion by preheating during manufacture of aluminum components using selective laser melting. Journal of laser applications, 26(1), 012004. 31. Yadav, P., Rigo, O., Arvieu, C., Le Guen, E., & Lacoste, E. (2020, September). Drift Detection in Selective Laser Melting (SLM) Using a Machine Learning Approach. In International Conference on",
+        "Additive Manufacturing in Products and Applications (pp. 177-191). Springer, Cham. 32. Alberts, D., D. Schwarze, and G. Witt. High speed melt pool & laser power monitoring for selective laser melting (SLM9). 9th International Conference on Photonic Technologies LANE. 2016.",
+        "33. Kastsian, D. Reduction of local overheating in selective laser melting. Conference: Simulation for Additive Manufacturing - Sim-AM2017. 34. Mohr, G., et al., In-Situ Defect Detection in Laser Powder Bed Fusion by Using Thermography and Optical Tomography- Comparison to Computed Tomography. Metals. 2020. 10(1): p. 103. 35. Available from: ntps/es.mathworks.comhetp/magesy/e/mel/mcomplementhtm.",
+        "36. He, K., et al., Single image haze removal using dark channel prior. IEEE transactions on pattern analysis and machine intelligence. 2010. 33(12): p. 2341-2353. 37. Park, D., et al. Single image dehazing with image entropy and information fidelity. IEEE International Conference on Image Processing (ICIP). 2014. IEEE. 38.",
+        "Han, Q., Gu, H., Soe, S., Setchi, R., Lacan, F., & Hill, J. (2018). Manufacturability of AISi10Mg overhang structures fabricated by laser powder bed fusion. Materials & Design, 160, 1080-1095."
+    ],
+    "summaries": [
+        {
+            "chunk_id": 1,
+            "summary": "In Situ Monitoring Systems in Selective Laser Melting Machines Pinku Yadav, Olivier Rigo, Corinne Arvi"
+        },
+        {
+            "chunk_id": 2,
+            "summary": "The following papers have been published in the journal Advanced Engineering Materials."
+        },
+        {
+            "chunk_id": 3,
+            "summary": "The Institut National de la Recherche Scientifique (INR) is a research centre dedicated to"
+        },
+        {
+            "chunk_id": 4,
+            "summary": "The following is a list of French universities and research institutions."
+        },
+        {
+            "chunk_id": 5,
+            "summary": "Researchers at the University ofpordeauxr in Bordeaux, Belgium, have"
+        },
+        {
+            "chunk_id": 6,
+            "summary": "The production of L-PBF is carried out through a series of"
+        },
+        {
+            "chunk_id": 7,
+            "summary": "Defects in the final product can be difficult to quantify."
+        },
+        {
+            "chunk_id": 8,
+            "summary": "Researchers at the Massachusetts Institute of Technology (MIT) have developed a machine-learning algorithm to improve the quality"
+        },
+        {
+            "chunk_id": 9,
+            "summary": "In this paper, a novel photodiodes classification algorithm, \"Mr."
+        },
+        {
+            "chunk_id": 10,
+            "summary": "In the laser powder bed (L-PBF) process, there are several steps in the"
+        },
+        {
+            "chunk_id": 11,
+            "summary": "Metal additive manufacturing is the process of making parts using 3D printing technology."
+        },
+        {
+            "chunk_id": 12,
+            "summary": "The global additive manufacturing (AM) market is expected to grow at a compound annual growth rate ("
+        },
+        {
+            "chunk_id": 13,
+            "summary": "Laser-powder bed fusion (L-PBF) is a promising technology for"
+        },
+        {
+            "chunk_id": 14,
+            "summary": "L-PBF is a laser- Fused Deposition Melting (FDM) system that uses a laser"
+        },
+        {
+            "chunk_id": 15,
+            "summary": "A 3D printer uses a 3D printer to create a model of a part, then coats it with"
+        },
+        {
+            "chunk_id": 16,
+            "summary": "In our series of letters from African journalists, film-maker and columnist Yolande van Elsen"
+        },
+        {
+            "chunk_id": 17,
+            "summary": "This study aims to improve the comprehensive quality assurance and monitor the process in the aerospace industry."
+        },
+        {
+            "chunk_id": 18,
+            "summary": "The aim of this research project is to develop real-time models of manufacturing defects."
+        },
+        {
+            "chunk_id": 19,
+            "summary": "The L-PBF process has a number of defects, such as:"
+        },
+        {
+            "chunk_id": 20,
+            "summary": "The aim of this paper is to provide an overview of the state-of-the-art in"
+        },
+        {
+            "chunk_id": 21,
+            "summary": "Artificial intelligence (AI) has the potential to transform the way we interact with the world around us."
+        },
+        {
+            "chunk_id": 22,
+            "summary": "Machine learning (ML) is one of the fastest growing fields in computer science."
+        },
+        {
+            "chunk_id": 23,
+            "summary": "The training dataset is a collection of data points that can be used to train"
+        },
+        {
+            "chunk_id": 24,
+            "summary": "In this paper, we show how an unsupervised ML approach can be used to"
+        },
+        {
+            "chunk_id": 25,
+            "summary": "In this paper, we present a semi-supervised learning approach to the problem of clustering."
+        },
+        {
+            "chunk_id": 26,
+            "summary": "A new method for detecting flaws in 3D printer parts has been proposed."
+        },
+        {
+            "chunk_id": 27,
+            "summary": "In this paper, we present a novel method for the detection of defects in"
+        },
+        {
+            "chunk_id": 28,
+            "summary": "Researchers at the Massachusetts Institute of Technology (MIT) have developed a machine learning algorithm that can detect flaws in"
+        },
+        {
+            "chunk_id": 29,
+            "summary": "Researchers at the Massachusetts Institute of Technology (MIT) have been working on improving the classification of images."
+        },
+        {
+            "chunk_id": 30,
+            "summary": "In this paper, we report the results of a supervised machine learning (ML) approach for the classification of"
+        },
+        {
+            "chunk_id": 31,
+            "summary": "A machine-learning approach to predict the structural integrity of nuclear fusion rods has been developed"
+        },
+        {
+            "chunk_id": 32,
+            "summary": "In this paper, Khanzadeh et al. compared different supervised ML approaches for the melt pool monitoring images."
+        },
+        {
+            "chunk_id": 33,
+            "summary": "Researchers at the University of California, Los Angeles, have developed a new method to"
+        },
+        {
+            "chunk_id": 34,
+            "summary": "In this paper, we train a coarse-grained neural network (CCNN) model to predict the"
+        },
+        {
+            "chunk_id": 35,
+            "summary": "In this work, the porosity of three-dimensional (3-D) printed parts has been quantified using"
+        },
+        {
+            "chunk_id": 36,
+            "summary": "In the 1980s and 1990s, deep learning was used to extract features from 3D images"
+        },
+        {
+            "chunk_id": 37,
+            "summary": "In a paper published in the journal Nanoscale Materials, a team of researchers has"
+        },
+        {
+            "chunk_id": 38,
+            "summary": "A new method has been proposed to check the quality of parts in the Low-Pressure Bonding (L-"
+        },
+        {
+            "chunk_id": 39,
+            "summary": "A team of researchers at the University of California, Berkeley, has developed a new method to study the phenomenon of"
+        },
+        {
+            "chunk_id": 40,
+            "summary": "In this paper, we present a novel machine learning technique for the design of a 3D-printed part"
+        },
+        {
+            "chunk_id": 41,
+            "summary": "The aim of this paper is to discuss the challenges associated with the use of machine learning approaches in the AM process"
+        },
+        {
+            "chunk_id": 42,
+            "summary": "In this paper, we show how artificial neural networks (ANNs) can be used to train large-scale"
+        },
+        {
+            "chunk_id": 43,
+            "summary": "The aim of this paper is to provide an overview of the major challenges facing the development of ML approaches for the"
+        },
+        {
+            "chunk_id": 44,
+            "summary": "Different types of defects can be detected by different types of sensors."
+        },
+        {
+            "chunk_id": 45,
+            "summary": "Defects in the powder making process can be caused by a number of factors"
+        },
+        {
+            "chunk_id": 46,
+            "summary": "The L-PBF process is a complex process with many steps."
+        },
+        {
+            "chunk_id": 47,
+            "summary": "In this paper, we have proposed a CNN model for post-processing photodiodes data obtained from"
+        },
+        {
+            "chunk_id": 48,
+            "summary": "The aim of this paper is to develop a set of algorithms for the monitoring of the melt pool at the"
+        },
+        {
+            "chunk_id": 49,
+            "summary": "A model for predicting the long-term effects of climate change on human health has been developed."
+        },
+        {
+            "chunk_id": 50,
+            "summary": "A gas atomization process has been used to produce a three-dimensional (3-D)"
+        },
+        {
+            "chunk_id": 51,
+            "summary": "The elemental composition of as-received AISi7Mg0.6 powder is as follows:"
+        },
+        {
+            "chunk_id": 52,
+            "summary": "The latest data from the United States Geological Survey (USGS) shows that the average"
+        },
+        {
+            "chunk_id": 53,
+            "summary": "The SLM 280HL is a compact, high-power, high-"
+        },
+        {
+            "chunk_id": 54,
+            "summary": "The 3D printer used in this project was designed and built in-house at the"
+        },
+        {
+            "chunk_id": 55,
+            "summary": "A new type of 3D printer is being developed at the University of Wisconsin-Madison."
+        },
+        {
+            "chunk_id": 56,
+            "summary": "This chapter describes the construction of the CNN model."
+        },
+        {
+            "chunk_id": 57,
+            "summary": "In this paper, we present a novel approach to label-based melt pool monitoring."
+        },
+        {
+            "chunk_id": 58,
+            "summary": "The results of this study are shown in Table 1."
+        },
+        {
+            "chunk_id": 59,
+            "summary": "The results of this study have been published in the journal Science."
+        },
+        {
+            "chunk_id": 60,
+            "summary": "The following table lists the parameters used for the design and printing of the overhang samples"
+        },
+        {
+            "chunk_id": 61,
+            "summary": "Recoating is the process of applying a new coat of paint to an existing"
+        },
+        {
+            "chunk_id": 62,
+            "summary": "Researchers at the University of California, Los Angeles, have used a laser to"
+        },
+        {
+            "chunk_id": 63,
+            "summary": "A 3D printer has been used to create a new type of groove for a"
+        },
+        {
+            "chunk_id": 64,
+            "summary": "Researchers at the University of California, Los Angeles (UCLA) have developed a new way to"
+        },
+        {
+            "chunk_id": 65,
+            "summary": "The results of this study are presented in Figure 1."
+        },
+        {
+            "chunk_id": 66,
+            "summary": "The dimensions of the specimens are as follows:"
+        },
+        {
+            "chunk_id": 67,
+            "summary": "The following table shows the Varied Process parameters for printing."
+        },
+        {
+            "chunk_id": 68,
+            "summary": "The US Department of Energy's Lawrence Livermore National Laboratory (LLNL) has installed a new system to monitor"
+        },
+        {
+            "chunk_id": 69,
+            "summary": "A microwave photodiode modulator (MPM) has been developed by researchers at the Massachusetts Institute of Technology ("
+        },
+        {
+            "chunk_id": 70,
+            "summary": "The thermals of the MPM system are shown in Fig."
+        },
+        {
+            "chunk_id": 71,
+            "summary": "Two photodiodes are used to capture a single laser beam."
+        },
+        {
+            "chunk_id": 72,
+            "summary": "A photodiode-based thermal imaging system has been developed to"
+        },
+        {
+            "chunk_id": 73,
+            "summary": "All the data is stored on the PC in every 10 s."
+        },
+        {
+            "chunk_id": 74,
+            "summary": "A Melt Pool Monitoring System (MPM) and a Control System have been"
+        },
+        {
+            "chunk_id": 75,
+            "summary": "This tutorial shows how to create a new file for each layer on the SLM 280HL."
+        },
+        {
+            "chunk_id": 76,
+            "summary": "The camera is mounted on the back of a building, on a"
+        },
+        {
+            "chunk_id": 77,
+            "summary": "The following images were taken from a high-speed camera mounted on the back of a"
+        },
+        {
+            "chunk_id": 78,
+            "summary": "This image was taken from the International Space Station by the European Space Agency's"
+        },
+        {
+            "chunk_id": 79,
+            "summary": "This image was taken with a Canon EOS 5D Mark II mirrorless camera."
+        },
+        {
+            "chunk_id": 80,
+            "summary": "A glossary of terms used in the construction industry."
+        },
+        {
+            "chunk_id": 81,
+            "summary": "Recoater silicon lip failure can be caused due to recoater silicon lip failure"
+        },
+        {
+            "chunk_id": 82,
+            "summary": "Image courtesy of the European Space Agency (ESA)."
+        },
+        {
+            "chunk_id": 83,
+            "summary": "The results of this study are as follows:"
+        },
+        {
+            "chunk_id": 84,
+            "summary": "The following glossary of terms has been added to the MPM data set."
+        },
+        {
+            "chunk_id": 85,
+            "summary": "A look at the three layers of ice that make up Greenland's ice"
+        },
+        {
+            "chunk_id": 86,
+            "summary": "porosity in the Earth's crust is one of the key reasons why the Earth's surface is"
+        },
+        {
+            "chunk_id": 87,
+            "summary": "This video shows how to identify hotspots and labels the layers as \"Drift Layer"
+        },
+        {
+            "chunk_id": 88,
+            "summary": "This is a selection of images from the BBC's coverage of the Ebola outbreak in West Africa."
+        },
+        {
+            "chunk_id": 89,
+            "summary": "For this study, we have used images taken from the European Space Agency's (ESA) Landst"
+        },
+        {
+            "chunk_id": 90,
+            "summary": "In our series of letters from African journalists, novelist and writer Colm Tibn explains how he and"
+        },
+        {
+            "chunk_id": 91,
+            "summary": "Dezhaing operation estimates the Scene radiation J(x) by estimating the T(x) and L"
+        },
+        {
+            "chunk_id": 92,
+            "summary": "The dehazing function is used to dehaze an image after it has been taken."
+        },
+        {
+            "chunk_id": 93,
+            "summary": "In this paper, we will show how to preprocessing a raw image and how to restore it"
+        },
+        {
+            "chunk_id": 94,
+            "summary": "The dimensions of the region of interest of the CNN algorithm are taken from the area"
+        },
+        {
+            "chunk_id": 95,
+            "summary": "This is a close-up image of the front end of a car"
+        },
+        {
+            "chunk_id": 96,
+            "summary": "The border between the United States and Mexico is defined as the border between the state of New Mexico and the state of"
+        },
+        {
+            "chunk_id": 97,
+            "summary": "Our study has considered four cases: the CNN network's detection features, which"
+        },
+        {
+            "chunk_id": 98,
+            "summary": "Pre-exposure images of powder bed spreading are used to assess the quality of the spread."
+        },
+        {
+            "chunk_id": 99,
+            "summary": "The following table lists the most common silicone lip anomalies."
+        },
+        {
+            "chunk_id": 100,
+            "summary": "Part-hopping is a common feature of inkjet printers."
+        },
+        {
+            "chunk_id": 101,
+            "summary": "The following table shows the results of a series of tests on the quality of printing"
+        },
+        {
+            "chunk_id": 102,
+            "summary": "(a) Part-Hopping, (b) Recoater."
+        },
+        {
+            "chunk_id": 103,
+            "summary": "In our study, we have considered the same cases as pre-exposure images and found that post-exposure images"
+        },
+        {
+            "chunk_id": 104,
+            "summary": "Researchers at the University of California, Los Angeles (UCLA), and the University of California, Berkeley, have developed a"
+        },
+        {
+            "chunk_id": 105,
+            "summary": "The following is a list of the most common areas of spatter seen on the surface of Mars."
+        },
+        {
+            "chunk_id": 106,
+            "summary": "Melt pool monitoring anomalies extracted from post-exposure images."
+        },
+        {
+            "chunk_id": 107,
+            "summary": "This section describes the melt pool monitoring system."
+        },
+        {
+            "chunk_id": 108,
+            "summary": "Researchers at the University of California, Los Angeles (UCLA) have shown that the final"
+        },
+        {
+            "chunk_id": 109,
+            "summary": "In our study, we have identified the most probable hot-spots in the"
+        },
+        {
+            "chunk_id": 110,
+            "summary": "The L-PBF process can be used to investigate the cause of defects in a"
+        },
+        {
+            "chunk_id": 111,
+            "summary": "The detection area is the area in which the anomaly is detected."
+        },
+        {
+            "chunk_id": 112,
+            "summary": "For example, if we consider 150*1501 (Case 1 - blue box) for Part-Hopping\""
+        },
+        {
+            "chunk_id": 113,
+            "summary": "In our study, we have used the trial-error method to describe the anomalies in the microstructure of a"
+        },
+        {
+            "chunk_id": 114,
+            "summary": "In this paper, we present a new model of the Earth's rotation"
+        },
+        {
+            "chunk_id": 115,
+            "summary": "Scale 3 ie., 150*150?"
+        },
+        {
+            "chunk_id": 116,
+            "summary": "This is a three-dimensional model of a block."
+        },
+        {
+            "chunk_id": 117,
+            "summary": "BBC News takes a look at some of the top stories of the week."
+        },
+        {
+            "chunk_id": 118,
+            "summary": "In this paper, we have developed a cross-entropy loss (CNN"
+        },
+        {
+            "chunk_id": 119,
+            "summary": "The kernels of loss function during training is the optimal criterion for the selection of the optimal kernels of loss function during"
+        },
+        {
+            "chunk_id": 120,
+            "summary": "We have developed a prediction error gradient for kernel training images."
+        },
+        {
+            "chunk_id": 121,
+            "summary": "In this paper, we present a new method for the training of regression models using"
+        },
+        {
+            "chunk_id": 122,
+            "summary": "The best-fit setting for a CNN model is set at the same time as"
+        },
+        {
+            "chunk_id": 123,
+            "summary": "The results of this study are presented below."
+        },
+        {
+            "chunk_id": 124,
+            "summary": "The 'Drift' is a 3D-printed model of a"
+        },
+        {
+            "chunk_id": 125,
+            "summary": "In our study, we have chosen the Markov Processes Model (MPM) as"
+        },
+        {
+            "chunk_id": 126,
+            "summary": "In our series of letters from African journalists, film-maker and columnist Ahmedou Ould-Abdallah"
+        },
+        {
+            "chunk_id": 127,
+            "summary": "In this study, two points as thei features per layer were chosen as the"
+        },
+        {
+            "chunk_id": 128,
+            "summary": "The \"drift\" and \"no-drift\" locations of phytoplankton hotspots in the Indian Ocean are"
+        },
+        {
+            "chunk_id": 129,
+            "summary": "A Swarm Virtual Machine (SVM) is to be used to train a machine learning model."
+        },
+        {
+            "chunk_id": 130,
+            "summary": "The performance of a Bayesian algorithm is influenced by a large number of hyperparameters."
+        },
+        {
+            "chunk_id": 131,
+            "summary": "In this paper, we show that a Bayesian optimization algorithm can be used to improve the classification and regression of"
+        },
+        {
+            "chunk_id": 132,
+            "summary": "This paper presents the results of a Bayesian classifier (SVM) for different hyperparameters."
+        },
+        {
+            "chunk_id": 133,
+            "summary": "This paper presents the results of a coarse-grained classifier training on a large-scale"
+        },
+        {
+            "chunk_id": 134,
+            "summary": "The results of this study are presented in Table 2."
+        },
+        {
+            "chunk_id": 135,
+            "summary": "DriftLayers No-Drift Layers 00 DriftLayers No-Drift!"
+        },
+        {
+            "chunk_id": 136,
+            "summary": "The following table shows the results of the following experiments:"
+        },
+        {
+            "chunk_id": 137,
+            "summary": "Pre-exposure images have three different scales, while post-exposure images have three different scales."
+        },
+        {
+            "chunk_id": 138,
+            "summary": "Pre-exposure test images are to be used to train a CNN 1 model, i.e."
+        },
+        {
+            "chunk_id": 139,
+            "summary": "If the label \"Part-Hopping\" is not \"Part-Hopping\","
+        },
+        {
+            "chunk_id": 140,
+            "summary": "The following table shows the results of a series of tests carried out by the University"
+        },
+        {
+            "chunk_id": 141,
+            "summary": "Part-Hopping, Recoater-Streaking, and Uneven Powder Spreading are all"
+        },
+        {
+            "chunk_id": 142,
+            "summary": "Images courtesy of AFP, EPA, Getty Images and Reuters"
+        },
+        {
+            "chunk_id": 143,
+            "summary": "The following table shows the results of post-exposure test images."
+        },
+        {
+            "chunk_id": 144,
+            "summary": "The following example shows how scale 1 labels can be predicted."
+        },
+        {
+            "chunk_id": 145,
+            "summary": "This is a simple test to see if the label on the part is correct."
+        },
+        {
+            "chunk_id": 146,
+            "summary": "In this paper, we will look at the relationship between the scale 1 block and the part area."
+        },
+        {
+            "chunk_id": 147,
+            "summary": "All images are subject to change at any time."
+        },
+        {
+            "chunk_id": 148,
+            "summary": "The results of this study have been published in the journal Plos One."
+        },
+        {
+            "chunk_id": 149,
+            "summary": "The decision matrix for scale 2 and scale 3 labels."
+        },
+        {
+            "chunk_id": 150,
+            "summary": "The following table lists the most common Streaking Mislabelings."
+        },
+        {
+            "chunk_id": 151,
+            "summary": "In this paper, we show how to train a machine learning (ML) model"
+        },
+        {
+            "chunk_id": 152,
+            "summary": "In this paper, we show how a machine learning (ML) model can be trained on a large set of"
+        },
+        {
+            "chunk_id": 153,
+            "summary": "A confusion matrix is a representation of the ground truth labels of a ML model."
+        },
+        {
+            "chunk_id": 154,
+            "summary": "Output class represents the ground-truth label and the target class represents the predicted label."
+        },
+        {
+            "chunk_id": 155,
+            "summary": "BBC Sport looks at some of the key statistics from the World Cup in Brazil."
+        },
+        {
+            "chunk_id": 156,
+            "summary": "Confidence matrices for trained CNN models for (a) pre-exposure images, and (b) post-exposure"
+        },
+        {
+            "chunk_id": 157,
+            "summary": "As part of our series of letters from African journalists, filmmaker and columnist Ahmed Rashid looks at some of the most"
+        },
+        {
+            "chunk_id": 158,
+            "summary": "This paper presents the results of a series of experiments on a coarse powder bed to investigate"
+        },
+        {
+            "chunk_id": 159,
+            "summary": "This paper describes the implementation of a deep learning algorithm on a computer system."
+        },
+        {
+            "chunk_id": 160,
+            "summary": "Researchers at the University of California, Berkeley, have developed a way to"
+        },
+        {
+            "chunk_id": 161,
+            "summary": "The aim of this course is to provide a basic understanding of how to design, manufacture, test, and"
+        },
+        {
+            "chunk_id": 162,
+            "summary": "In this study, we find that the failure rate of an Al alloy part is higher than"
+        },
+        {
+            "chunk_id": 163,
+            "summary": "This is the first time we have used a 3D printed model of a"
+        },
+        {
+            "chunk_id": 164,
+            "summary": "The aim of this study is to train a classifier to identify the most common defects in a part."
+        },
+        {
+            "chunk_id": 165,
+            "summary": "A new method for predicting the quality of building parts has been developed by scientists at the Massachusetts Institute of Technology ("
+        },
+        {
+            "chunk_id": 166,
+            "summary": "This is a detailed analysis of the \"Part-Hopping\" and \"Uneven Powder Spread\""
+        },
+        {
+            "chunk_id": 167,
+            "summary": "Part hopping, also known as \"recoater lines\", is"
+        },
+        {
+            "chunk_id": 168,
+            "summary": "This is a scale model of the CNN 1 racing car."
+        },
+        {
+            "chunk_id": 169,
+            "summary": "The results of this study are presented in Fig.12 (a)."
+        },
+        {
+            "chunk_id": 170,
+            "summary": "Images courtesy of AFP, EPA, Getty Images and Reuters"
+        },
+        {
+            "chunk_id": 171,
+            "summary": "In our study, we used the post-exposure analysis and the pre-exposure"
+        },
+        {
+            "chunk_id": 172,
+            "summary": "The aim of this study is to investigate the relationship between the thickness of the printed area and the quality of the"
+        },
+        {
+            "chunk_id": 173,
+            "summary": "The post-exposure stage of the Raman process is the most important step in"
+        },
+        {
+            "chunk_id": 174,
+            "summary": "The following table shows the predicted build height for post-exposure images."
+        },
+        {
+            "chunk_id": 175,
+            "summary": "The \"Part-Hopping\" and \"Part-Overheating\" anomalies in pre-exposure images start"
+        },
+        {
+            "chunk_id": 176,
+            "summary": "The \"Part- Overheating\" anomaly starts to appear from layer numbered 2121 (marked with a black arrow"
+        },
+        {
+            "chunk_id": 177,
+            "summary": "This graph shows the overheating anomaly that starts to appear in the pre-exposure step"
+        },
+        {
+            "chunk_id": 178,
+            "summary": "In this paper, we show that the mislabel percentage increases for the first"
+        },
+        {
+            "chunk_id": 179,
+            "summary": "Rematers Sireaking and Fenders E Recoater Streaking Spread both have \"uneven Powder Spread"
+        },
+        {
+            "chunk_id": 180,
+            "summary": "Images courtesy of AFP, EPA, Getty Images and Reuters"
+        },
+        {
+            "chunk_id": 181,
+            "summary": "A novel spatio-temporal Markov chain Monte Carlo classifier (SVM) has been developed to"
+        },
+        {
+            "chunk_id": 182,
+            "summary": "In this study, two classifiers were trained on a U.S."
+        },
+        {
+            "chunk_id": 183,
+            "summary": "The dimensions of the photodiode layers are as follows."
+        },
+        {
+            "chunk_id": 184,
+            "summary": "The failure of a photodiode part was investigated by predicting the last layers of the"
+        },
+        {
+            "chunk_id": 185,
+            "summary": "A comparison of the sensitivity of two photodiodes has been made."
+        },
+        {
+            "chunk_id": 186,
+            "summary": "No-Drift Layers Drift Layers 60 80 120 140 160 180 200 22 20 0 100 200 300 400"
+        },
+        {
+            "chunk_id": 187,
+            "summary": "We have used a spatio-temporal Markov chain Monte Carlo (SVM) classifier to predict"
+        },
+        {
+            "chunk_id": 188,
+            "summary": "The MPM viewer for layer number 2561 (which was predicted \"Drif"
+        },
+        {
+            "chunk_id": 189,
+            "summary": "This map shows the regions of the photodiode that are most likely to"
+        },
+        {
+            "chunk_id": 190,
+            "summary": "The hot-spot regions in photodiode 1 and photodiode 2 are visible to the naked eye."
+        },
+        {
+            "chunk_id": 191,
+            "summary": "All images courtesy of the European Space Agency."
+        },
+        {
+            "chunk_id": 192,
+            "summary": "Pre-exposure and post-exposure images of two photodiodes that have been printed on a single sheet of"
+        },
+        {
+            "chunk_id": 193,
+            "summary": "The model predicts that the region which was not covered by the powder in Fig."
+        },
+        {
+            "chunk_id": 194,
+            "summary": "The results of this study have been published in the journal Plos One."
+        },
+        {
+            "chunk_id": 195,
+            "summary": "The quality of a product can be affected by a number of factors, including"
+        },
+        {
+            "chunk_id": 196,
+            "summary": "The quality of a part can be affected by a number of factors, including"
+        },
+        {
+            "chunk_id": 197,
+            "summary": "The aim of this study is to improve the reliability and repeatability of L-PBF systems."
+        },
+        {
+            "chunk_id": 198,
+            "summary": "The construction of a building can be a complex and time-consuming process"
+        },
+        {
+            "chunk_id": 199,
+            "summary": "This study aims to monitor and post-process the in-situ data obtained at three different steps, i."
+        },
+        {
+            "chunk_id": 200,
+            "summary": "The purpose of this study was to investigate the relationship between powder-bed spreading and printed layer quality."
+        },
+        {
+            "chunk_id": 201,
+            "summary": "In this study, two photodiodes were used to detect anomalies in the Melt Pool Monitoring data."
+        },
+        {
+            "chunk_id": 202,
+            "summary": "A new photodiode 2 has been proposed to capture the drift in the ISM band."
+        },
+        {
+            "chunk_id": 203,
+            "summary": "The aim of this project is to develop a system for monitoring the quality of building parts in the construction"
+        },
+        {
+            "chunk_id": 204,
+            "summary": "A report on the state-of-the-art in 3D printing and additive manufacturing has been prepared by"
+        },
+        {
+            "chunk_id": 205,
+            "summary": "The following papers have been published in recent years:"
+        },
+        {
+            "chunk_id": 206,
+            "summary": "In: Rashid, R., et al., Effect of scan strategy on density and metallurgical properties of"
+        },
+        {
+            "chunk_id": 207,
+            "summary": "The following is a list of some of the key figures in the field of manufacturing science and engineering,"
+        },
+        {
+            "chunk_id": 208,
+            "summary": "In situ monitoring systems of the SLM process: On the need to develop machine learning models for"
+        },
+        {
+            "chunk_id": 209,
+            "summary": "High-performance detection of alcoholism by unfolding the amalgamated EEG spectra using the Random Forests"
+        },
+        {
+            "chunk_id": 210,
+            "summary": "In: IEEE International Conference on E-health Networking, Application and Services (HealthCom)"
+        },
+        {
+            "chunk_id": 211,
+            "summary": "Baumann, F., et al."
+        },
+        {
+            "chunk_id": 212,
+            "summary": "A selection of papers published in the fields of computer science and artificial intelligence between 1995 and 2016."
+        },
+        {
+            "chunk_id": 213,
+            "summary": "Flaw detection in powder bed fusion using optical imaging."
+        },
+        {
+            "chunk_id": 214,
+            "summary": "Anomaly detection and classification in a laser powder bed additive manufacturing process using a trained computer vision algorithm"
+        },
+        {
+            "chunk_id": 215,
+            "summary": "Okaro, I.A., et al."
+        },
+        {
+            "chunk_id": 216,
+            "summary": "Defect detection in selective laser melting technology by acoustic signals with deep learning."
+        },
+        {
+            "chunk_id": 217,
+            "summary": "Shevchik, S.A., et al."
+        },
+        {
+            "chunk_id": 218,
+            "summary": "In: Khanzadeh, M., et al., Porosity prediction: supervised-lea"
+        },
+        {
+            "chunk_id": 219,
+            "summary": "Imani, F., et al., Deep learning of variant geometry in layerwise imaging"
+        },
+        {
+            "chunk_id": 220,
+            "summary": "Clijsters, S., et al., In situ quality control of the selective laser melting process using"
+        },
+        {
+            "chunk_id": 221,
+            "summary": "A selection of some of the best papers on additive manufacturing that have been published in the past"
+        },
+        {
+            "chunk_id": 222,
+            "summary": "A machine learning approach to Drift Detection in Selective Laser Melting (SLM) Using a Machine Learning Approach."
+        },
+        {
+            "chunk_id": 223,
+            "summary": "\"High speed melt pool and laser power monitoring for selective laser melting (SLM9)."
+        },
+        {
+            "chunk_id": 224,
+            "summary": "The full text of this paper can be found at:"
+        },
+        {
+            "chunk_id": 225,
+            "summary": "Single image dehazing with image entropy and information fidelity."
+        },
+        {
+            "chunk_id": 226,
+            "summary": "Materials & Design, 160, 1080-1095."
+        }
+    ]
+}

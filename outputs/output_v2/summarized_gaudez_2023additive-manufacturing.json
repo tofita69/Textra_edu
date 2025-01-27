@@ -1,0 +1,1061 @@
+{
+    "chunks": [
+        "HAL open science A synchrotron transmission X-ray microscopy study on precipitate evolution during solid-state thermal cycling of a stainless steel S. Gaudez, M. Ben Haj Slama, E. Heripre, L. Yedra, M. Scheel, S. Hallais, M.V. Upadhyay > To cite this version:",
+        "S. Gaudez, M. Ben Haj Slama, E. Heripre, L. Yedra, M. Scheel, et al.. A synchrotron transmission X-ray microscopy study on precipitate evolution during solid-state thermal cycling of a stainless steel. Additive Manufacturing, 2023, 73, pp.103692. 10.1016/j.addma.2023.103692 . hal-04162259 HAL Id: hal-04162259 https//halscience/la-04162259V1 Submitted on 14 Jul 2023",
+        "HAL is a multi-disciplinary open access L'archive ouverte pluridisciplinaire HAL, est archive for the deposit and dissemination of sci- destinée au dépôt et à la diffusion de documents entific research documents, whether they are pub- scientifiques de niveau recherche, publiés ou non,",
+        "lished or not. The documents may come from émanant des établissements d'enseignement et de teaching and research institutions in France or recherche français ou étrangers, des laboratoires abroad, or from public or private research centers. publics ou privés. A synchrotron transmission X-ray microscopy study on",
+        "precipitate evolution during solid-state thermal cycling of a stainless steel S. Gaudezl,+, M. Ben Haj Slama1,2,++, E. Heripre2,+++, L. Yedra3, M. Scheel4, S. Hallais/, M.V. Upadhyayl,* 1 Laboratoire de Mécanique des Solides (LMS), CNRS UMR 7649, Ecole Polytechnique, 91128 Palaiseau, France",
+        "2 Université Paris-Saclay, CentraleSupélec, ENS Paris-Saclay, CNRS, Laboratoire de Mécanique Paris-Saclay, 91190, Gif-sur-Yvette, France 3 University of Barcelona, Department of Electronics and Biomedical Engineering and Institute of Nanoscience and Nanotechnology (IN2UB), 08028 Barcelona, Catalonia, Spain 4 Synchrotron SOLEIL, 91190 Saint-Aubin, France \"Corresponding author, Email: manasatpadhyay@polytechmique.edu Current address:",
+        "+ Photons for Engineering and Manufacturing, Paul Scherrer Institut, Forschungsstrasse 111, 5232 Villigen PSI, Switzerland ++ Bruker Nano GmbH, Am Studio 2D, 12489 Berlin, Germany. +++ PIMM, Arts et Metiers Institute of Technology, CNRS, Cnam, HESAM Universite, 151 Boulevard de l'Hopital, 75013 Paris, France. Keywords",
+        "X-ray nanotomography; micropillar; heat treatment; machine learning; finite element modeling Abstract During additive manufacturing of stainless steels, sub-micron sized oxide (i.e., MnSiO3, SiO2, and CrMn,04) and non-oxide (i.e., sulfide, in particular MnS, and possibly carbides, phosphides and ni-",
+        "trides) precipitates form during solidification. But do they evolve during the subsequent solid-state ther- mal cycling (SSTC) until the end of the printing process? A recent study on subjecting thin-film lamellae extracted from an additively manufactured stainless steel to heating-cooling treatments inside a transmis-",
+        "sion electron microscope (TEM) confirmed that precipitate composition can indeed evolve during SSTC. However, that study could not provide any conclusive evidence on precipitate volume fraction, density, and size evolution. In this work, we have quantified these changes using a novel experimental procedure",
+        "combining (i) micropillar extraction from an additively manufactured stainless steel, (ii) subjecting them to different SSTC (including annealing) inside a TEM, (iii) performing synchrotron transmission X-ray microscopy to identify precipitates, and (iv) using a machine learning model to segment precipitates and",
+        "quantify precipitate volume fraction, density, and size. Comparing these quantities before and after each SSTC/annealing sequence reveals that new oxides nucleated during rapid SSTC with high maximum temperature. However, during slow SSTC with high maximum temperature and annealing, precipitates",
+        "dissolve because of oxygen evaporation during SSTC inside the TEM. A new empirical relationship cor- relating precipitate sizes and cooling rates is proposed. It is in good agreement with data collected from conventional casting, directed energy deposition, and powder bed fusion processes. 1 Introduction",
+        "Austenitic stainless steels, in particular 316L, have attracted wide attention in additive manufacturing (AM) because of their utilization in a large variety of applications and their corrosion resistance. AM of 316L parts is mainly performed either by directed energy deposition, primarily using a laser, e.g., the",
+        "laser metal deposition process (LMD), or by laser powder bed fusion (LPBF). Both techniques result in a hierarchical microstructure with physical and chemical heterogeneities across multiple length scales. 1 Sub-micron sized oxide (i.e., MnSiO3, SiO2, and CrMn204) [1-5] and non-oxide (i.e., sulfide such",
+        "as Mns) [4,5] precipitates are among the smallest chemical and physical heterogeneities present in any as-built 316L. These precipitates play an important role in determining the mean free path of dislocations and may contribute to an increase in the yield strength of the material [1,2,6,7. They can also act as",
+        "nucleation sites for cracks [8] and have deleterious effects on the corrosion resistance of 316L [9). One of the main contributors to the formation of oxide precipitates in AM 316L is the oxygen in- troduced into the solid-solution of the alloy during the gas atomization process used to manufacture the",
+        "powder feedstock [3). Another contributor is the oxygen induced into the material from the environment during the AM process and the amount added depends on the AM process parameters such as laser power, scan speed, and shielding gas flow rate [1,10,11]. Oxide precipitates formed during the gas atomization",
+        "process can persist in the liquid phase during AM [3), and new oxides can nucleate and grow during the rapid solidification phase of an AM process as shown via mean field nucleation and growth models [7.",
+        "Along with the oxides, non-oxide precipitates can also nucleate and grow during solidification, often in the vicinity of the oxides [4,12). After building, AM parts are often heat-treated to obtain desired mechanical properties and reduce residual stresses. The evolution of these precipitates (oxide and non-oxides) was investigated during",
+        "annealing treatments 2, 5, 6, 13J by scanning and transmission electron microscopy (SEM and TEM, respectively). The results show coarsening and phase transformations of these precipitates to more stable precipitates. In addition to these observations, faster coarsening kinetics of oxides were observed at the",
+        "early stage of recrystallization due to grain boundary diffusion [5] accompanied by the following effects of the recrystallization on phase transformation [5): MnSiO3 to CrMn204 for non-recrystalized grains and MnSiO3 to Si-rich oxides in recrystallized grains.",
+        "However, the impact of an important part of the AM process on the formation of precipitates has not yet been well studied. This part is the long period after solidification and until the end of the process",
+        "during which the material is subjected to multiple heating and cooling cycles at different temperature amplitudes (up to the solidus) and heating and cooling rates (up to 103-106 oC/s) in the solid state, which",
+        "is called solid-state thermal cycling (SSTC) or intrinsic heat treatment. Thus far, only one study [41 has reported on the effect of SSTC on precipitate evolution. In this study, TEM lamellae were subjected to SSTC inside a TEM and the precipitate composition evolution before and after each SSTC was compared.",
+        "While such studies are well suited to understand precipitate composition evolution, it is not possible to conclude on precipitate volume fraction, density, and size evolution during SSTC because of the thin sample geometry and the limited number of precipitates studied.",
+        "To that end, in this work, a novel experimental procedure is proposed. It involves subjecting micropil- lars extracted from AM 316L to SSTCS in a controlled environment (vacuum) and measuring precipitate evolution in them by performing nanotomography using transmission X-ray microscopy (TXM), before",
+        "and after each SSTC. The micropillars are 25 um in diameter and 75 pm in height, which is more than 3 orders of magnitude larger than TEM lamellae and hence, more representative; thus, TXM studies",
+        "on micropillars are better suited to study the volume fraction, density, and size evolution of precipitates in AM 316L than TEM studies on thin-film lamellae. The nature of the SSTCS performed on the mi-",
+        "cropillars is determined with the help of heat transfer finite element (FE) simulations. A 3D U-net deep convolutional neural network (DCNN) model developed in [14] was used to segment precipitates from the TXM data. 2 Material and methods",
+        "Material composition, AM process parameters, experimental techniques, and setups used in the present work have been already presented in our previous works [4,12, 14]. Thus, only a brief recapitulation of the material and methods is provided here. 2.1 Material and sample preparation",
+        "A 316L powder produced via inert gas atomization was investigated. The chemical composition of the powder is (wt%): Fe16.9C-127N-25Mel3Mln0rs-0015P-00IIC.0.005S: oxygen up to 0.05 % may be added to the powder during atomization. A single track bidirectionally printed wall of 3 layers",
+        "(100x0.6x0.6 mm3) was manufactured via LMD using a \"Mobile\" machine from BeAM with the following 2 parameters: laser power = 225 W, powder flow rate = 6.5 g/min, deposition speed = 2000 mm/min, and",
+        "vertical displacement of focusing head = 0.2 mm between each layer. This wall is the same as the one used in [4, 12,14). After cutting (normal to the build and print directions) and polishing (Sic paper up to 4000 grit,",
+        "followed by 3 pm and 1 pm grit diamond paste, and finally Ar ion polishing), the as-built wall was characterized by SEM and electron back-scattered diffraction (Oxford Instruments) analysis using an environmental-SEM Quanta 650 FEG microscope; the images can be found in [4,12). Regions of interest",
+        "close to the center of the wall thickness in the first, second, and third layer were defined and cylindrical micropillars of 2 25 m diameter and 2 75 um height were extracted from these regions using a focused",
+        "ion beam (FIB) inside a FEI Helios Nanolab 660 dualbeam SEM-FIB. To reduce the time to manufacture micropillars, a 30 kV high voltage and a 65 nA beam current have been used to mill the surrounding",
+        "area. Then, a beam current of 21 nA has been used to extract the micropillars and to do surface polishing. Figures la and b show the secondary electron micrographs taken during the FIB preparation and extraction of a micropillar. The micropillars were then attached onto MEMS-based heating/cooling",
+        "chips (called thermal chips in the following), which are transparent to electrons, using tungsten via ion beam-induced deposition at 30 kV and 0.43 nA (see Figure 1c). Micropillars 1, 2, and 3 were extracted",
+        "from the top, middle, and bottom layers of the LMD 316L wall, respectively. Thus, micropillars 2 and 3 were already subjected to SSTC during AM (e.g., for micropillar 2 see Figure 7 in [41). In the following,",
+        "micropillars 1, 2, and 3 will be denoted as pP1, pP2, and pP3, respectively. b) 50-um 50 um : : 50 um Figure 1: Secondary electron micrographs of a micropillar: a) after milling and before its extraction from",
+        "the sample, b) attached to the FIB manipulator to be transferred onto a thermal chip, and c) attached onto a thermal chip. The micropillars are 2 25 pm in diameter and 2 75 pm in height. 2.2 Setup to perform SSTC inside a TEM",
+        "To perform SSTC, each micropillar was attached to a thermal chip (Figure 1c), which can be mounted onto a thermal chip holder (Fusion Select Protochips) developed for TEM. The holder can heat the chip",
+        "from room temperature (RT) to a maximum of 1200 °C and cool it back down to RT, with maximum heating and cooling rates of 106 °C/s. A FEI Titan3 G2 60-300 TEM was used with this holder to perform SSTC in primary vacuum (at about 10-8 mbar).",
+        "This setup to perform SSTC on micropillars has the following advantages: (i) the primary vacuum inside the TEM ensures that the micropillar is not oxidized during SSTC, (ii) the thermal chip has been benchmarked (by Protochips) for temperature amplitude and heating and cooling rates mentioned above,",
+        "and (iii) the micropillars are uniformly heated and cooled everywhere, which has been confirmed via FE based heat transfer simulations described in Section 2.3 and presented in Section 3.1. 2.3 Heat transfer simulation setup The electrothermal chips used to perform SSTC have been designed to uniformly heat and cool TEM",
+        "lamellae, which have a typical surface area of 2 5 X 5 pm2 and thickness of 2 0.1 pm. However, it is not sure whether the chip can uniformly heat (cool) micropillars of diameter 25 pm and height 75 um up to 3",
+        "the maximum temperature at the highest heating (cooling) rate. To gain insight on this aspect, transient heat transfer FE simulations were performed. During the experiment, each micropillar had been placed in such a way that one of its circular surfaces",
+        "was in contact with the chip and they were held in place using three \"+\"-shaped tungsten contacts (see Figure 1c). The micropillars were heated via their contact with the chip through the tungsten contacts",
+        "and via radiative heat transfer from the chip. However, in the simulations, we assume the most adverse scenario, which is that the micropillars are only heated via the \"+\"-shaped contacts; this assumption results in the highest temperature gradients. It is further assumed that these tungsten contacts conduct",
+        "heat perfectly from the chip to the micropillar i.e., at any given instant, the tungsten contacts have the same temperature as the chip. Even further, it is assumed that the portion of each of these tungsten",
+        "contacts at the bottom of the curved surface of the micropillar is a square of size 6 X 6 pm2 with negligible thickness. Two contacts are placed at 180° with respect to each other and the third one is at 90° to the",
+        "other two about the micropillar axis (see Figure 2). In the simulation, the tungsten contacts are: mimicked by imposing temperature (Dirichlet) boundary condition at their location. The remainder of the curved surface and the flat surfaces are imposed with zero heat flux (Neumann) boundary condition. The initial,",
+        "ambient, and reference temperatures are all set to 20 oC. Since radiation and other heat sources and sinks are neglected, the governing equation to be solved is: pci = KAT (1) where T is the temperature, P = P(T), Cy = C(T), and k = K(T) are the temperature dependent",
+        "density, specific heat at constant volume, and thermal conductivity, respectively, as shown below. The heat conduction is assumed to be isotropic and any spatial variation in k is assumed to be negligible in",
+        "comparison to spatial variations in T. The temperature dependency of P, Cus and k for 316L are given by [15): C(T) = 458.98 + 0.1328 T J/(kg.K) P(T) = 8084.2 - 0.4208 T - 3.8942 X 10 -5 T2 kg/m (2) K(T) = 9.248 + 0.0157 T W/(m.K)",
+        "ABAQUS/Standard (time implicit) software [16] from Dassault Systèmes was used to perform the FE simulations. The simulated micropillar was meshed using 120932 non-uniformly sized 4-node linear tetrahedral elements (type DC3D4 in ABAQUS) as shown in Figure 2. Tungsten contacts 6x6 ym2 Nodes used to extract temperature 0 25 um",
+        "15 ym Figure 2: Illustration of the meshed micropillar geometry used for FE simulations; 120932 non-uniformly sized 4-node linear tetrahedral elements (type DC3D4 in ABAQUS) were used. The location of tungsten contacts (2 out of 3) used to impose temperature boundary conditions as well as the two nodes used to",
+        "extract temperature are indicated. 2.4 TXM: Transmission X-ray Microscopy TXM has been used to characterize precipitate evolution inside samples before and after each SSTC performed on each micropillar. The experiments were conducted at the ANATOMIX beamline [17 of 4",
+        "the synchrotron SOLEIL (Saint-Aubin, France) using the absorption contrast TXM approach [18). A monochromatic X-ray beam energy of 16.87 keV was used. The samples were illuminated by placing the condenser 2 m in front of the sample. The objective zone plate was 69.68 mm from the sample. A",
+        "Hamamatsu C12849-112U detector (2048 X 2048 pixels with a pixel size of 6.5 X 6.5 pm?) was placed at 30 m from the sample. It provided a field-of-view of 30 X 30 pm? and a pixel size of 29.33 nm (using",
+        "a 2 X 2 binning). While the field-of-view was sufficiently larger than the diameter of the micropillars, it was however insufficient to cover their height. To that end, three measurements along the height of the micropillars were necessary. For each measurement, 1000 projections of 1 S exposure time each",
+        "were acquired at RT over an angular range of 180° to guarantee the best spatial resolution possible during the reconstruction and a good signal-to-noise ratio. A resolution of 81 nm, i.e., the minimum precipitate diameter that can be measured, was achieved with the current setup and analysis workflow",
+        "(see Section 2.5). This was confirmed with SEM investigations accounting for stereological corrections. In order to improve the signal-to-noise ratio, each measurement was repeated four times and the four sets of data were merged during reconstruction. The PyHST software package [19] was used for data",
+        "pre-processing and tomographic reconstruction. Figure 3a shows an image slice of 1024 X 1024 pixels of the TXM data after reconstruction and merging. Bright contrast in gray is a slice of the micropillar while the surrounding dark contrast is the environment and region outside of the reconstruction. Precipitates",
+        "have a spherical morphology and are visible as dark contrast within the micropillar slice. a) b) c) 5 um 5 um 10 um Figure 3: Example of a) an image slice (1024 X 1024 pixels) from a TXM tomograph of a micropillar,",
+        "b) corresponding precipitate segmentation using the 3D U-net DCNN from a micropillar, and c) a 3D view of the reconstructed TXM data (1024 X 1024 X 540 voxels) with spherical segmented precipitates highlighted in blue. 2.5 Segmentation and analysis",
+        "Precipitate segmentation of TXM micrograms have been performed using the 3D U-net DCNN model' presented in [14). The segmented volumes returned by the 3D-DCNN were analyzed with the ImageJ software [20] to obtain characteristic feature information such as the volume fraction, the average diam-",
+        "eter, and the number of precipitates. The 3D U-net DCNN model takes into account the neighboring volume during segmentation of a voxel; therefore, objects near the edges of the investigated data are",
+        "not well segmented. This bias is corrected by removing the first five and last five slices of the volume after segmentation. In addition, large precipitates (V N 2000 voxels) are not well segmented by the",
+        "model and were manually segmented as they are sparse in the volume. An example of a segmented image slice is shown in Figure 3b and an example of a segmented volume is shown in Figure 3c. Precipitate",
+        "analysis was performed with the 3D object counter plugin available in ImageJ including objects on edges. A minimum volume size of 8 voxels was defined corresponding to an equivalent sphere with a diameter of 81.1 nm. The precipitates present a spherical morphology in the as build that remains after heat-",
+        "treatments independently of the conditions. The following quantities are presented and analyzed in this work: 1The python code for this model along with fitted weights for segmenting precipitates in micropillars has been made available for users via a CC-by-4.0 license at tye/fgithb.co/amaspadhyy/erey gammi 3D-DCNN. 5",
+        "Volume fraction (f): the ratio of the sum of the volume of all precipitates and the volume of the part of the micropillar investigated. Particle density (p): the ratio of the weighted number of precipitates and the volume of the part",
+        "of the micropillar investigated. Precipitates in contact with edges were weighted by 0.5 while precipitates in the bulk were weighted by 1. Average equivalent diameter (p): computed from the equivalent diameter of each precipitate, which is calculated from the segmented volume of the precipitate. The precipitates in contact with edges",
+        "have been excluded because they are incomplete i.e., a part of the volume is missing from the analyzed volume. As the aforementioned quantities are similar along the height of each micropillar, due to their small sizes",
+        "compared to the bulk sample, only their mean value is studied. The error bars of f and P represent the dispersion (standard deviation) of the three experimental measures obtained from the three experiments performed to cover each micropillar. The error bars in 9 represent the dispersion (standard deviation)",
+        "of all considered precipitates in a micropillar. 3 Results 3.1 Heat transfer simulation FE heat transfer simulations are first performed to understand up to what heating rates can the mi- cropillars be uniformly heated by the thermal chips used to subject micropillars to SSTC; as presented",
+        "in Section 2.2, the thermal chip can reach a maximum temperature of 1200 oC and maximum heating and cooling rates of 106 oC/s. Using the simulation setup presented in Section 2.3, four rapid heating simulations were performed. The temperature at the location of the tungsten contacts (Figures 1c and",
+        "2) is increased from 20 °C (RT) to 1200 °C at four different heating rates: 103 °C/s, 104 oC/s, 105 oC/s, and 106 oC/s; the respective simulation times are 1.18 s, 1.18x10-1 S, 1.18x10-2 S, and 1.18x10-3 S.",
+        "Figure 4a shows the temperature as a function of time (normalized with respect to maximum simulation time) extracted from the bottom and the top position of the simulated micropillar (see Figure 2) for each heating rate. Figure 4b shows the temperature difference between the top and the location of the",
+        "tungsten contacts. Simulation predictions show that as the applied heating rate increases, the tempera- ture difference also increases. Table 1 reports the highest temperature difference (ATmaz) predicted from each simulation and the temperature (T) at the tungsten contact points. For a heating rate of 103 oC/s,",
+        "the maximum difference is lower than 1 oC. It increases by an order of magnitude with a corresponding increase in the order of magnitude of the heating rate. The temperature difference can be considered to be negligibly small in the case of 103 oC/s. However,",
+        "it becomes significant in the case of higher heating rates. Therefore, in order to restrict ourselves to the case of uniform heating of the micropillars, the maximum heating and cooling rates used to perform any SSTC were less than or equal to 103 OC/s. 6 a) 1200 bottom 1030Cis",
+        "bottom 104 Cls 1000 bottom 105 PCls bottom 106 PCls top 103 \"Cls top 104 \"Cls 800 top 105 PCls top 106 oCls 600 400 - 200 0 b) 1030Cis 104 \"Cls 105 \"CIs 1000 106 \"CIs 8 100 10 I A 1 0.1 0 0.2 0.4 0.6 0.8 1",
+        "Normalized time Figure 4: Heat transfer FE simulation predictions during heating of the micropillar with heating rates ranging from 103 oC/s to 106 oC/s from 20 oC to 1200 OC: a) temperature evolution at the location of",
+        "tungsten contacts (continuous lines) and at the top (dashed lines) of the micropillar (the two nodes used to extract temperature are shown in Figure 2), and b) the temperature difference between the two nodes",
+        "as a function of time (normalized with respect to the maximum simulation time: 1.18 S, 1.18x10-1 s, 1.18x10-2 S, and 1.18x10-3 s respectively for 103 oC/s, 104 oC/s, 105 oC/s, and 106 °C/s). Table 1: The highest temperature difference along the micropillar (ATmaz) and the applied temperature",
+        "on the tungsten contact points at the bottom of the micropillar at which ATmaz occurs, predicted from heat conduction FE simulations. Heating rate (°C/s) AT, mar (°C) T (°C) 103 0.9 56 104 8.5 85 105 76 256 106 533 1062 7 3.2 Subjecting micropillars to SSTC inside a TEM",
+        "Each micropillar has been subjected to different SSTCS in order to mimic what could occur during AM or post-process annealing. The SSTCS were designed to investigate the effect of heating rate, temperature amplitude, the number and type of cycles, and annealing on the evolution of precipitates. Figure 5 shows",
+        "the temperature as a function of time curves of the SSTCS applied on each micropillar via the thermal chips. SSTC1 SSTC2 SSTC3 1200 1000 800 a 600 400 200 0 0 0.5 1 1.5 2 2.5 A 0 3000 6000 9000 12000 15000 18000 3 0 2500 5000 7500 2",
+        "Time (s) Times (s) Time (s) SSTC1 SSTC2 1200 1000 - 800 600 mwwA M -V VV 2 wny 400 200 0 0 25 50 75 100 1800 1825 1850 1875 2 0 1000 2000 3000 4000 Time (s) Time (s) SSTC1 1200 1000 800 600 400 200 0",
+        "0 200 400 600 800 - Time (s) Figure 5: Temperature as a function of time curves of SSTC conducted under vacuum with the thermal chip for each micropillar. TXM measurements (TXM e have been performed before and after each SSTC. pP1 has been subjected to three SSTCs:",
+        "1. P1-SSTC1: Single fast heating and cooling cycle up to 1000 oC with a heating and cooling rate of 1000 °C/s, starting and ending at RT. 2. P1-SSTC2: Repeated heating and cooling cycles. The first cycle consists of heating up to 1000 oC",
+        "and cooling down to 50 °C at 1 °C/s. Then, the maximum and minimum temperature reached has been respectively decreased and increased by 50 oC until 600 C was reached. The heating and cooling rates were reduced after each cycle to maintain a 1950 S long cycle.",
+        "3. P1-SSTC3: Annealing for 2 hours at 1100 oC. A heating rate of 10 oC/s was used to reach the annealing temperature from RT. At the end, the micropillar was cooled down to RT at 1000 °C/s. pP2 has been subjected to two SSTCs:",
+        "1. P2-SSTC1: Repeated heating and cooling cycles. The first cycle consists of heating up to 1000 oC, a cooling down to 50 OC at 1000 oC/s, and finally a cooling down to 25 OC at 5 oC/s. Then, the",
+        "maximum and minimum temperature reached has been respectively decreased and increased by 50 oC until 650 oC was reached. The heating and cooling rate was reduced after each cycle to maintain a 7 s long cycle. Then, cycles between 650 C and 550 OC with a heating and cooling rate",
+        "of 30 oC/s were repeated until the end. 8 2. pP2-SSTC2: Repeated heating and cooling cycles. The first cycle involves heating up to 1000 °C and cooling down to 50 oC, both at 10 °C/s. Then, the maximum and minimum temperature",
+        "reached has been respectively decreased and increased by 50 oC until 650 °C was reached. Then, cycles between 650 OC and 550 °C are repeated. The heating and cooling rate was reduced after each cycle to maintain a 195 S long cycle. pP3 has been subjected to one SSTC:",
+        "1. P3-SSTC1: Annealing for 10 minutes at 1100 OC. A heating rate of 1000 oC/s was used to reach the annealing temperature from RT. At the end, the micropillar was cooled down to RT at 10 oC/s. 3.3 Precipitate evolution in micropillars via TXM",
+        "Figure 6 shows the evolution of the volume fraction f (vol%), particle number density P (#/um), and average equivalent diameter 9 (m), respectively, of the precipitates in pP1, pP2, and pP3 after their respective SSTCs. The results are summarized in Table 2.",
+        "The initial f, P, and 4 for all micropillars are 2 0.197 t 0.017 vol%, 2 0.547 t 0.08 #/um3, and 2 175.3 t 4.6 nm, respectively. Furthermore, the initial f, P, and 6 increase from pP1 to pP3. These",
+        "differences should be a consequence of the fact that these micropillars have been extracted from different layers and they have experienced different SSTCs during fabrication; recall that pP1 has been extracted from thet topmost layer and pP3 has been extracted from the bottommost layer. However, these differences",
+        "are comprised within the measurement dispersion. While in our previous TEM studies it was observed non-oxide precipitates together with Mn-Si-rich oxides [4, 12), the ones that are observed in the TXM micrograms in this work are mainly oxides for the",
+        "following three reasons: (i) the initial 9 for all micropillars is similar to the one reported for Mn-Si-rich oxide precipitates in our previous TEM study performed on the same 3-layer LMD 316L wall [4), (ii) at",
+        "the temperatures and times investigated the precipitates should be mainly oxide [12), and (iii) based on the composition of the investigated steel, the initial f is in agreement with the equilibrium f for MnSiO3",
+        "and one order of magnitude higher than the equilibrium fraction of sulfide expected (see Figure 8 in [41). Due to the amorphous nature of the precipitates, it was not possible to investigate their nature and",
+        "their phase fraction with X-ray diffraction. This observation does not imply that there are no non-oxide precipitates or no spinel precipitates in the micropillars but that the phase contrast between oxide, non- oxides, spinels and the TXM resolution may not be sufficiently large for this technique to allow separating them.",
+        "Table 2: Volume fraction (f), particle density (p), average equivalent diameter (sp), and contribution to increasing the yield stress (Adp) of the precipitates investigated for each micropillar before and after each SSTC. pP SSTC f (vol%) 4 (nm) P (#/um) Adp (MPa) 1 Init. 0.179 169.9 0.539 17.2 1 0.232",
+        "172.1 0.659 19.5 2 0.209 170.2 0.608 18.6 3 0.113 157.1 0.327 14.4 2 Init. 0.199 177.8 0.546 17.5 1 0.239 184.3 0.609 18.7 2 0.136 164.6 0.437 15.3 3 Init. 0.212 178.0 0.557 18.1 1 0.155 167.3 0.336 16.2 9 a) 0.9 b) 0.9 f (vol%) f(vol%) 1",
+        "0.8 uP1 p (Hum3 0.8 P2 p (#lum3) $ (um) g (um) 0.7 0.7 0.6 0.6 e 9 0.5 D0 0.5 a a 0.4 a 0.4 0.3 MnSiO3 Equ. fraction 1 0.3 MnSio3 Equ. fraction 0.2 0.2 E I 0.1 0.1 0 0 Init. SSTC1 SSTC2 SSTC3 Init. SSTC1 SSTC2",
+        "Thermal treatment Thermal treatment c) 0.9 f (vol%) 1 0.8 MP3 p (Hum3 - d (um) 0.7 0.6 9 0.5 a a 0.4 0.3 MnSiO3 Equ. fraction 0.2 $ 0.1 0 Init. SSTC1 Thermal treatment Figure 6: Volume fraction (f), particle density (p), and average equivalent diameter (sp) of precipitates",
+        "in a) pP1, b) pP2, and c) pP3, before and after each applied SSTC of the respective micropillars. The gray line is the equilibrium volume fraction of MnSiO3 at RT. The first SSTCs of pP1 and pP2 were applied to study the efect of single versus multiple SSTCS on",
+        "precipitate evolution. After P1-SSTC1, f and P have increased and 6 remains nearly the same. These observations could be rationalized in the following manner. At the end of solidification during LMD, supersaturated oxygen should still be present in the solid solution in austenite [3] or at defects such as",
+        "dislocations and grain boundaries (as observed in cast steel [21]). This oxygen led to oxide precipitation during pP1-SSTC1. Due to the high heating rate during pP1-SSTC1, precipitate nucleation occurred at a temperature higher than the one during slow heating. This higher temperature resulted in an increase",
+        "in the driving force for precipitate nucleation, which in turn resulted in an increase in the number of finer precipitates. In addition, there was less time for recovery, which caused an increase in the number of nucleation sites at crystal defects (e.g., dislocations) as well as the nucleation potency. Meanwhile,",
+        "pre-existing precipitates grew during SSTC; note that these pre-existing precipitates also include the ones whose 9 is lower than 81.1 nm and could not be resolved via TXM. The first cycle of pP2-SSTC1 (heating to 1000 °C and cooling to RT at 1000 °C/s) is the same as",
+        "P1-SSTC1. Then, this cycle was followed by multiple cycles with a continuous increase of the average temperature and finally reaching a low amplitude cycle between 550 oC and 650 oC until the end of",
+        "P2-SSTC1. After this first cycle, it is expected the same f, 4, and P evolution as P1-SSTC1. Thus, the highest 4 and lowest p for a similar f than pP1-SSTC1 observed at the end of the P2-SSTC1 suggest 10 that precipitate coarsening has occurred.",
+        "After each of P1-SSTC2, P1-SSTC3, P2-SSTC2, and pP3-SSTC1, there is a decrease in f, P, and 4, which indicates that precipitates have dissolved. This result is unexpected since additional heat treatment should result in precipitate coarsening and an increase in f to reach the equilibrium fraction. Furthermore,",
+        "these observations contradict those reported in studies that investigated precipitate evolution in 316L [2, 5,6, 22); in those studies, f remains constant while increases and P decreases due to precipitates coarsening. The explanation for this unexpected result is provided in Section 4.",
+        "Figure 7 shows the evolution of 4 of the oxide precipitates as a function of the cooling rate (7) of solidification. The data presented encompasses conventional casting, directed energy deposition, and powder bed fusion processes. The 9 reported in this work is found to be in good agreement with our",
+        "previous TEM work [4] and follows well the evolution trend, which is found to be linear. Based on this linear trend, we propose an empirical relationship correlating 4 and the cooling rate (7). To avoid bias,",
+        "only measured or computed cooling rates based on experimental data (filled symbols in Figure 7) were used. The empirical relationship reads: 4 = 3.609 1-0.344 (3) where 4 is in pm and T in K/s.",
+        "The 4 predicted from the cooling rates of solidification with Equation 3 (see Figure 7) is in good agreement with the entire range of experimental data presented. This relationship can be used to estimate the cooling rates of solidification occurring during different processing conditions; a similar approach was",
+        "initially developed and used to predict cooling rates during solidification from secondary cellular arm spacing [23] and primary cellular arm spacing [24] during casting and from primary cellular arm spacing during AM [25, 26). 102 101 Kim[27] a Schwerdtfeger! [28] A 100 Takada[29] C € 00 Aversa(11) o A",
+        "Bertsch [30] D Eol1) A 10-1 Eo[71 V Eo(10) o Moheimani I [26] o Upadhyay [4] e 10-2 A Bertsch[30] A a Eo[7) e 8 Yan[2] a Present work * 10-3 Eq.3 - 10-2 100 102 104 106 108 Cooling rate (K/s)",
+        "Figure 7: Comparison of 4 of the Mn-Si-rich oxides in 316L as a function of the cooling rate encompassing conventional casting (red), direct energy deposition (green), and powder bed fusion (blue) processes. Cooling rates (7 in K/s) were estimated from primary cellular arms spacing (A in pm) using T =",
+        "(80/A)1/0.33 [24,26] whenever they were not reported in the initial work. However, only the filled symbols were used to evaluate the correlation between T and 4, since T were not estimated from A in these studies. The references used are 1,2,4,7,10,11,26-30,",
+        "Mn-Si-rich oxide precipitates in additively manufactured 316L have been reported to be mainly amor- phous in nature [3-5,7,8,13] as suggested by the thermodynamic calculations performed in [10). They may act as obstacles for dislocation motion resulting in strengthening of the material as observed in [6,7.",
+        "This contribution can be estimated based on the Orowan strengthening mechanism [31]. The increase in 11 strength (reported in Table 2) resulting from dislocations bowing out between non-shearable amorphous spherical precipitates was calculated following [6] using the following parameters: Taylor factor M =",
+        "3.06, shear modulus G = 76 GPa, Burgers vector b = 2.55 nm, and Poisson' 's ratio V = 0.291 [32). In all cases, the contribution to increase in the yield strength from oxide precipitates is relatively small",
+        "(K 20 MPa), which is in accordance with previous results in the literature on precipitate strengthening in LMD 316L [6,7. Note however that this contribution is typically higher in laser powder bed fusion process of 316L because of smaller precipitate sizes (K 60 nm) [2,3,5,7,22] due to higher solidification",
+        "and cooling rates. 4 Discussion In Section 3, it was observed that f, 4, and P decreased after P1-SSTC2, pP1-SSTC3, P2-SSTC2, and P3-SSTC1. These observations contradict our initial expectation about precipitate evolution and previous works on heat-treatment of an additively manufactured 316L [2,5,6,22). For a fixed alloy",
+        "composition and temperature during a thermal treatment, and in absence of precipitation of other phases, f should tend to its equilibrium value. Assuming that oxygen content is the limiting factor, the fraction of oxide precipitates at equilibrium with austenite is given by: alloy (4)",
+        "where fP is the mole fraction of precipitates, to alloy is the average initial oxygen content of the alloy, ab is the oxygen content of austenite in moles, and 3 is the oxygen content of the precipitate in moles.",
+        "After oxide precipitation due to SSTC, ab < 1 due to the very low soluble-oxygen content of austenite. Then, fP can be approximated as: L alloy fP (5) L 0 The decrease in fP can occur either by increasing the amount of oxygen of the precipitate by solid",
+        "phase transformation or by decreasing the average oxygen content of investigated steel or both. The two approaches are independently discussed in the following. 4.1 Phase transformation to a more stable precipitate",
+        "After annealing at high temperature (T = 1065 C and 1150 oC) during 2 hours, Deng et al. [5] reported the evolution of MnSiO3 to CrMn204 in non-recrystallized grains and the evolution of MnSiO3 to Si-rich precipitates in recrystallized grains. Evolution towards richer Si and Cr-Mn precipitates is also observed",
+        "by [12] after subjecting the sample to SSTCs that could occur during AM. According to the Ellingham diagram, SiO2 by itself is the most stable oxide amongst all possible Mn,Siy0z (x, y N 0, and Z > 0) [33].",
+        "However, oxides present in 316L at equilibrium are. highly dependent on the composition [5] and, to a lesser extent, on the temperature in the range investigated [2,5] (650°C to 1100°C). Preferential segregation of Cr and Mo occurs at the interdendritic regions in any as-built 316L microstructure. These segregations",
+        "affect the solubility limit between oxides and the matrix, and hence their stability [5). In addition, the equilibrium stability of oxides highly depends on the Si content [2): depending of the Si content the most stable precipitate could be MnSiO3, CrMn204, SiO2, or quartz. Finally, if recrystallization occurs",
+        "during the thermal treatments, then it would affect the evolution of MnSiO3 precipitates [5). Due to the metastable nature of any additively manufactured microstructure, evolution towards more stable phases is then expected during annealing of 316L. Assuming the transformation occurs from MnSiO3 to",
+        "SiO2, a lower mole fraction of precipitates for a fixed alloy oxygen content is then expected due to the higher molar oxygen content of SiO2 (2/3 at% 0) than MnSiO3 (3/5 at% 0). Conversely, precipitation",
+        "of CrMn204 (4/7 at% 0) would result in a higher mole fraction of precipitates for a fixed alloy oxygen content. However, these differences between the oxygen content of precipitates are small and they cannot explain the observed decrease in f and dissolution of precipitates. In addition, the molar volumes of",
+        "the oxide precipitates considered are similar and do not result in a strong change in f. These claims are supported by thermodynamic calculations for 316L showing that similar f are observed between the precipitates considered [2,5). 12 4.2 Decrease of the average oxygen content of the steel",
+        "Micropillars were heat-treated inside a TEM operating under primary vacuum (n 10-8 mbar). Heat treatments under such an environment can result in the evaporation of elements [34). This phenomenon has been observed in stainless steels annealed at high temperatures with the evaporation of Mn, Cr, Si,",
+        "and O elements [35-37] accompanied with the reduction of oxides [36,37). Evaporation is a time and temperature dependent mechanism; longer is the treatment or higher is the temperature or both, higher is the amount of released elements [34. This mechanism could explain oxide dissolution (i.e., decrease in",
+        "f) within micropillars observed during heat-treatments in the TEM. To assess this mechanism, finite difference simulations were performed to track chemical species evo- lution across the micropillar under vacuum. An infinitely-long cylinder with a radius (r) of 12.5 um was",
+        "assumed to describe the micropillar. Finite difference approximation formulae for a cylinder provided by Crank were used [38). At t = 0, WCr = 16.9 wt%, WMn = 1.5 wt%, WSi = 0.7 wt%, and wo = 0.05",
+        "wt% were set for the steel composition investigated. At T = 12.5 um, Wi = 0 was imposed as a boundary condition to simplify the evaporation mechanism (i.e., solid-state diffusion is assumed to be the limiting",
+        "factor). Diffusion coefficients within austenite were taken from [39] for Cr, Mn, and Si, and from [40] for O. Figure 8 shows the chemical species evolution as a function of the distance from the center of the",
+        "micropillar at different time for two temperatures: a) 600 °C (mean quasi-steady-state temperature of pP1-SSTC2, P2-SSTC1, and pP2-SSTC2) and b) 1100 °C (annealing temperature of pP1-SSTC3 and pP3-SSTC1) calculated using the finite difference model. At 600 OC, there is no evaporation or diffusion",
+        "at the length scale investigated for Cr, Mn, and Si after holding during 7200 S, in agreement with [35-37). Meanwhile, a gradient in O at the interface (between micropillar and vacuum), as well as a decrease",
+        "in the amount of O within the micropillar, are predicted due to evaporation and solid-state diffusion. At 1100 oC, the gradient of Cr and Mn are respectively restricted to the interface over 2 4.5 pm and",
+        "2 2.5 pm while evaporation and diffusion of Si are more pronounced after holding during 7200 S. Due to the higher diffusion coefficient of O, the amount of O within the micropillar decreases fast and becomes negligible after 2 S. a) 101 Cr-900 S b) 101 Cr-900 S Cr-1800 S",
+        "Cr-1800 s 100 Cr-3600 S 100 Cr-3600 S Cr-7200s Cr-7200s 10-1 Mn-1800 Mn-900s s 10-1 Mn-1800 Mn-900s S 10-2 Mn-3600 S Mn-3600s Mn-7200 S 5 10:2 Mn-7200 S Si-900: S Si-900 S 3 103 Si-1800s 3 103 Si-1800s Si-3600s Si-3600s 104 Si-7200 S 10-4 Si-7200s 0-20s 0-0.1s 105 0-900 S",
+        "105 0-1s 0-3600 S 0-2s 10-6 0-7200 S 10-6 0 2 4 6 8 10 12 0 2 4 6 8 10 12 Distance from the center (ym) Distance from the center (um)",
+        "Figure 8: Chemical profile evolution along the radius of the micropillar as a function of time for Mn, Si, and O elements at a) 600 oC, and b) 1100 oC. Initial compositions (t = 0) are WCr = 16.9 wt%,",
+        "WMn = 1.5 wt%, WSi = 0.7 wt%, and wo = 0.05 wt% according to the steel composition and Wi has been set to 0 at T = 12.5 pm as a simplification for evaporation.",
+        "These results show that the kinetics of oxygen evaporation at the interface and diffusion within the micropillars are fast and will affect the composition of the steel, thus changing the thermodynamic equilibrium. Due to the decrease in the average oxygen content, oxide dissolution can occur and may be",
+        "delayed by the slower diffusion of Mn, Si, and Cr. Evaporation of Cr, Mn, and Si at high temperatures will affect the equilibrium of the investigated steel. Decreasing the Si content of the alloy affects the",
+        "precipitates present at equilibrium (e.g., reducing the Si content from 4 to 0 wt% in a 316L alloy at 700 oC leads to the transformation of precipitates from Quartz to MnSi03, and then to CrMnO4 [5]),",
+        "but the phase fraction of the precipitates remains similar as discussed before and reported by [5). Similar results can be expected for Cr and Mn. 13 One possibility to reduce or prevent the evaporation of oxygen is to perform SSTCS in an inert",
+        "environment. However, performing these type of tests requires special setups e.g., sealed gas holders, which were not available for this work. 5 Conclusions In this work, we have developed and used a combination of (i) SSTC of micropillars inside a TEM, (ii)",
+        "synchrotron TXM to identify sub-micron sized precipitates in micropillars, and (iii) a 3D U-net DCNN model to segment precipitates, in order to gain insight on precipitate evolution that could occur due to SSTC during AM of a 316L.",
+        "Micropillars were extracted from as-built LMD 316L samples and subjected to different controlled SSTCS inside the TEM that mimicked additional heating and cooling of the material that could occur during AM or post-process annealing. Guided by FE simulations, the highest heating and cooling rates",
+        "during these SSTCS were restricted to 1000 oC/s in order to ensure uniform heating or cooling of the micropillar at any given instant. TXM was performed before and after each SSTC in order to characterize",
+        "the precipitates present in all the micropillars and track their evolution due to SSTC. Coupled with a 3D U-net DCNN model to segment precipitates, the proposed experimental procedure has proven to be a powerful tool to statistically investigate the evolution of precipitates. In this study, more than 80000",
+        "precipitates of equivalent diameters lower than 200 nm were investigated. The experimental results show a good agreement between the equivalent average diameter measured via TXM from micropillars in as-built condition and our previous TEM study.",
+        "During short SSTC involving heating and cooling rates of 1000 oC/s precipitation was observed, i.e., an increase of the phase fraction and density of precipitate, indicating that oxygen remained supersaturated in solid solution after solidification. However, during long SSTCS and annealing treatments, the fraction,",
+        "density, and average diameter of precipitates decreased, indicating their dissolution. This dissolution is caused by the evaporation of elements from the surface of the micropillars into the primary vacuum of the TEM during SSTC. This problem could be reduced by performing e.g., the SSTCS in an inert",
+        "environment. Nevertheless, the experimental-modeling-simulation synergy technique developed in this work can be very useful to study precipitate evolution of any alloy in 3D during rapid and slow SSTCs. An empirical relationship between the cooling rate of solidification and precipitate diameter was",
+        "proposed. This relationship can complement the relationship between primary cellular arm spacing and cooling rates during solidification in order to predict these rates from the measured precipitate diameters. Author contributions Conceptualization: MVU, MS, EH, LY; Data curation: SG; Formal analysis: SG, MS, MVU; Funding",
+        "acquisition: MVU, EH; Investigation: SG, MBHS, MS, MVU, LY, EH, SH; Methodology: MVU, SG, MS, EH, LY; Project administration: MVU, EH; Resources: MS, MVU, LY, EH; Software: SG, MS; Supervision: MVU, MS, EH, LY; Validation: SG, MVU, EH, LY, MS, SH; Visualization: SG; Writing =",
+        "original draft: SG, MVU; Writing review & editing: SG, MVU, MBHS, EH, LY, MS, SH Funding SG and MVU are grateful to the European Research Council (ERC) for their support through the Eu- ropean Union' 's Horizon 2020 research and innovation program for project GAMMA (grant agreement",
+        "No. 946959). MBHS, EH, and MVU are grateful to the Fédération Francilienne de Mécanique (F2M) for their support through the Coup de Pouce 2019 grant. Declaration of competing interest The authors declare no conflict of interest. The funders had no role in the design of the study, collection,",
+        "analyses, and interpretation of data in the writing of the manuscript, or in the decision to publish the results. Acknowledgments The synchrotron experiments were conducted at the ANATOMIX beamline of SOLEIL under the proposal No. 20200527. ANATOMIX is an equipment of excellence (EQUIPEX) funded by the Investments for",
+        "the Future program of the French National Research Agency (ANR: Agence Nationale de la Recherche) 14 through project NanoimagesX, grant No. ANR-II-EQPX-0031. FIB-SEM and TEM work was carried out using the facilities available at the LMPS laboratory within the MATMECA consortium, which is",
+        "supported by the ANR under the contract number ANR-10-EQPX-37. LY acknowledges support from the MINECO (Spain) through the IJC2018-037698-1 grant. All authors are grateful to Hakim Gharbi (LMS) for his active participation in conducting the TXM experiments. References",
+        "1 Du-Rim Eo, Sun-Hong Park, and Jung-Wook Cho. Inclusion evolution in additive manufactured 316L stainless steel by laser metal deposition process. Materials & Design, 155:212-219, 2018. Fuyao Yan, Wei Xiong, Eric Faierson, and Gregory B Olson. Characterization of nano-scale oxides in",
+        "austenitic stainless steel processed by powder bed fusion. Scripta Materialia, 155:104-108, 2018. Pu Deng, Mallikarjun Karadge, Raul B Rebak, Vipul K Gupta, Barton C Prorok, and Xiaoyuan Lou. The origin and formation of oxygen inclusions in austenitic stainless steels manufactured by laser powder bed fusion. Additive Manufacturing, 35:101334, 2020.",
+        "4 Manas Vijay Upadhyay, Meriem Ben Haj Slama, Steve Gaudez, Nikhil Mohanan, Lluis Yedra, Simon Hallais, Eva Héripré, and Alexandre Tanguy. Non-oxide precipitates in additively manufactured austenitic stainless steel. Scientific Reports, 11(1):1-18, 2021. Pu Deng, Miao Song, Jingfan Yang, Qingyu Pan, Sarah McAllister, Lin Li, Barton C Prorok, and Xiaoyuan",
+        "Lou. On the thermal coarsening and transformation of nanoscale oxide inclusions in 316L stainless steel manufactured by laser powder bed fusion and its influence on impact toughness. Materials Science and Engineering: A, 835:142690, 2022. Zhou Yan, Ke Zou, Manping Cheng, Zhipeng Zhou, and Lijun Song. Revealing relationships between het-",
+        "erogeneous microstructure and strengthening mechanism of austenitic stainless steels fabricated by directed energy deposition (DED). Journal of Materials Research and Technology, 15:582-594, 2021. Du-Rim Eo, Seong-Gyu Chung, JeongHo Yang, In-Ho Jung, and Jung-Wook Cho. Numerical modeling of oxide particle evolution during additive manufacturing. Additive Manufacturing, 51:102631, 2022.",
+        "Decheng Kong, Chaofang Dong, Xiaoqing Ni, Zhang Liang, and Xiaogang Li. In-situ observation of asymmet- rical deformation around inclusion in a heterogeneous additively manufactured 316L stainless steel. Journal of Materials Science & Technology, 89:133-140, 2021. Xiaoyuan Lou, Peter L Andresen, and Raul B Rebak. Oxide inclusions in laser additive manufactured",
+        "stainless steel and their effects on impact toughness and stress corrosion cracking behavior. Journal of Nuclear Materials, 499:182-190, 2018. [10] Du-Rim Eo, Sun-Hong Park, and Jung-Wook Cho. Controlling inclusion evolution behavior by adjusting flow rate of shielding gas during direct energy deposition of AISI 316L. Additive Manufacturing, 33:101119, 2020.",
+        "[11] Alberta Aversa, Abdollah Saboori, Erica Librera, Michele de Chirico, Sara Biamino, Mariangela Lombardi, and Paolo Fino. The role of directed energy deposition atmosphere mode on the microstructure and mechan- ical properties of 316L samples. Additive Manufacturing, 34:101274, 2020.",
+        "12] Meriem Ben Haj Slama, Lluis Yedra, Eva Heripre, and Manas V. Upadhyay. Insight on precipitate evolution during additive manufacturing of stainless steels via in-situ heating-cooling experiments in a transmission electron microscope. Materialia, 21:101368, 2022.",
+        "[13] 00 Salman, Christoph Gammer, Anil K. Chaubey, Juergen H. Eckert, and Sergio Scudino. Effect of heat treatment on microstructure and mechanical properties of 316L steel synthesized by selective laser melting. Materials Science and Engineering: A, 748:205-212, 2019.",
+        "[14] Steve Gaudez, Meriam Ben Haj Slama, Anders Kaestner, and Manas V. Upadhyay. 3D deep convolutional neural network segmentation model for precipitate and porosity identification in synchrotron x-ray tomo- grams. Journal of Synchrotron Radiation, 29(5), 2022. [15] Choong S Kim. Thermophysical properties of stainless steels. Technical report, Argonne National Lab.,",
+        "III.(USA), 1975. [16] Michael Smith. ABAQUS/Standard User's Manual, Version 6.9. Dassault Systèmes Simulia Corp, United States, 2009. [17] T Weitkamp, M Scheel, J Perrin, G Daniel, A King, V Le Roux, JL Giorgetta, A Carcy, F Langlois,",
+        "K Desjardins, et al. Microtomography on the ANATOMIX beamline at synchrotron SOLEIL. In Journal of Physics: Conference Series, volume 2380, page 012122. IOP Publishing, 2022. 15 [18] Mario Scheel, Jonathan Perrin, Frieder Koch, Guillaumel Daniel, Jean-Luc Giorgetta, Gilles Cauchon, Andrew",
+        "King, Viktoria Yurgens, Vincent Le Roux, Christian David, et al. Current status of hard X-ray nano- tomography on the transmission microscope at the ANATOMIX beamline. In Journal of Physics: Conference Series, volume 2380, page 012045. IOP Publishing, 2022.",
+        "[19] Alessandro Mirone, Emmanuel Brun, Emmanuelle Gouillart, Paul Tafforeau, and Jerome Kieffer. The PyHST2 hybrid distributed code for high speed tomographic reconstruction with iterative reconstruction and a priori knowledge capabilities. Nuclear Instruments and Methods in Physics Research Section B: Beam Interactions with Materials and Atoms, 324:41-48, 2014.",
+        "20] Johannes Schindelin, Ignacio Arganda-Carreras, Erwin Frise, Verena Kaynig, Mark Longair, Tobias Pietzsch, Stephan Preibisch, Curtis Rueden, Stephan Saalfeld, Benjamin Schmid, et al. Fiji: an open-source platform for biological-image analysis. Nature methods, 9(7):676-682, 2012. 21] Heena Khanchandani and Baptiste Gault. Atomic scale understanding of the role of hydrogen and oxygen",
+        "segregation in the embrittlement of grain boundaries in a twinning induced plasticity steel. Scripta Materialia, 234:115593, 2023. 22] Thomas Voisin, Jean-Baptiste Forien, Aurelien Perron, Sylvie Aubry, Nicolas Bertin, Amit Samanta, Alexan- der Baker, and Y Morris Wang. New insights on cellular structures strengthening mechanisms and thermal",
+        "stability of an austenitic stainless steel fabricated by laser powder-bed-fusion. Acta Materialia, 203:116476, 2021. [23] John Campbell. Castings. Elsevier, 2003. [24] JW Fu, YS Yang, JJ Guo, and WH Tong. Effect of cooling rate on solidification microstructures: in AISI 304 stainless steel. Materials Science and Technology, 24(8):941-944, 2008.",
+        "[25] Han S Kim, Y Kobayashi, S Tsukamoto, and K Nagai. Effect of cooling rate on microstructure evolution of rapidly cooled high-impurity steels. Materials Science and Engineering: A, 403(I-2)311-317, 2005. [26] Seyed Kiomars Moheimani, Luca Iuliano, and Abdollah Saboori. The role of substrate preheating on the",
+        "microstructure, roughness, and mechanical performance of AISI 316L produced by directed energy deposition additive manufacturing. The International Journal of Advanced Manufacturing Technology, 119(11):7159- 7174, 2022. [27] Han S Kim, Hae-Geon Lee, and Kyung-Shik Oh. Mns precipitation in association with manganese silicate",
+        "inclusions in Si/Mn deoxidized steel. Metallurgical and materials transactions A, 32(6):1519-1525, 2001. [28] Klaus Schwerdtfeger. EinfluB der clarmumpgechwindigeat auf die mikroseigerung und die interdendritische ausscheidung von mangamsuladeinsahlisen in einem mangan und kohlenstoff enthaltenden stahl. Archiv fur das Eisenhittenwesen, 41(9):923-937, 1970.",
+        "[29] Hisashi Takada, Isamu Bessho, and Takamichi Ito. Effect of sulfur content and solidification variables on morphology and distribution of sulfide in steel ingots. Transactions of the Iron and Steel Institute of Japan, 18(9):564-573, 1978.",
+        "[30] KM Bertsch, G Meric De Bellefon, B Kuehl, and DJ Thoma. Origin of dislocation structures in an additively manufactured austenitic stainless steel 316L. Acta Materialia, 199:19-33, 2020. [31] Haiming Wen, Troy D Topping, Dieter Isheim, David N Seidman, and Enrique J Lavernia. Strengthening",
+        "mechanisms in a high-strength bulk nanostructured Cu-Zn-Al alloy processed via cryomilling and spark plasma sintering. Acta Materialia, 61(8):2769-2782, 2013. [32] JP Hammond, LT Ratcliff, CR Brinkman, MW Moyer, and CW Nestor Jr. Dynamic and static measurements",
+        "of elastic constants with data on 2 1/4 Cr-1 Mo steel, types 304 and 316 stainless steels, and alloy 800H. Technical report, Oak Ridge National Lab.(ORNL), Oak Ridge, TN (United States), 1979. [33] Harold JT Ellingham. Reducibility of oxides and sulphides in metallurgical processes. J. Soc. Chem. Ind, 63(5):125-160, 1944.",
+        "[34] Alexander Roth. Vacuum technology. Elsevier, 2012. [35] RC Lobb and HE Evans. Evaporation of elements from 20Cr-25NI-Nb stainless steel during vacuum annealing. Metal Science, 15(1):14-20, 1981. [36] Kathrin Zumsande, Anna Weddeling, Eduard Hryha, Stephan Huth, Lars Nyborg, Sebastian Weber, N Kra-",
+        "sokha, and W Theisen. Characterization of the surface of Fe-19Mn-18Cr-C-N during heat treatment in a high vacuum- an XPS study. Materials characterization, 71:66- 76, 2012. [37] Lin Zhu, Ali Al-Sakeeri, Filip Lenrick, Oskar Darselius Berg, Per Sjodin, Alexei A Zakharov, Axel Knutsson,",
+        "and Anders Mikkelsen. Surface chemistry and diffusion of trace and alloying elements during in vacuum thermal deoxidation of stainless steel. Surface and Interface Analysis, 54(2)99-108, 2022. 16 [38] John Crank. The mathematics of diffusion. Oxford university press, 1979.",
+        "[39] Gerhard Neumann and Cornelis Tuijn. Self-diffusion and impurity diffusion in pure metals: handbook of experimental data. Elsevier, 2011. [40] Jun Takada, Sadahiro Yamamoto, Shiomi Kikuchi, and Masao Adachi. Determination of diffusion coefficient of oxygen in -iron from measurements of internal oxidation in Fe-Al alloys. Metallurgical Transactions A, 17(2):221-229, 1986.",
+        "17"
+    ],
+    "summaries": [
+        {
+            "chunk_id": 1,
+            "summary": "Researchers at the Massachusetts Institute of Technology (MIT) and the Massachusetts Institute of Technology (MIT"
+        },
+        {
+            "chunk_id": 2,
+            "summary": "The evolution of martensitic steel during solid-state thermal cycling has been studied by synchrotron transmission X-"
+        },
+        {
+            "chunk_id": 3,
+            "summary": "The HAL archive is a multi-disciplinary open access L'archive ou pluridisciplinaire."
+        },
+        {
+            "chunk_id": 4,
+            "summary": "The following is a selection of papers published in French academic journals in the past year."
+        },
+        {
+            "chunk_id": 5,
+            "summary": "A new method for the study of the evolution of molecular precipitates has been proposed."
+        },
+        {
+            "chunk_id": 6,
+            "summary": "1 Université Paris-Saclay, CentraleSupélec, ENS Paris-Saclay, CN"
+        },
+        {
+            "chunk_id": 7,
+            "summary": "The winners of this year's Bruker Nano Awards have been announced."
+        },
+        {
+            "chunk_id": 8,
+            "summary": "The performance of 3D-printed stainless steels has been improved by the use of"
+        },
+        {
+            "chunk_id": 9,
+            "summary": "Light-emitting diodes (LEDs) and light-emitting diodes (LEDs) have long been"
+        },
+        {
+            "chunk_id": 10,
+            "summary": "We have quantified the changes in precipitate volume fraction, density, and size during the so-called"
+        },
+        {
+            "chunk_id": 11,
+            "summary": "Researchers at the University of California, Los Angeles (UCLA), have developed a new method for"
+        },
+        {
+            "chunk_id": 12,
+            "summary": "A new method for the study of precipitated silicon carbide (SSTC) has been developed"
+        },
+        {
+            "chunk_id": 13,
+            "summary": "In this paper a new study has been carried out to investigate the behaviour of precipitates at high temperatures"
+        },
+        {
+            "chunk_id": 14,
+            "summary": "The aim of this study is to investigate the potential of additive manufacturing for the production of 316L parts."
+        },
+        {
+            "chunk_id": 15,
+            "summary": "The aim of this research project is to develop new methods for the deposition of oxides and nitrides"
+        },
+        {
+            "chunk_id": 16,
+            "summary": "A new class of 316L precipitates has been described."
+        },
+        {
+            "chunk_id": 17,
+            "summary": "The formation of oxide precipitates in AM 316L is a major contributor to the corrosion resistance of the alloy."
+        },
+        {
+            "chunk_id": 18,
+            "summary": "The most common contributor to the formation of oxide precipitates during the atomic force microscope (AFM) process is"
+        },
+        {
+            "chunk_id": 19,
+            "summary": "The growth and nucleation of oxides during the rapid solidification phase of an"
+        },
+        {
+            "chunk_id": 20,
+            "summary": "The formation of oxides during the solidification of alloyed metal (AM) parts has been investigated."
+        },
+        {
+            "chunk_id": 21,
+            "summary": "A new method has been used to study the morphology and behaviour of precipitates of oxides of rutile"
+        },
+        {
+            "chunk_id": 22,
+            "summary": "The recrystallization of grains has been investigated in a series of experiments."
+        },
+        {
+            "chunk_id": 23,
+            "summary": "The formation of precipitates from arsenopyrite (AM) is one of"
+        },
+        {
+            "chunk_id": 24,
+            "summary": "Researchers at the University of California, Los Angeles (UCLA), have developed a"
+        },
+        {
+            "chunk_id": 25,
+            "summary": "The evolution of precipitates in TEM lamellae has been studied for the first time."
+        },
+        {
+            "chunk_id": 26,
+            "summary": "The aim of this study is to investigate the evolution of copper precipitates at low temperatures during"
+        },
+        {
+            "chunk_id": 27,
+            "summary": "The evolution of precipitates from AM 316L and SSTCS in a vacuum- Petri dish"
+        },
+        {
+            "chunk_id": 28,
+            "summary": "TXM studies are carried out on the micropillars and lamellae"
+        },
+        {
+            "chunk_id": 29,
+            "summary": "The morphology of precipitates in AM 316L and thin-film lamell"
+        },
+        {
+            "chunk_id": 30,
+            "summary": "This paper presents a new method for the determination of cropillars based on heat transfer"
+        },
+        {
+            "chunk_id": 31,
+            "summary": "The aim of this work is to provide a brief overview of the techniques used in the preparation of"
+        },
+        {
+            "chunk_id": 32,
+            "summary": "A single track bidirectionally printed wall of 3 layers has been reported for the production of a"
+        },
+        {
+            "chunk_id": 33,
+            "summary": "The world's smallest 3D printer has been developed at the University of"
+        },
+        {
+            "chunk_id": 34,
+            "summary": "This wall is made up of two layers of 3D printer paper."
+        },
+        {
+            "chunk_id": 35,
+            "summary": "In this series of images, we present the results of a three-day experiment at the University of California"
+        },
+        {
+            "chunk_id": 36,
+            "summary": "Micropillars have been extracted from a three-dimensional model of a wall in a"
+        },
+        {
+            "chunk_id": 37,
+            "summary": "Researchers at the University of California, Los Angeles (UCLA), have used a high"
+        },
+        {
+            "chunk_id": 38,
+            "summary": "Micropillars have been attached to a MEMS-based heating/cooling system using a femtosecond beam"
+        },
+        {
+            "chunk_id": 39,
+            "summary": "Researchers at the University of California, Los Angeles (UCLA), have developed a"
+        },
+        {
+            "chunk_id": 40,
+            "summary": "Micropillars 2 and 3 of the LMD 316L wall were subjected to"
+        },
+        {
+            "chunk_id": 41,
+            "summary": "Secondary electron micrographs of a micropillar will be denoted as pP1, pP"
+        },
+        {
+            "chunk_id": 42,
+            "summary": "The micropillars are a) attached to a FIB manipulator to be transferred onto a thermal chip"
+        },
+        {
+            "chunk_id": 43,
+            "summary": "Researchers at the University of California, Los Angeles (UCLA), have developed a"
+        },
+        {
+            "chunk_id": 44,
+            "summary": "A FEI Titan3 G2 60-300 TEM was used with this holder to perform SSTC in primary"
+        },
+        {
+            "chunk_id": 45,
+            "summary": "The TEM setup used in this study is based on the same design as the one used in the previous"
+        },
+        {
+            "chunk_id": 46,
+            "summary": "The results of this study are as follows:"
+        },
+        {
+            "chunk_id": 47,
+            "summary": "Researchers at the Massachusetts Institute of Technology (MIT) have developed a new type of chip that can"
+        },
+        {
+            "chunk_id": 48,
+            "summary": "Micropillars have been used to study the transfer of heat from one surface to another."
+        },
+        {
+            "chunk_id": 49,
+            "summary": "The \"+\"-shaped micropillars in Figure 1 were placed on"
+        },
+        {
+            "chunk_id": 50,
+            "summary": "In this paper, we study the properties of tungsten carbide micropillars in a gallium arsenide"
+        },
+        {
+            "chunk_id": 51,
+            "summary": "The tungsten contacts on the chip are made up of a very thin layer of tungsten"
+        },
+        {
+            "chunk_id": 52,
+            "summary": "Three contacts are placed at the bottom of a curved surface of a micropillar."
+        },
+        {
+            "chunk_id": 53,
+            "summary": "In this paper, we simulate the behaviour of two tungsten carbide micropillars, one with a curved surface"
+        },
+        {
+            "chunk_id": 54,
+            "summary": "In this paper we present a solution to the problem of determining the temperature of a Petri dish."
+        },
+        {
+            "chunk_id": 55,
+            "summary": "The coefficients of thermal conductivity and heat conduction have been obtained for a novel"
+        },
+        {
+            "chunk_id": 56,
+            "summary": "The temperature dependence of P, Cus and k for 316L is given below."
+        },
+        {
+            "chunk_id": 57,
+            "summary": "The micropillar of a wind turbine has been modelled using finite element (FE) software."
+        },
+        {
+            "chunk_id": 58,
+            "summary": "Figure 2: Illustration of the meshed micropillar geometry used for FE simulations; 120932 non-uniformly sized 4-"
+        },
+        {
+            "chunk_id": 59,
+            "summary": "The following experiments have been carried out at the Large Hadron Collider (LHC) to"
+        },
+        {
+            "chunk_id": 60,
+            "summary": "A new approach has been used to study the structure and behaviour of strontium-90 in the presence of"
+        },
+        {
+            "chunk_id": 61,
+            "summary": "A high-resolution CCD detector has been used for the first time to obtain a field-"
+        },
+        {
+            "chunk_id": 62,
+            "summary": "The Hubble Space Telescope was equipped with a field-of-view and a set of micropillars, each"
+        },
+        {
+            "chunk_id": 63,
+            "summary": "In this study, two-dimensional (3D) images of strontium-90 precipitates have been reconstructed"
+        },
+        {
+            "chunk_id": 64,
+            "summary": "In this study, we report the results of a Fourier transform reconstruction of a two-dimensional Bragg grating"
+        },
+        {
+            "chunk_id": 65,
+            "summary": "The Hubble Space Telescope has produced a new image of the Earth's surface."
+        },
+        {
+            "chunk_id": 66,
+            "summary": "Figure 2: Example of a slice from a TXM tomograph of a micropillar."
+        },
+        {
+            "chunk_id": 67,
+            "summary": "Here are some highlights from our work: a) A detailed 3D reconstruction of the"
+        },
+        {
+            "chunk_id": 68,
+            "summary": "The spatio-temporal distribution of tumour microenvironment (TXM) in breast cancer patients has been investigated"
+        },
+        {
+            "chunk_id": 69,
+            "summary": "This paper presents a new model for the reconstruction of a voxel"
+        },
+        {
+            "chunk_id": 70,
+            "summary": "The results of this study are as follows:"
+        },
+        {
+            "chunk_id": 71,
+            "summary": "An image slice is a slice of an image in a volume."
+        },
+        {
+            "chunk_id": 72,
+            "summary": "The morphology of precipitates from a volcanic eruption at Mount Etna has been determined using a 3D reconstruction of the structure"
+        },
+        {
+            "chunk_id": 73,
+            "summary": "A model has been developed to simulate the behaviour of precipitates in micropillars."
+        },
+        {
+            "chunk_id": 74,
+            "summary": "Particle density (p): the ratio of the weighted number of precipitates and the volume of"
+        },
+        {
+            "chunk_id": 75,
+            "summary": "The average diameter of precipitates in contact with edges and in the bulk of a micropillar has been calculated."
+        },
+        {
+            "chunk_id": 76,
+            "summary": "In the table below you will find the quantities of the following:"
+        },
+        {
+            "chunk_id": 77,
+            "summary": "The mean and error bars of the three experimental measures obtained from the three experiments performed to cover each micropillar are"
+        },
+        {
+            "chunk_id": 78,
+            "summary": "This paper presents the results of a heat transfer simulation of the micropillars used in the SSTC process"
+        },
+        {
+            "chunk_id": 79,
+            "summary": "This paper presents the results of a rapid heating simulation of a thermal chip with tungsten contacts."
+        },
+        {
+            "chunk_id": 80,
+            "summary": "In this paper, we present a new method for the derivation of the coefficients of the"
+        },
+        {
+            "chunk_id": 81,
+            "summary": "Figure 4a shows the temperature as a function of time (normalized with respect to maximum simulation time) extracted from"
+        },
+        {
+            "chunk_id": 82,
+            "summary": "A new method for predicting the temperature difference between tungsten contact points has been developed."
+        },
+        {
+            "chunk_id": 83,
+            "summary": "The difference between the maximum temperature and the heating rate in a room is known as the difference between the"
+        },
+        {
+            "chunk_id": 84,
+            "summary": "The maximum heating and cooling rates used to perform any SSTC were less than or equal to 103 OC/s"
+        },
+        {
+            "chunk_id": 85,
+            "summary": "BBC Sport looks at the top 10 most popular sport stories of the year."
+        },
+        {
+            "chunk_id": 86,
+            "summary": "Figure 4: Heat transfer FE simulation predictions during heating of the micropillar with heating rates"
+        },
+        {
+            "chunk_id": 87,
+            "summary": "The temperature difference between the two nodes used to extract temperature is shown in Figure"
+        },
+        {
+            "chunk_id": 88,
+            "summary": "The highest temperature difference along the micropillar (ATmaz) and the applied temperature are shown in Table"
+        },
+        {
+            "chunk_id": 89,
+            "summary": "The heat transfer coefficient (SSTC) of ATmaz, a type of tungsten carbide micropillar, has been"
+        },
+        {
+            "chunk_id": 90,
+            "summary": "Researchers at the University of California, Los Angeles (UCLA), and the University of California, Berkeley (UC Berkeley"
+        },
+        {
+            "chunk_id": 91,
+            "summary": "The temperature of the SSTCS is controlled by the thermal properties of the thermal chips."
+        },
+        {
+            "chunk_id": 92,
+            "summary": "Previews and team news for Sunday's Premier League match between Arsenal and Chelsea."
+        },
+        {
+            "chunk_id": 93,
+            "summary": "The results of the following experiments have been published in the journal Physical Review Letters."
+        },
+        {
+            "chunk_id": 94,
+            "summary": "P1-SSTC1: Single fast heating and cooling cycle up to 1000 oC with a heating"
+        },
+        {
+            "chunk_id": 95,
+            "summary": "The heating and cooling rates have been reduced after each cycle to maintain a 1950 S long cycle."
+        },
+        {
+            "chunk_id": 96,
+            "summary": "The micropillar pP2 has been annealing at 1100 oC and RT at 1000 C"
+        },
+        {
+            "chunk_id": 97,
+            "summary": "P2-SSTC: Repeated heating and cooling cycles."
+        },
+        {
+            "chunk_id": 98,
+            "summary": "The heating and cooling rate has been reduced after each cycle to maintain a 7 s long cycle."
+        },
+        {
+            "chunk_id": 99,
+            "summary": "pP2-SSTC1: Repeated heating and cooling cycles."
+        },
+        {
+            "chunk_id": 100,
+            "summary": "The heating and cooling rate of pP3 has been reduced to maintain a 195 S long cycle."
+        },
+        {
+            "chunk_id": 101,
+            "summary": "The following experiments have been carried out to study the evolution of micropillars."
+        },
+        {
+            "chunk_id": 102,
+            "summary": "The evolution of the precipitates in pP1, pP2, and pP3 after their"
+        },
+        {
+            "chunk_id": 103,
+            "summary": "In this study, we show that the initial f, P, and 4 for all micro"
+        },
+        {
+            "chunk_id": 104,
+            "summary": "The results of this study show that pP1, pP3 and pP4 all have the same"
+        },
+        {
+            "chunk_id": 105,
+            "summary": "In this work we have measured the Mn-Si-rich precipitates in the TXM"
+        },
+        {
+            "chunk_id": 106,
+            "summary": "We have performed a new TEM study on the LMD 316L wall to"
+        },
+        {
+            "chunk_id": 107,
+            "summary": "The following is a list of materials that should be investigated for their potential use"
+        },
+        {
+            "chunk_id": 108,
+            "summary": "The study was carried out at the University of California, Los Angeles (UCLA"
+        },
+        {
+            "chunk_id": 109,
+            "summary": "The phase contrast between oxide and non-oxide micropillars has been found to be smaller than the phase contrast between"
+        },
+        {
+            "chunk_id": 110,
+            "summary": "Table 2: Volume fraction (f), particle density (p), average equivalent diameter (sp) and contribution to increasing the"
+        },
+        {
+            "chunk_id": 111,
+            "summary": "The latest unemployment figures from the Office for National Statistics (ONS) show:"
+        },
+        {
+            "chunk_id": 112,
+            "summary": "SSTC1 SSTC2 SSTC3 Init"
+        },
+        {
+            "chunk_id": 113,
+            "summary": "Figure 6: SSTC1 Thermal treatment fraction (p) and equivalent diameter (sp) of precipitates."
+        },
+        {
+            "chunk_id": 114,
+            "summary": "The following table shows the results of a series of experiments on single-stranded cable (SSTCS)"
+        },
+        {
+            "chunk_id": 115,
+            "summary": "Supersaturated oxygen has been present in the solid solution in austenite since the beginning of solidification,"
+        },
+        {
+            "chunk_id": 116,
+            "summary": "precipitate nucleation occurred at a temperature higher than the one during slow heating during pP1-SSTC"
+        },
+        {
+            "chunk_id": 117,
+            "summary": "In this study, we have investigated the influence of annealing conditions on the nucleation of precipitates."
+        },
+        {
+            "chunk_id": 118,
+            "summary": "The first cycle of pP2-SSTC1 (heating to 1000 C and cooling to RT at"
+        },
+        {
+            "chunk_id": 119,
+            "summary": "First, a low amplitude cycle was recorded between 200 oC and 300 "
+        },
+        {
+            "chunk_id": 120,
+            "summary": "P2-SSTC1 is the first in a series of cycles in which f, 4, and P"
+        },
+        {
+            "chunk_id": 121,
+            "summary": "The equilibrium fraction f, P, SSTC2, and P3-SSTC1 of precipitates from a"
+        },
+        {
+            "chunk_id": 122,
+            "summary": "In 316L, f remains constant while increases and P decreases due to precipitates coarsening."
+        },
+        {
+            "chunk_id": 123,
+            "summary": "The evolution of oxide precipitates at high temperatures has been investigated in this paper."
+        },
+        {
+            "chunk_id": 124,
+            "summary": "We propose an empirical relationship between the cooling rate of the Earth's atmosphere and"
+        },
+        {
+            "chunk_id": 125,
+            "summary": "The relationship between the amount of time it takes the Earth to cool down and"
+        },
+        {
+            "chunk_id": 126,
+            "summary": "The cooling rates of solidification at different temperatures and pressures have been estimated using Equation 2."
+        },
+        {
+            "chunk_id": 127,
+            "summary": "This paper describes the development and use of a novel method for predicting the cooling rates during solidification."
+        },
+        {
+            "chunk_id": 128,
+            "summary": "Researchers at the University of California, Los Angeles, and the Massachusetts Institute of Technology (MIT)"
+        },
+        {
+            "chunk_id": 129,
+            "summary": "The cooling rates of Mn-Si-rich oxides in 316L have been estimated using atomic force microscopy."
+        },
+        {
+            "chunk_id": 130,
+            "summary": "The following symbols were used to evaluate the correlation between T and 4."
+        },
+        {
+            "chunk_id": 131,
+            "summary": "Mn-Si-rich oxide precipitates in additively manufactured 316L have been reported to be mainly"
+        },
+        {
+            "chunk_id": 132,
+            "summary": "The Orowan deposit in the Democratic Republic of Congo has a significant contribution to the Congo's"
+        },
+        {
+            "chunk_id": 133,
+            "summary": "The contribution to the yield strength from oxide precipitates is relatively small."
+        },
+        {
+            "chunk_id": 134,
+            "summary": "The contribution of precipitates to the strength of laser powder bed fusion has been investigated in a new study."
+        },
+        {
+            "chunk_id": 135,
+            "summary": "The microstructure of 316L during heat-treatment has been investigated."
+        },
+        {
+            "chunk_id": 136,
+            "summary": "The equilibrium value of austenite f at room temperature is given by:"
+        },
+        {
+            "chunk_id": 137,
+            "summary": "The oxygen content of precipitates is determined by dividing the oxygen content of the precipitate by"
+        },
+        {
+            "chunk_id": 138,
+            "summary": "The solubility of austenite in water (SSTC) has been investigated using austenite precipitate"
+        },
+        {
+            "chunk_id": 139,
+            "summary": "This paper considers two different approaches to phase transformation of martensitic"
+        },
+        {
+            "chunk_id": 140,
+            "summary": "The evolution of Mn3 CrMn in non-recrystallized grains has been reported."
+        },
+        {
+            "chunk_id": 141,
+            "summary": "Researchers at the University of Aberdeen have discovered a new type of isotope in the periodic table"
+        },
+        {
+            "chunk_id": 142,
+            "summary": "The presence of Cr and Mo in 316L is well known."
+        },
+        {
+            "chunk_id": 143,
+            "summary": "The solubility and stability of oxides and their precipitates have been investigated in a porous medium."
+        },
+        {
+            "chunk_id": 144,
+            "summary": "The influence of annealing on the evolution of Mn3 precipitates has been investigated."
+        },
+        {
+            "chunk_id": 145,
+            "summary": "The relationship between precipitation and the oxygen content of an alloy has been explained by"
+        },
+        {
+            "chunk_id": 146,
+            "summary": "The dissolution rate of CrMn204 precipitates has been inversely proportional to the oxygen content of the precipitates."
+        },
+        {
+            "chunk_id": 147,
+            "summary": "The oxygen content of 316L steel has been reduced by the use of oxide precipitates in the preparation of"
+        },
+        {
+            "chunk_id": 148,
+            "summary": "The evaporation of elements from stainless steels at high temperatures has been investigated using a Time-of-Flight"
+        },
+        {
+            "chunk_id": 149,
+            "summary": "Evaporation has been shown to be an important process in the synthesis of oxides."
+        },
+        {
+            "chunk_id": 150,
+            "summary": "A vacuum chamber with a radius of 12.5 um has been constructed at the Large Hadron Collider ("
+        },
+        {
+            "chunk_id": 151,
+            "summary": "This paper presents the results of a study on the micropillar of a Crank engine."
+        },
+        {
+            "chunk_id": 152,
+            "summary": "The evaporation mechanism of a martensitic steel with a high molecular weight has been"
+        },
+        {
+            "chunk_id": 153,
+            "summary": "The diffusion coefficients of Cr, Mn, Si, and O in austen"
+        },
+        {
+            "chunk_id": 154,
+            "summary": "The evaporation and diffusion rates of pP1-SSTC2 and pP2-SSTC2"
+        },
+        {
+            "chunk_id": 155,
+            "summary": "In this paper, we report the results of a two-year study of the"
+        },
+        {
+            "chunk_id": 156,
+            "summary": "Researchers at the University of California, Los Angeles (UCLA), and the University of"
+        },
+        {
+            "chunk_id": 157,
+            "summary": "The diffusion coefficient of Si within the micropillar is inversely proportional to the diffusion coefficient of O."
+        },
+        {
+            "chunk_id": 158,
+            "summary": "BBC Sport looks at some of the key statistics from this year's Rugby World Cup."
+        },
+        {
+            "chunk_id": 159,
+            "summary": "The winning numbers in Sunday evening's drawing of the UK's"
+        },
+        {
+            "chunk_id": 160,
+            "summary": "Figure 8: Chemical profile evolution along the radius of the micropillar as a function of time for"
+        },
+        {
+            "chunk_id": 161,
+            "summary": "The table below shows the percentages of iron and steel content in a barrel of"
+        },
+        {
+            "chunk_id": 162,
+            "summary": "The kinetics of oxygen evaporation at the interface and diffusion within the micropillars of a martensitic steel"
+        },
+        {
+            "chunk_id": 163,
+            "summary": "The equilibrium behaviour of a martensitic steel made from Cr, Mn, and"
+        },
+        {
+            "chunk_id": 164,
+            "summary": "The transformation of precipitates from Quartz to MnSi03 and then to CrMn"
+        },
+        {
+            "chunk_id": 165,
+            "summary": "The evaporation of oxygen during SSTCS has been shown to cause the formation of precipitates of"
+        },
+        {
+            "chunk_id": 166,
+            "summary": "In this work, we have developed and used a combination of SSTC of micropillars inside"
+        },
+        {
+            "chunk_id": 167,
+            "summary": "The aim of this project is (i) to (i) investigate the role of"
+        },
+        {
+            "chunk_id": 168,
+            "summary": "Researchers at the University of California, Los Angeles (UCLA) have used a state-of-the"
+        },
+        {
+            "chunk_id": 169,
+            "summary": "TXM was performed on the SSTCS in order to ensure that the"
+        },
+        {
+            "chunk_id": 170,
+            "summary": "In this study, we have proposed an experimental procedure to study the evolution of precipitates in the micropillars"
+        },
+        {
+            "chunk_id": 171,
+            "summary": "In this study, the diameters of silica micropillars have been measured using"
+        },
+        {
+            "chunk_id": 172,
+            "summary": "The phase fraction and density of precipitates after solidification at high temperatures and pressures have been investigated in"
+        },
+        {
+            "chunk_id": 173,
+            "summary": "The dissolution rate of precipitates during the SSTCS has been investigated."
+        },
+        {
+            "chunk_id": 174,
+            "summary": "It is not possible to study the evolution of 3D solidification alloys during rapid or slow"
+        },
+        {
+            "chunk_id": 175,
+            "summary": "The relationship between primary cellular arm spacing and cooling rates during solidification has been proposed."
+        },
+        {
+            "chunk_id": 176,
+            "summary": "Key words: MVU, EH, SH, SG, LY, EH, LY,"
+        },
+        {
+            "chunk_id": 177,
+            "summary": "The aim of the project is to develop a new approach to the design and manufacture of high-performance,"
+        },
+        {
+            "chunk_id": 178,
+            "summary": "The following is a list of funders for this study:"
+        },
+        {
+            "chunk_id": 179,
+            "summary": "The results of the following experiments have been published in Nature Communications."
+        },
+        {
+            "chunk_id": 180,
+            "summary": "The French National Research Agency (ANR): ANR-II-EQPX-0031"
+        },
+        {
+            "chunk_id": 181,
+            "summary": "All authors acknowledge support from the ANR under the contract number ANR-10-EQ"
+        },
+        {
+            "chunk_id": 182,
+            "summary": "The US Department of Energy's National Renewable Energy Laboratory (NREL) has announced the"
+        },
+        {
+            "chunk_id": 183,
+            "summary": "The origin and formation of oxygen inclusions in austenitic stainless steels manufactured by laser powder bed fusion."
+        },
+        {
+            "chunk_id": 184,
+            "summary": "Researchers at the University of Bristol and the University of Cambridge have developed a new method for making stainless steel."
+        },
+        {
+            "chunk_id": 185,
+            "summary": "Zhou Yan, Ke Zou, Manping Cheng, Zhipeng Zhou, and Lijun Song."
+        },
+        {
+            "chunk_id": 186,
+            "summary": "Du-Rim Eo, Seong-Gyu Chung, JeongHo Yang, In-Ho Jung"
+        },
+        {
+            "chunk_id": 187,
+            "summary": "In: Journal of Materials Science and Technology, 89:133-140, 2021."
+        },
+        {
+            "chunk_id": 188,
+            "summary": "Du-Rim Eo, Sun-Hong Park, and Jung-Wook Cho."
+        },
+        {
+            "chunk_id": 189,
+            "summary": "The role of directed energy deposition atmosphere mode on the microstructure and mechan-ical properties"
+        },
+        {
+            "chunk_id": 190,
+            "summary": "In: Ben Haj Slama, Lluis Yedra, Eva He"
+        },
+        {
+            "chunk_id": 191,
+            "summary": "Effect of heat treatment on microstructure and mechanical properties of 316L steel synthesized by selective laser"
+        },
+        {
+            "chunk_id": 192,
+            "summary": "Materials science and engineering, University of Illinois at Urbana-Champaign"
+        },
+        {
+            "chunk_id": 193,
+            "summary": "ABAQUS/Standard User's Manual, Version 6.9."
+        },
+        {
+            "chunk_id": 194,
+            "summary": "The Large Hadron Collider (LHC) is the world's most powerful particle accelerator,"
+        },
+        {
+            "chunk_id": 195,
+            "summary": "Hard X-ray nano- tomography on the transmission microscope at the ANATOMIX beam"
+        },
+        {
+            "chunk_id": 196,
+            "summary": "A new generation of high-speed reconstruction tools has been developed for the reconstruction of high-energy nuclear beams"
+        },
+        {
+            "chunk_id": 197,
+            "summary": "20] Johannes Schindelin, Ignacio Arganda-Carreras, Erwin Frise, Verena Kaynig"
+        },
+        {
+            "chunk_id": 198,
+            "summary": "In: Voisin, Thomas; Forien, Jean-Baptiste; Bertin, Nicolas; Samanta"
+        },
+        {
+            "chunk_id": 199,
+            "summary": "The stability of austenitic stainless steel fabricated by laser powder-bed-fusion has been improved by the"
+        },
+        {
+            "chunk_id": 200,
+            "summary": "Materials Science and Engineering: A, 403(I-2)311-317, 2005."
+        },
+        {
+            "chunk_id": 201,
+            "summary": "microstructure, and mechanical performance of 316L produced by directed energy additive deposition manufacturing."
+        },
+        {
+            "chunk_id": 202,
+            "summary": "Schwerdtfeger, Klaus, et al."
+        },
+        {
+            "chunk_id": 203,
+            "summary": "Effect of sulfur content and solidification variables on morphology and distribution of sulfide in"
+        },
+        {
+            "chunk_id": 204,
+            "summary": "Journal of Materials Science and Engineering, ed."
+        },
+        {
+            "chunk_id": 205,
+            "summary": "Dynamic and static measurements of a high-strength Cu-Zn-Al alloy"
+        },
+        {
+            "chunk_id": 206,
+            "summary": "Reducibility of oxides and sulphides in metallurgical processes."
+        },
+        {
+            "chunk_id": 207,
+            "summary": "Vacuum annealing of stainless steel has been described in a series of papers published between 1981 and 2012."
+        },
+        {
+            "chunk_id": 208,
+            "summary": "Materials science and engineering, vol. 71, no."
+        },
+        {
+            "chunk_id": 209,
+            "summary": "Mikkelsen, Anders and Crank, John."
+        },
+        {
+            "chunk_id": 210,
+            "summary": "Determination of diffusion coefficient of oxygen in -iron from measurements of internal oxidation in Fe-Al alloys."
+        },
+        {
+            "chunk_id": 211,
+            "summary": "BBC Sport takes a look back at some of the"
+        }
+    ]
+}

@@ -1,0 +1,696 @@
+{
+    "chunks": [
+        "HAL open science Incremental dynamic mode decomposition: A reduced-model learner operating at the low-data limit Agathe Reille, Nicolas Hascoët, Chady Ghnatios, Amine Ammar, Elias G. Cueto, Jean Louis Duval, Francisco Chinesta, Roland Keunings - To cite this version:",
+        "Agathe Reille, Nicolas Hascoët, Chady Ghnatios, Amine Ammar, Elias G. Cueto, et al.. Incremental dynamic mode decomposition: A reduced-model learner operating at the low-data limit. Comptes Rendus Mécanique, 2019, 347 (11), pp.780-792. 0106/me2UD.Lw.. hal-02561899 HAL Id: hal-02561899 https//halscience/la-02561899V1 Submitted on 4 May 2020 HAL is a multi-disciplinary open access",
+        "L'archive ouverte pluridisciplinaire HAL, est archive for the deposit and dissemination of sci- destinée au dépôt et à la diffusion de documents entific research documents, whether they are pub- scientifiques de niveau recherche, publiés ou non, lished or not. The documents may come from émanant des établissements d'enseignement et de",
+        "teaching and research institutions in France or recherche français ou étrangers, des laboratoires abroad, or from public or private research centers. publics ou privés. Incremental dynamic mode decomposition: A reduçed-model learner operating at the low-data limit Agathe Reille a, Nicolas Hascoet a, Chady Ghnatios b : Amine Ammar C,",
+        "Elias Cueto d, Jean Louis Duval e, Francisco Chinesta a,*. ' Roland Keunings f Moupc Chair @ PIMM, Arts et Métiers Institute ofTechnology, CNRS, CNAM, HESAM University, 151, boulevard de lHôpital, 75013 Paris, b Notre Dame University - Louaize, PO. Box 72, Zouk Mikael, Zouk Mosbeh, Lebanon",
+        "CESI Group Chair @ LAMPA, Arts et Métiers ParisTech, 2, boulevard du Ronceray, BP 93525, 49035 Angers cedex 01, France d ESI Group Chair @ 13A, University ofZaragoza, Maria de Luna, s.n., 50018 Zaragoza, Spain e ESI Group, Bâtiment Seville, 3bis, rue: Saarinen, 50468 Rungis, France",
+        "FICTEAM, Université catholique de Louvain, av. Georges Lemaître, 4, B-1348 Louvain-la-Neuve, Belgium A B STRA C T The present work aims at proposing a new methodology for learning reduced models from a small amount of data. It is based on the fact that discrete models, or their transfer",
+        "function counterparts, have a low rank and then they can be expressed very efficiently using few terms of a tensor decomposition. An efficient procedure is proposed as well as a Keywords: way for extending it to nonlinear settings while keeping limited the impact of data noise. Machine learning",
+        "The proposed methodology is then validated by considering a nonlinear elastic problem Advanced regression and constructing the model relating tractions and displacements at the observation points. Tensor formats PGD Mode decomposition Nonlinear reduced modeling 1. Introduction",
+        "In physics in general and in engineering in particular, when addressing a generic problem, the first step consists in selecting the best suited model for the description of the evolution of the system under consideration. Nowadays, a variety",
+        "of models exists that are well established and validated, covering most of the domains of physics, e.g., solid and fluid mechanics, electromagnetism, heat transfer... These models are based on the combination of two types of equations of very different nature. From one side, the",
+        "so-called balance equations, whose validity in the framework of classical physics is out of discussion. The second type of equations are the so-called constitutive models. These relate primal variables and dual variables, e.g., stress and strain,",
+        "temperature and heat flux. Their expression and validity depend on the nature of the considered system and the applied loading-in the most general sense. Corresponding author. E-mail addresses: AatheRalFeensameu (A. Reille), Nechasaoeteensameu (N. Hascoet), cghnatiosenduedulb (C. Ghnatios), AmineAMMAReensameu (A. Ammar), ecueto@unizar.es (E. Cueto), einlousDaavalgopon (.L Duval), FamckaCHNSTAPmame.",
+        "(F. Chinesta), mindkeuminpeidouainhe (R. Keunings). Constitutive equations are often phenomenological, and in general involve some parameters assumed to be intrinsic to the system under consideration. For this reason, and even in the context of classical engineering, before solving a given problem, one must decide on the",
+        "most appropriate model. There obviously exists a risk on the pertinence of the chosen model for addressing the phenomena under study. By performing some engineered experiments in order to calibrate the model, that is, to extract the value of the parameters that it involves, these risks can be alleviated.",
+        "The calibrated model is expressed generally as a system of coupled nonlinear partial differential equations and must be solved for given loading and boundary conditions. Very often, the solution of these problems is not tractable by an analytical procedure. Numerical methods were intro-",
+        "duced in the twentieth century for that purpose, and are nowadays widely employed, in industry as well as in academia. Thus, approximate procedures were proposed, most of them computationally manipulable. The first option consists in as-",
+        "suming the solution expressible as a combination of a reduced number of functions with a physical or mathematical foundation. The Ritz method follows this rationale. Thus, if these functions are noted by Si(x), i= 1, G, the solution approximation reads u(x, t) & a;()gi(x) (1) i-1",
+        "where the time-dependent coefficients ai(t) are calculated by invoking a projection method, like the Galerkin method, for instance. However, the knowledge of these functions becomes a tricky issue in many cases. When the choice of an appropriate,",
+        "physically sound basis is unavailable, the best option is considering a general purpose approximation basis, for example consisting of polynomials (Lagrange, Chebyshev, Legendre, Fourier...): Pi(x),i= 1, P, from which the approximation now reads u(x, t) & > Bi(t)Pi(x) (2) i-1",
+        "and where, for ensuring accuracy, a sufficient number of terms must be considered, implying a quite large number of terms in the finite sum (2). In order to better adapt to complex domains, global functions P;(x) are often replaced by compactly supported functions",
+        "M(x), leading to the so-called Finite Element Method, FEM. If we consider N nodes, the approximation reads u(x, t) & Ui(t).Wi(x) (3) i-1 where now U;(t) represents the searched solution at node Xi and at time t.",
+        "This formulation becomes general enough at the price of computing many-in some cases too many-unknowns, the nodal values U;(t), Vi. In the sequel, for the sake of notational simplicity, the dependence on time is not made explicit, and it is assumed that",
+        "the discrete system that results from introducing approximation (3) into the weak form of the problem (for the sake of simplicity assumed to be linear) leads to the linear system KU=F (4)",
+        "Here, matrix K represents the discrete form of the model, whereas vectors U and F contain the nodal unknowns and loads, respectively. Their respective sizes are N x N, N x 1 and N x 1. 1.1. Reduced modelling",
+        "In many applications of practical interest, despite the richness of Eq. (4) that is able to consider any choice of the loading in a vector space of dimension N, usual loadings contain in practice many correlations. This results in the solution U being",
+        "defined in a subspace of dimension n, with n < N. Proper Orthogonal Decomposition proceeds by embedding the solution onto that subspace of dimension n [1] [2] [3] [4). Nonlinear manifold learning constitutes its nonlinear counterpart. For that purpose, from a set of snapshots of the solution",
+        "U1, Us, a reduced basis Ri(x), i= 1, n, with n < N is extracted. The solution is finally expressed by u(x, t) & > V()Ri(x) (5) i=1 whose matrix form reads U=By (6)",
+        "The columns of matrix B contain the reduced functions at node locations. Thus, the component Bij = R;(x:) with i = 1, N and j = 1, n. Now, by injecting (6) into (4) and premultiplying by the transpose of B (something equivalent to a Galerkin projection",
+        "in the reduced basis), it results (BTKB)y =BTF (7) whose respective sizes are n x n, n x 1 and n x 1. In the nonlinear case, different procedures have been proposed for alleviating the construction of K. Among them, one",
+        "can find the Discrete Empirical Interpolation Method [5] or the Hyper-Reduction [6), to cite but a few. In order to avoid the necessity of performing an \"a priori\" learning, a simultaneous searching of space and time functions",
+        "was proposed in the context of the so-called Proper Generalized Decomposition, PGD [7] [8] [9] [10] [11). It was then extended for addressing space separation [12] or parametric solutions [13] [14] [15] [16] in some of our numerous previous works. Thus, the space-time separated representation now reads",
+        "u(x, t) & T(t)a;(x) (8) i=1 where both groups of functions, Ti and X, are obtained by injecting the approximation (8) into the problem weak form and then using a rank-one enrichment for incrementally constructing the separated representation. At each enrichment step of",
+        "that greedy algorithm, an alternated direction strategy is considered for addressing the nonlinearity arising from the product of both unknown functions Ti and X. Despite its generality, the computed solution (8) depends on the loading term. In the case of POD-based techniques, the",
+        "reduced algebraic system can easily be inverted, leading to the reduced transfer function (BTKB) 1. Note that the reduced model matrix (BTKB) does not depend explicitly on the loading. Thus, as soon as a new loading F comes into play, it is",
+        "to be projected on the reduced basis BTF = f. Then, the reduced solution is obtained from y = (BTKB) 'f. To recover the solution in the original finite element basis, one simply has to perform the projection U = By.",
+        "PGD, on the contrary, does not compute such a reduced model (or its transfer function counterpart), but instead it proceeds by either (i) calculating the solution for each loading, or (ii) expressing the loading in an reduced basis (e.g., POD) according to f(x,t)=X MiFi(x,t) (9) i-1",
+        "that allows transforming the initial problem into a parametric one. Within the PGD rationale, the solution is searched in the parametric form u(x, t, N), with = (p1, PF). A criticism that is usually attributed to the PGD technique, if compared to POD-based procedures, is precisely the neces-",
+        "sity of the load to be representable in terms of the reduced basis Fi, FF. However, it is important to note that even if such a constraint is less explicit when using the POD rationale, it also applies implicitly [17). Thus, it is important to note",
+        "that the POD rationale is based on the existence of a reduced basis B, and that this basis was constructed from a particular choice of snapshots U1, Us, associated with a particular loading F1, Fs. Thus, if a quite different loading comes into",
+        "play-one whose solution cannot be accurately approximated by the reduced basis Ri involved in B-the transfer func- tion can be applied, but nothing guarantees the accuracy of the resulting solution. Finally, the applicability of Model Order Reduction techniques remains subordinate to the fulfillment of the conditions assumed during their construction.",
+        "All the just discussed techniques belong to the vast family of Model Order Reduction techniques. In fact, models were not really reduced, only the solution procedure. 1.2. Learning models We argued in some of our former works that, in some circumstances, models are too uncertain to represent the physical",
+        "system [18). In that case, a data-driven procedure becomes an appealing choice [19] [20] [21] [22). For the sake of simplicity, we assume the problem to be linear and that N couples (Ui, Fi)-assumed independent, that is, spanning the whole vector",
+        "space of dimension N-are available. We also assume that nothing is known on the model whose discrete expression consists of the matrix K. Thus, with all the couples fulfilling the algebraic relationship KU; = Fi, Vi (10)",
+        "one could construct the vector K (vector expression of the matrix K), the extended loading vector F that includes all the loads, i.e. FT = (F1, FN) and finally matrix U from the different U; organized in an adequate manner SO as to enable Eqs. (10) to be expressed as",
+        "UK-F (11) They can be solved to obtain the model K, or its matrix counterpart K. There are many ways of performing such an identification. In the linear or the nonlinear cases as, for example, deep-",
+        "learning (based on neural networks, NN), dynamic mode decomposition, DMD... to cite but a few. It is important to note that the complexity of standard solutions involving known models K, scales with the number",
+        "of unknowns N, however, when trying to identify the model the complexity scales with N2 (number of component of K), justifying that a lot of data is mandatory for extracting the hidden model, situation that becomes even more stringent in",
+        "the nonlinear case that requires identifying a model Klu around any possible value of U. This apparent complexity justifies the fact of associating the term big-data to machine learning. However, in engineering, the available data is in some circumstances very scarce: collecting data could be technologically challenging, sometimes",
+        "simply impossible, and in all cases, generally expensive. Thus, the big-data is being, or should be, transformed in a smarter counterpart, with smart-data paradigm rationalizing the amount of needed data, while driving its acquisition (collection): which data, where and when?",
+        "The present work tries to exploit the fact previously discussed, that despite the richness of loadings and responses (being the model the application that relates both), in general both are living in low-dimensional manifolds, and therefore",
+        "the model relating both is expected to reflect this fact. This consideration was exploited when proposing the so-called hyper-reduction techniques, however they were applied on pre-assumed models, whereas in what follows we apply it while assuming the model unknown.",
+        "After this introduction, the next section proposes a procedure for extracting the reduced model from a small amount of data, then the procedure will be illustrated from the analysis of a quite simple nonlinear problem, before finishing by addressing some general conclusions. 2. Methods",
+        "For the sake of simplicity, we start by assuming the discrete linear problem KU=F (12) where F and U represent the input and output vectors respectively. In a general case, they could have different nature and",
+        "represent the values of their respective fields at the observation points. The respective sizes are N x 1 and N x 1. As in the case of reduced-order modeling, we assume that inputs and outputs are (to a certain degree of approximation)",
+        "living in a sub-space of dimension n, much smaller than N. Thus, the rank of K is expected to be also n, even if a priori, it was ready to operate in a larger space of dimension N.",
+        "The question is therefore how to extract the reduced model? Among the numerous possibilities we explored, we com- ment here on two of them. 2.1. Rank-n constructor Here, we consider a set of S input-output couples (F;, U:), and assume the model to be expressible from its low-rank form KLR",
+        "K & KIR- ZÇeR-2GR (13) j=1 j=1 where @ denotes the tensor product, and Ç and R; are the so-called column and row vectors. This expression is somehow similar to the separated representation used in the PGD, the SVD (Singular Value Decomposition) or the CUR decomposition [23] [24).",
+        "Remark 1. If the model is expected to be symmetric, one could enforce that symmetry in the solution representation, i.e. K: & KLR (CRI + R;C) (14) = Let us define the functional E(KLR) according to EK-)=IF- K'RUp (15) i-1",
+        "The choice of many different norms could be envisaged here. For exploiting sparsity, for instance, the choice should be the L1-norm. In what follows, we consider the standard L2-norm, i.e. we take p = 2.",
+        "By considering matrices F and U containing in their columns vectors Fi and Ui respectively, the previous expression can be rewritten using the Frobenius norm (related to P = 2) as EC-)-F-K\"Ul, (16) whose minimization results in K-(UU)=FUT (17) or, equivalently, KLR - (FUT)(UUT)- (18)",
+        "This proves that KLR and, more particularly, its column and row vectors, correspond to the SVD (or rank-n truncated SVD) decomposition of (FUT)(UU)\". Remark 2. Within the standard PGD rationale, one could compute the separated representation of KLR by computing pro-",
+        "gressively the separated representation using the standard greedy algorithm applied on Eq. (17) from KK\"UU)-KCU) (19) with \"\" the twice-contracted tensor product, and KLR approximated by (13). The test matrix K* is obtained from: K*-CR (20) j=1 or its symmetrized counterpart.",
+        "This procedure is specially suitable when N becomes large, thus making difficult the calculation of the SVD decomposition of (FUT)(UUT)- Remark 3. This procedure ensures that when addressing a linear problem, N linearly independent loadings Fj, j=1,.,N,",
+        "ensure the construction of a rank-N model K. If the model is computed by incorporating progressively the available data- from one loading leading to model K1 (a single data model), to N leading to KN_we can define the model enrichment AK = Ki - K = 2, N.",
+        "Note that adding more data, Fj, j > N, to the model does not make it evolve anymore, as expected. In other words: KI =K, J > N. In the nonlinear case, where a model is a priori expected to exist around each U, the model continues to",
+        "evolve when j > N. With the low-rank model thus calculated, as soon as a new datum arrives, F, the solution is evaluated from U=( (KLR)-'F (21) Remark 4. In section 2.3 we propose an alternative methodology based on the calculation of transfer functions that avoids model inversion.",
+        "2.2. Progressive greedy construction In this case we proceed progressively. We consider the first available datum, the pair (F1, U1). Thus, the first, one-rank, reduced model reads K1 = (CR) (22) ensuring (CR)U1 = F1 (23)",
+        "and one possible solution, ensuring symmetry, consists of R1 = F1 and C1 = E with Pi = FU,. Many other solutions exist, since there are N available data for computing 2N unknowns (the components of the row and column vectors). Of course,",
+        "the problem can be written as a minimization problem using an adequate norm. Suppose now that a second datum arrives, (F2, U2), from which we can also compute its associated rank-one approxima- tion, and SO on, for any new datum (Fi, U;). This leads to Ki = (GR) (24)",
+        "ensuring at its turn (CR)U; = Fi (25) where Ci = F gi (with i = F/Ui) and Ri = Fi. For any other U, the model could be interpolated from the just defined rank-one models, Ki,i=1,. S, according to S Klu & KI(U) (26) i-1",
+        "with I(U) the interpolation functions operating in the space of the data U. This constructor is not appropriate when addressing linear behaviors. If we assume known two local rank-one behaviors",
+        "K1 and K2 ensuring the fulfillment of relations K,Ui = F1 and K2U2 = F2, it follows that if for example F= 0.5(F1 + F2), by considering K = 0.5(K1 + K2), the resulting output does not satisfy linearity, i.e. U * 0.5(U1 + U2).",
+        "However, in the nonlinear case, by defining the secant behavior at the middle point associated with F = 0.5(F1 + F2) as N = 0.5(K2 - K1), we will have K = K1 + K = 0.5(K1 + K2), fact that allows viewing the progressive greedy construction",
+        "and its associated interpolation as a linearization procedure. 2.3. General remarks All the previous analysis was based on the calculation of the reduced model KLR. However, this procedure needs its inversion KLR-' for evaluating the solution U = KLR-'F. This issue could be easily circumvented as follows.",
+        "The discrete model KU = F can be rewritten as U = K IF and by introducing the discrete transfer function T (that represents the inverse of K), one could learn directly, by using all the previous rationale, the reduced expression of the transfer function, i.e. TLR.",
+        "The advantage of learning the reduced discrete transfer function is that, as soon as a datum F is available-and under the assumption that it is living in the same subspace that served for constructing the reduced model-the evaluation",
+        "becomes straightforward: a simple matrix-vector product. It can even be more simplified, since matrix TLR is expressed in a separate format, U = TLRF, with T & TLR Z,Ry (27) j=1",
+        "Nothing really changes when considering nonlinear models, except the fact that the models, K or T and, in turn, the vectors they involve, must be assigned to the neighborhood of the data U or F. In practice, data can be classified,",
+        "creating a number clusters where the models are constructed [25]. Thus, each time a datum F arrives, the cluster to which it belongs-say, K-is first identified. Then, the low-rank discrete transfer functions of that cluster, TIR, is chosen and the solution evaluated according to U=TIRF (28)",
+        "Again within the PGD rationale, all the discussion above can be extended to parametric settings. The description and results constitute a work in progress that will be reported in ongoing publications. Another work in progress concerns",
+        "the obtention of error bounds, needed for certifying the constructed models and their predictions. There is a vast corps of literature on verification and validation, but they where associated with model-based simulations. Here, for the best",
+        "identified model, the existing error estimation procedures can be applied. However, the remaining question concerns the estimation of the error associated with the model itself, whose quality depends on the collected data, i.e. validation,",
+        "more than verification. This issue also applies in model-based simulations: how to be sure that the considered models are the appropriate ones? 50 40 - 30 20 10 0 -10 -20 -30 -40 -50 -50 0 50 Fig. 1. Domain equipped with a finite-element mesh.",
+        "Despite the apparent difficulty, since the model is defined with the only support of a discrete basis, some estimators could be easily defined, and will be reported in future works. All the previous developments could be accomplished by first extracting the reduced bases associated with input and",
+        "output vectors (action and reaction) and then learning the associated reduced models within the framework of a pro- gressive POD. However, the procedure here considered seems more physically sound. A fully reduced counterpart of",
+        "the procedures here proposed and described constitutes a work in progress, whose results will be reported in ongoing publications. The present procedure becomes quite close to the so-called dynamic model decomposition as soon as the model is",
+        "assumed to be expressed in a tensor form and extended to nonlinear settings from an appropriate clustering. The main issue when considering data-driven models is the noise impact on the predictions. There are many possi-",
+        "bilities, most of them based on the use of filters. Here, we considered, as proved later, a simple procedure. The data (F, Ui) is obtained with a resolution N, on which noise applies. A quite efficient filter consists in simply consider-",
+        "ing the model, i.e. its row and column vectors, described with a coarser resolution M < N. In fact, inputs and outputs could exhibit fast fluctuations, but in many applications, in which model order reduction applies, these fast fluctuations",
+        "are almost due to noise, and for that reason, the model could be expected being described with a coarser resolu- tion. 3. Results 3.1. A nonlinear example In order to prove the potential interest of the methodology here described, we consider a nonlinear elastic model with",
+        "Poisson coefficient and Young's modulus given by respectively by V= 0.3 and E = 105(1 + 1000E1), with E1I the second invariant of the strain tensor E. Units are MPa for stresses, N/mm for applied tractions and mm for lengths.",
+        "The mechanical problem is defined in the two-dimensional domain depicted in Fig. 1, that also shows the finite ele- ment mesh employed for generating the synthetic pseudo-experimental data. Displacements are prevented on its bottom",
+        "boundary. Left and right boundaries are traction-free and a distributed tension applies on its upper boundary, given by tT = (0, do + aix). Fig. 2 depicts, for do = 100 and ai = 0, the displacement field and the Young modulus distribution, while Fig. 3 depicts",
+        "the displacement along the upper boundary. From the reference elastic model we explore the parameter space (ao, ai) by computing realizations generated from (ao + ro, a1 + T1), with ro and T1 two random numbers uniformly distributed in the interval [-1,1] around points (do = x105 50 50",
+        "a MAN AIAIINY 3.5 40 40 0.1 30 30 0.08 20 20 10 10 2.5 - 0.06 0 0 -10 -10 0.04 -20 -20 -30 M 0.02 -30 .5 - / -40 - -40 -50 -50 -50 0 50 -50 0 50",
+        "Fig. 2. Displacement field (left) and Young modulus distribution (right). 0.115 0.11 0.105 0.1 0.095 0.09 I 0.085 0.08 0.075 0.07 -50 0 50 X coordinate Fig. 3. Displacement on the upper boundary.",
+        "0, a1 = 0), (ao = 100, a1 = 0), (ao = 100, ai = 10) and (do = 0, a1 = 10), defining four loading clusters around those points. Thus, the nonlinear elastic model was employed for generating the synthetic data. In the present case, it consists of trac-",
+        "tion and displacement on the upper boundary of the domain. For example, for the loading cluster around (ado = 100, ai = 0), the input (loading) and output (vertical displacement) data are shown in Fig. 4.",
+        "From all the available data, the discrete, low-rank transfer function TLR is calculated at each loading cluster. Fig. 5 depicts the column and row vectors involved in the rank-two model associated with the cluster (do = 100, ai = 0). The",
+        "obtained rank, two, corresponds to the expected one, since the loading is defined in a manifold of dimension 2, consisting of parameters do and ai. When evaluating the model at any point in the parametric domain (ao,a1), the model TLR is interpolated from the four computed models TLR",
+        "K LR Ix (ao, a1) (29) K=1 where Ix (ao, a1) denotes the bilinear interpolation functions in the parametric space (ao, ai) associated with cluster K. 160 140 120 I 100 80 60 40 -50 0 50 xcoordinate 0.14 0.13 0.12 0.11 0.1 3 0.09 0.08 0.07 0.06 0.05 0.04",
+        "-50 0 50 xcoordinate Fig. 4. Top: input (applied tension). Bottom: output (vertical displacement). Fig. 6 compares the reference solution and the one obtained by interpolating models at point (do = 50, a1 = 5), TLR, and then computing the response from U = TLRF. 3.2. Influence of noisy data",
+        "In the present case the loading was randomly perturbed, as well the computed displacement field (using the unperturbed loading). As mentioned in Section 2, a simple filtering procedure consists in truncating the approximation to a number of",
+        "M A N terms. Our experience indicates that this simple procedure calculates first those modes with a lower frequency content, thus filtering noise in practice. Fig. 7 compares column and row vectors involved in the discrete low-rank transfer function (whose dimensional-",
+        "ity increased due to the noise but was truncated to rank 3) in absence of any noise filtering (i.e. M = N) and when using M < N. A performing filter capability is appreciated, with a beneficial effect on the accuracy of the predic- tions. 6 x103 4 2",
+        "I 0 -2 -4 -6 -50 0 50 x10'9 6 4 2 E 0 -2 -4 -6 -50 0 50 Fig. 5. Column and row vectors defining the discrete low-rank transfer function TLR. 0.25 Esfmaled 02 Reierence 0.15 0.1 0.05 I 0 I -0.05 -0.1 -0.15 -50 0 50 xcoordinate",
+        "Fig. 6. Comparing predictions based on the data-driven model with the reference solution. 0.1 0.15 0.08 0.06 0.1 0.04 0.05 0.02 0 o -0.02 -0.04 -0.05 -0.06 an -40 30 -20 -10 0 10 20 30 40 50 01 -40 30 -20 -10 0 10 20 30 40 50 xcoordinate",
+        "xcoordinate 0.04 0.05 0.03 0.04 0.03 0.02 0.02 - 0.01 0.01 0 o -0.01 -0.01 -0.02 -0.02 -0.03 -50 -40 30 -20 -10 10 20 30 40 50 . -40 -30 -20 -10 0 10 20 30 40 50 xcoordinate xcoordinate",
+        "Fig. 7. Comparing columns and row vectors involved in the discrete low-rank discrete transfer function with M = N (top) and M < N enabling filtering (bottom). 3.3. Equivalent neural network It is easy to transform the proposed procedure into an equivalent artificial neural-network (ANN). Fig. 8 compares a",
+        "standard ANN with one emulating the proposed reduced model learning, combined with the model interpolation for in- ferring responses from applied inputs. The proposed NN tries to emulate a linear combination of locally linear learned",
+        "behaviors. As discussed in Section 2.2 the linear combination of behaviors can be viewed as a linearization of a nonlinear behavior. In the proposed NN four clusters were considered (even if for the sake of clarity the figure only depicts two) representing",
+        "the four locally linear behaviors (two parameters - do and di - with to classes each), while the output layer ensures a bilinear interpolation of them. The standard ANN consists of three neuron layers, the input and output involving 66 and the intermediate with 100. The",
+        "intermediate layer for the physics-informed neural network contained 100 neurons per cluster. Both NN were trained by 300 input/output vectors generated tT = (0, do +aix), with do and di two uniformly distributed random number numbers in the intervals [0, 100] and [-10, 10] respectively.",
+        "Fig. 9 compares the displacement predictions obtained by the trained neural networks, the standard one (ANN) and the physics-informed one for do = 100 and a1 = 0, with the reference solution, from which the superiority of the physics- informed NN can be stressed. E, w,1 W,1 f, W12",
+        "w' 12 W, E2 w', W22 22 f2 w2 2 m-1 f Wn Fm E, W, 11 f, W, 2 E2 u, W, f2 Em w2 y 1 w 12, F, V2 F2 f Un E' m",
+        "Fig. 8. Standard one-layer NN (top). and the physics-informed one related to the low-rank reduced model (bottom). 4. Conclusions The present work succeeded at proposing a new methodology for learning reduced models from a small amount of",
+        "data by assuming a tensor decomposition of the discrete reduced model or its transfer function counterpart. It was ex- tended to nonlinear settings and proved that the associated physics-informed NN exhibits a higher accuracy than a standard one.",
+        "Our present works in progress concern the validation and verification as well as its extension to parametric settings. Acknowledgements The work of E.C. has been partially supported by the Spanish Ministry of Economy and Competitiveness through Grant",
+        "number DP2017-85139-C2-1-K and by the Regional Government of Aragon and the European Social Fund, research group T88. The other authors acknowledge the ANR (Agence nationale de la recherche, France) through its grant AAPG2018 DataBEST. Comparison for ao = 100, a, = 0 0.12 0.11 0.1 0.09 0.08 I 0.07 0.06",
+        "0.05 -50 -40 -30 -20 -10 0 10 20 30 40 50 xcoordinate Fig. 9. Predictions obtained from the standard one-layer ANN and the physics-informed one (Low-Rank Reduced Model) related to the low-rank reduced",
+        "model for do = 100 and ai = 0. Two clusters are depicted in the so-called hidden layer, even if the NN contains four. References [1] K. Karhunen, Ober lineare methoden in der wahchehialhielbahaumg Ann. Acad. Sci. Fennicae, Ser. Al. Math. Phys. 37 (1946).",
+        "[2] M.M. Loève, Probability Theory, 3rd ed., The University Series in Higher Mathematics, Van Nostrand, Princeton, NJ. 1963. [3] M. Meyer, H.G. Matthies, Efficient model reduction in non-linear dynamics using the Karhunen-Loève expansion and dual-weighted-residual methods, Comput. Mech. 31 (1-2) (2003) 179-191.",
+        "[4] D. Ryckelynck, F. Chinesta, E. Cueto, A. Ammar, On the a priori model reduction: overview and recent developments, Arch. Comput. Methods Eng. 12 (1) (2006) 91-128. 15] S. Chaturantabut, D.C. Sorensen, Nonlinear model reduction via discrete empirical interpolation, SIAM J. Sci. Comput. 32 (September 2010) 2737-2764.",
+        "[6] D. Ryckelynck, Hyper-reduction of mechanical models involving internal variables, Int. J. Numer. Methods Eng. 77 (1) (2008) 75-89. [7] P. Ladeveze, Nonlinear Computational Structural Mechanics, Springer, N.Y., 1999.",
+        "[8] A. Ammar, B. Mokdad, E Chinesta, R. Keunings, A new family of solvers for some classes of multidimensional partial differential equations encountered in kinetic theory modeling of complex fluids, J. Non-Newton. Fluid Mech. 139 (2006) 153-176.",
+        "[9] A. Ammar, B. Mokdad, E Chinesta, R. Keunings, A new family of solvers for some classes of multidimensional partial differential equations encountered in kinetic theory modeling of complex fluids. Part I: transient simulation using space-time separated representations, J. Non-Newton. Fluid Mech. 144 (2007) 98-121.",
+        "[10] F. Chinesta, R. Keunings, A. Leygue, The Proper Generalized Decomposition for Advanced Numerical Simulations, Springer International Publishing, Switzerland, 2014. [11] E. Cueto, D. Gonzâlez, I. Alfaro, Proper Generalized Decompositions: An Introduction to Computer Implementation with Matlab, Springer Briefs in Applied Sciences and Technology, Springer International Publishing, 2016.",
+        "[12] B. Bognet, A. Leygue, F. Chinesta, Separated representations of 3d elastic solutions in shell geometries, Adv. Model. Simul. Eng. Sci. 1 (4) (2014). [13] F. Chinesta, A. Ammar, E. Cueto, Recent advances in the use of the proper generalized decomposition for solving multidimensional models, Arch.",
+        "Comput. Methods Eng. 17 (4) (2010) 327-350. [14] F. Chinesta, A. Leygue, F. Bordeu, J.V. Aguado, E. Cueto, D. Gonzalez, L Alfaro, A. Ammar, A. Huerta, PGD-based computational vademecum for efficient design, optimization and control, Arch. Comput. Methods Eng. 20 (1) (2013) 31-59.",
+        "[15] P. Diez, S. Zlotnik, A. Huerta, Generalized parametric solutions in Stokes flow, Comput. Methods Appl. Mech. Eng. 326 (2017) 223-240. [16] F. Chinesta, A. Ammar, E. Cueto, On the use of proper generalized decompositions for solving the multidimensional chemical master equation, Eur. J.",
+        "Comput. Mech. (Rev. Eur. Méc. Numér.) 19 (1-3) (2010) 53-64. [17] D. Gonzalez, E. Cueto, F. Chinesta, Real-time direct integration of reduced solid dynamics equations, Int. J. Numer. Methods Eng. 99 (9) (2014) 633-653.",
+        "[18] R. Ibarez, D. Borzacchiello, J. Vicente Aguado, E. Abisset-Chavanne, E. Cueto, P. Ladeveze, F. Chinesta, Data-driven non-linear elasticity: constitutive manifold construction and problem discretization, Comput. Mech. 60 (5) (Nov. 2017) 813-826. [19] T. Kirchdoerfer, M. Ortiz, Data-driven computational mechanics, Comput. Methods Appl. Mech. Eng. 304 (2016) 81-101.",
+        "[20] R. Ibanez, E. Abisset-Chavanne, J. Vicente Aguado, D. Gonzalez, E. Cueto, F. Chinesta, A manifold learning approach to data-driven computational elasticity and inelasticity, Arch. Comput. Methods Eng. 25 (1) (2018) 47-57.",
+        "[21] E. Lopez, D. Gonzalez, J.V. Aguado, E. Abisset-Chavanne, E. Cueto, C. Binetruy, F. Chinesta, A manifold learning approach for integrated computational materials engineering, Arch. Comput. Methods Eng. 25 (1) (January 2018) 59-68, htps/doion,10.100751007511831-016-91725. [22] Y. Kevrekidis, G. Samaey, Equation-free modeling, Scholarpedia 5 (9) (2010) 4847.",
+        "[23] Ch. Heyberger, P-A. Boucard, D. Neron, A rational strategy for the resolution of parametrized problems in the (PGD) framework, Comput. Methods Appl. Mech. Eng. 259 (1) (2013) 40-49.",
+        "[24] G. Rozza, Fundamentals of reduced basis method for problems governed by parametrized pdes and applications, in: P. Ladeveze, F. Chinesta (Eds.), CISM Lectures Notes \"Separated Representation and PGD Based Model Reduction: Fundamentals and Applications\", Springer Verlag, 2014.",
+        "[25] D. Amsallem, Ch. Farhat, An interpolation method for adapting reduced-order models and application to aeroelasticity, AIAA J. 46 (2008) 1803-1813."
+    ],
+    "summaries": [
+        {
+            "chunk_id": 1,
+            "summary": "Researchers at the Massachusetts Institute of Technology (MIT) and the University of California, Berkeley"
+        },
+        {
+            "chunk_id": 2,
+            "summary": "The journal Comptes Rendus is published by the University of Montpellier, France."
+        },
+        {
+            "chunk_id": 3,
+            "summary": "L'archive ouverte pluriaire HAL, est archive for the deposit and dissemination of sci-disciplinaire HAL"
+        },
+        {
+            "chunk_id": 4,
+            "summary": "The European Research Council (ERC) is the European Union's research and innovation policy-making body."
+        },
+        {
+            "chunk_id": 5,
+            "summary": "All photographs by Zouk Mikael / Magnum Photos."
+        },
+        {
+            "chunk_id": 6,
+            "summary": "The winners of this year's CESI awards for outstanding achievement in science, technology, engineering and maths"
+        },
+        {
+            "chunk_id": 7,
+            "summary": "A new methodology for learning reduced models from a small amount of data."
+        },
+        {
+            "chunk_id": 8,
+            "summary": "In this paper, we present a novel method for learning from noisy data."
+        },
+        {
+            "chunk_id": 9,
+            "summary": "In this paper, a new methodology is proposed for the estimation of the coefficients of"
+        },
+        {
+            "chunk_id": 10,
+            "summary": "In our series of letters from African journalists, film-maker and columnist Youcef"
+        },
+        {
+            "chunk_id": 11,
+            "summary": "The aim of this project is to develop new models of some of the most fundamental phenomena in physics."
+        },
+        {
+            "chunk_id": 12,
+            "summary": "Two types of equations relate to the theory of motion, e.g."
+        },
+        {
+            "chunk_id": 13,
+            "summary": "The differential equations ofStokes-Stokes andStokes-Stokes-Stokes-Stokes"
+        },
+        {
+            "chunk_id": 14,
+            "summary": "In our series of letters from African journalists, film-maker and columnist Farai Sevenzo reflects on the"
+        },
+        {
+            "chunk_id": 15,
+            "summary": "The aim of this paper is to show how to calibrate the most appropriate model for addressing the phenomena under study."
+        },
+        {
+            "chunk_id": 16,
+            "summary": "This paper presents a new method for solving calibrated model problems in the field of fluid mechanics."
+        },
+        {
+            "chunk_id": 17,
+            "summary": "The aim of this paper is to provide an overview of the state-of-"
+        },
+        {
+            "chunk_id": 18,
+            "summary": "suming the solution expressible as a combination of a reduced number of functions with a physical or mathematical foundation"
+        },
+        {
+            "chunk_id": 19,
+            "summary": "In our series of letters from African journalists, film-maker and columnist Ahmed Rashid"
+        },
+        {
+            "chunk_id": 20,
+            "summary": "The following is a list of the most commonly used approximations."
+        },
+        {
+            "chunk_id": 21,
+            "summary": "Global functions P;(x) are often replaced by compactly supported functions."
+        },
+        {
+            "chunk_id": 22,
+            "summary": "In this paper, we show how to search for a solution to a given problem"
+        },
+        {
+            "chunk_id": 23,
+            "summary": "In the first part of this series, the dependence of time on the nodal values U;"
+        },
+        {
+            "chunk_id": 24,
+            "summary": "the weak form of the problem that results from introducing approximation (3) into the"
+        },
+        {
+            "chunk_id": 25,
+            "summary": "In this paper, we present a new set of finite element models, each with a"
+        },
+        {
+            "chunk_id": 26,
+            "summary": "In this paper we deal with the problem of loadings in a vector space of dimension N."
+        },
+        {
+            "chunk_id": 27,
+            "summary": "This paper presents a solution to the problem of proper Ortho Decomposition in a subspace of dimension n."
+        },
+        {
+            "chunk_id": 28,
+            "summary": "In this paper, a solution to the question of how to express a matrix"
+        },
+        {
+            "chunk_id": 29,
+            "summary": "In this paper we show how to reduce the functions of matrix B to a single component."
+        },
+        {
+            "chunk_id": 30,
+            "summary": "This paper deals with the construction of K."
+        },
+        {
+            "chunk_id": 31,
+            "summary": "This paper presents a number of methods for searching space and time."
+        },
+        {
+            "chunk_id": 32,
+            "summary": "In this paper, we present a new version of our well-known representation of space-time, which"
+        },
+        {
+            "chunk_id": 33,
+            "summary": "In this paper we present a solution to the problem of finding two groups of functions with the same"
+        },
+        {
+            "chunk_id": 34,
+            "summary": "In this paper, a greedy algorithm is proposed for solving problems arising from the product of two unknown"
+        },
+        {
+            "chunk_id": 35,
+            "summary": "A reduced algebraic system can be inverted, leading to the reduced transfer function (BTKB)."
+        },
+        {
+            "chunk_id": 36,
+            "summary": "In this paper, we show how to recover the solution of a finite element basis problem from"
+        },
+        {
+            "chunk_id": 37,
+            "summary": "PGD does not compute a reduced model (or its transfer function counterpart), but it proceeds by either ("
+        },
+        {
+            "chunk_id": 38,
+            "summary": "In this paper, we investigate the pros and cons of the Probabilistic Gradient Descent (PGD)"
+        },
+        {
+            "chunk_id": 39,
+            "summary": "It is important to note that the constraint on the representation of the load to be representable in terms of"
+        },
+        {
+            "chunk_id": 40,
+            "summary": "The POD rationale is based on the existence of a reduced basis A, and that this basis was"
+        },
+        {
+            "chunk_id": 41,
+            "summary": "In this paper, we show that the reduction of the transfer func- tion Ri involved in B-the"
+        },
+        {
+            "chunk_id": 42,
+            "summary": "In this paper, we are going to look at some of the techniques used to reduce models."
+        },
+        {
+            "chunk_id": 43,
+            "summary": "In this paper, we present a new approach to the problem of determining whether a couple is"
+        },
+        {
+            "chunk_id": 44,
+            "summary": "In this paper, we show that it is possible to find a model in which"
+        },
+        {
+            "chunk_id": 45,
+            "summary": "In this paper we are going to show how to construct the matrix U from the matrix K."
+        },
+        {
+            "chunk_id": 46,
+            "summary": "The differential equations UK-F (11) and UK-F (11) can be identified by"
+        },
+        {
+            "chunk_id": 47,
+            "summary": "In our series of letters from African journalists, film-maker and columnist Ahmed"
+        },
+        {
+            "chunk_id": 48,
+            "summary": "In this paper, we show that it is possible to extract a hidden model from a noisy"
+        },
+        {
+            "chunk_id": 49,
+            "summary": "The term \"big-data\" is often used to refer to large amounts of data that need to be analysed"
+        },
+        {
+            "chunk_id": 50,
+            "summary": "Big-data, or big data as it is more commonly known, is a collection of"
+        },
+        {
+            "chunk_id": 51,
+            "summary": "Recent work has focused on the relationship between loadings and responses in manifolds."
+        },
+        {
+            "chunk_id": 52,
+            "summary": "In this paper we show that the reduction of a Hilbert space Hilbert Hilbert space can be"
+        },
+        {
+            "chunk_id": 53,
+            "summary": "In the first section of this paper, we introduce the concept of reduced models, then we show how"
+        },
+        {
+            "chunk_id": 54,
+            "summary": "In this paper, we will look at some of the more common problems of the"
+        },
+        {
+            "chunk_id": 55,
+            "summary": "In this paper we present a reduced-order model for the observation of the Earth's rotation"
+        },
+        {
+            "chunk_id": 56,
+            "summary": "The rank of K is expected to be also n, even if a priori,"
+        },
+        {
+            "chunk_id": 57,
+            "summary": "In our last paper, we showed how to reduce a Hilbert space model to its low-rank form KLR."
+        },
+        {
+            "chunk_id": 58,
+            "summary": "An expression for the decomposition of a tensor product."
+        },
+        {
+            "chunk_id": 59,
+            "summary": "In this paper, we will look at how to define the functional E(KLR)"
+        },
+        {
+            "chunk_id": 60,
+            "summary": "In this paper we consider the L-norm, which is a set of"
+        },
+        {
+            "chunk_id": 61,
+            "summary": "The following is an example of an expression that can be rewritten using the Frobenius norm (related"
+        },
+        {
+            "chunk_id": 62,
+            "summary": "The following is a description of the results:"
+        },
+        {
+            "chunk_id": 63,
+            "summary": "This paper presents a new method for the separation of two-contracted tensor products on a"
+        },
+        {
+            "chunk_id": 64,
+            "summary": "A procedure for the decomposition of (FUTUUT)- Remark 3"
+        },
+        {
+            "chunk_id": 65,
+            "summary": "We will define a rank-N model for a single data model."
+        },
+        {
+            "chunk_id": 66,
+            "summary": "The model is a priori expected to exist around each U."
+        },
+        {
+            "chunk_id": 67,
+            "summary": "In section 2.1, we present a solution to the question of how to calculate a low-rank model of a"
+        },
+        {
+            "chunk_id": 68,
+            "summary": "In this paper we consider the construction of a progressive greedy model."
+        },
+        {
+            "chunk_id": 69,
+            "summary": "In this lecture, I will show you how to solve the problem of the row and column vectors"
+        },
+        {
+            "chunk_id": 70,
+            "summary": "In this paper we show how to compute the rank-one approxima- tion, SO on, of"
+        },
+        {
+            "chunk_id": 71,
+            "summary": "The following table shows the rank-one and rank-two rank-one and rank-two rank-"
+        },
+        {
+            "chunk_id": 72,
+            "summary": "This constructor is used to specify the interpolation functions operating in the space"
+        },
+        {
+            "chunk_id": 73,
+            "summary": "This paper deals with the problem of linearity in relation to relations K,Ui and K2"
+        },
+        {
+            "chunk_id": 74,
+            "summary": "The greedy construction of the periodic table is not easy to understand."
+        },
+        {
+            "chunk_id": 75,
+            "summary": "This paper presents a new procedure for evaluating the solution U = KLR-'F."
+        },
+        {
+            "chunk_id": 76,
+            "summary": "In this paper, we show how one can learn directly to understand the differential equation KU = F."
+        },
+        {
+            "chunk_id": 77,
+            "summary": "In this paper, we show how to learn the reduced discrete transfer function of a model"
+        },
+        {
+            "chunk_id": 78,
+            "summary": "In this paper, I present a new approach to the problem of"
+        },
+        {
+            "chunk_id": 79,
+            "summary": "In our series of letters from African journalists, film-maker and columnist Ahmed Rashid looks at"
+        },
+        {
+            "chunk_id": 80,
+            "summary": "This paper presents a solution to the problem of creating number clusters where the models are constructed."
+        },
+        {
+            "chunk_id": 81,
+            "summary": "The following is a description of some of the work in progress that has been reported"
+        },
+        {
+            "chunk_id": 82,
+            "summary": "Verification and validation of model-based simulations is one of the most important areas of"
+        },
+        {
+            "chunk_id": 83,
+            "summary": "In this paper we present a new approach to the estimation of the error associated"
+        },
+        {
+            "chunk_id": 84,
+            "summary": "In this paper, we show how a finite-element mesh can be used to check the correctness of"
+        },
+        {
+            "chunk_id": 85,
+            "summary": "This paper presents a new method for the derivation of estimators from a discrete-time model."
+        },
+        {
+            "chunk_id": 86,
+            "summary": "In this paper, we present a new method for learning the properties of a"
+        },
+        {
+            "chunk_id": 87,
+            "summary": "The aim of this work is to develop a new procedure for the decomposition of Hilbert"
+        },
+        {
+            "chunk_id": 88,
+            "summary": "In this paper, we present a new approach to the problem of predicting the"
+        },
+        {
+            "chunk_id": 89,
+            "summary": "In our series of letters from African journalists, novelist and writer Colm Tib"
+        },
+        {
+            "chunk_id": 90,
+            "summary": "In this paper we deal with fast fluctuations in the order of the inputs and outputs of"
+        },
+        {
+            "chunk_id": 91,
+            "summary": "In this paper, we present a new methodology for the study of elastic models."
+        },
+        {
+            "chunk_id": 92,
+            "summary": "The coefficients of strain tensors E, V and Young's modulus have been obtained for"
+        },
+        {
+            "chunk_id": 93,
+            "summary": "This paper presents a novel method for generating a synthetic pseudo-experimental data set"
+        },
+        {
+            "chunk_id": 94,
+            "summary": "The displacement field and the Young modulus of the boundary between two points on the Earth's surface have been"
+        },
+        {
+            "chunk_id": 95,
+            "summary": "In this paper we derive an elastic model for a bounded boundary between two points."
+        },
+        {
+            "chunk_id": 96,
+            "summary": "All photographs courtesy of AFP, EPA, Getty Images and Reuters"
+        },
+        {
+            "chunk_id": 97,
+            "summary": "The coefficients of the Displacement field and the Young modulus of the upper boundary"
+        },
+        {
+            "chunk_id": 98,
+            "summary": "An elastic model for generating synthetic data has been proposed, in which four points are defined as loading points (i."
+        },
+        {
+            "chunk_id": 99,
+            "summary": "In this paper, we present the results of a series of experiments in which we"
+        },
+        {
+            "chunk_id": 100,
+            "summary": "In this paper, we derive a rank-two model for the transfer of data between two"
+        },
+        {
+            "chunk_id": 101,
+            "summary": "This paper presents a new method for the computation of the coefficients of a differential equation, in which the coefficients are"
+        },
+        {
+            "chunk_id": 102,
+            "summary": "The following table lists the functions of the interpolation space (ao, a) associated with cluster K."
+        },
+        {
+            "chunk_id": 103,
+            "summary": "The influence of noisy data on the coefficients of a differential equation is investigated."
+        },
+        {
+            "chunk_id": 104,
+            "summary": "In this paper we describe a simple filtering procedure for the approximation of an unperturb"
+        },
+        {
+            "chunk_id": 105,
+            "summary": "In this paper, we show how to calculate the discrete low-rank transfer function for the"
+        },
+        {
+            "chunk_id": 106,
+            "summary": "The following table shows the results of a noise analysis of the BBC's Today programme."
+        },
+        {
+            "chunk_id": 107,
+            "summary": "The low-rank transfer function 0.25 Esfmaled 02 Reierence 0.15 0.1 0.05 I 0 -0.05 -0.1"
+        },
+        {
+            "chunk_id": 108,
+            "summary": "The coefficients of the coefficients of the coefficients of the coefficients of the coefficients of the coefficients of the coefficients of the coefficients"
+        },
+        {
+            "chunk_id": 109,
+            "summary": "-40 -30 -20 -10 10 20 30 40 50 ."
+        },
+        {
+            "chunk_id": 110,
+            "summary": "In this paper, we show that it is easy to transform the proposed procedure into an equivalent artificial neural-network"
+        },
+        {
+            "chunk_id": 111,
+            "summary": "In this paper, we propose a new class of artificial intelligence (AI)"
+        },
+        {
+            "chunk_id": 112,
+            "summary": "In this paper we have proposed a new type of clustering called a linear clustering network (NN)."
+        },
+        {
+            "chunk_id": 113,
+            "summary": "Researchers at the University of California, Los Angeles (UCLA), have developed an artificial neural network (ANN)"
+        },
+        {
+            "chunk_id": 114,
+            "summary": "Two neural networks (NNs) have been trained on a single cluster of neurons."
+        },
+        {
+            "chunk_id": 115,
+            "summary": "The displacement predictions obtained by trained neural networks (NNs) are compared with the displacement predictions obtained by the standard"
+        },
+        {
+            "chunk_id": 116,
+            "summary": "Wn Fm E, W, 11 f, W, 2 E2"
+        },
+        {
+            "chunk_id": 117,
+            "summary": "The present work proposes a new methodology for learning reduced models from a small amount of"
+        },
+        {
+            "chunk_id": 118,
+            "summary": "We have developed a newNearest cousin (NN) algorithm for the prediction of the behaviour"
+        },
+        {
+            "chunk_id": 119,
+            "summary": "The aim of E.C. is to develop a new generation of software for"
+        },
+        {
+            "chunk_id": 120,
+            "summary": "The data used in this study are copyrighted."
+        },
+        {
+            "chunk_id": 121,
+            "summary": "       "
+        },
+        {
+            "chunk_id": 122,
+            "summary": "In this paper we present a new method for calculating the number of clusters in a given system."
+        },
+        {
+            "chunk_id": 123,
+            "summary": "[1]: M. Meyer, Efficient model reduction in non-linear dynamics using the Karhunen"
+        },
+        {
+            "chunk_id": 124,
+            "summary": "In: Ryckelynck, D., Chinesta, F., Cueto, E."
+        },
+        {
+            "chunk_id": 125,
+            "summary": "In: Ryckelynck, D."
+        },
+        {
+            "chunk_id": 126,
+            "summary": "A new family of solvers for some classes of multidimensional partial differential equations encountered in"
+        },
+        {
+            "chunk_id": 127,
+            "summary": "A new family of solvers for some classes of multidimensional partial differential equations encountered in kinetic theory modelling of"
+        },
+        {
+            "chunk_id": 128,
+            "summary": "In: Chinesta, F., Keunings, R., and Leygue, A."
+        },
+        {
+            "chunk_id": 129,
+            "summary": "[13] F. Chinesta, Recent advances in the use of the proper generalized decomposition for solving multidimensional"
+        },
+        {
+            "chunk_id": 130,
+            "summary": "Felipe Chinesta, A. Leygue, J.V. Aguado, E. Cue"
+        },
+        {
+            "chunk_id": 131,
+            "summary": "Generalized solutions for Stokes flow and chemical master equations."
+        },
+        {
+            "chunk_id": 132,
+            "summary": "D. Gonzalez, E. Cueto, F. Chinesta, Real"
+        },
+        {
+            "chunk_id": 133,
+            "summary": "Data-driven non-linear elasticity: manifold construction and problem discretization."
+        },
+        {
+            "chunk_id": 134,
+            "summary": "A manifold learning approach to data-driven computational elasticity and inelasticity"
+        },
+        {
+            "chunk_id": 135,
+            "summary": "The following papers have been published in refereed journals over the past five years."
+        },
+        {
+            "chunk_id": 136,
+            "summary": "A rational strategy for the resolution of parametrized problems"
+        },
+        {
+            "chunk_id": 137,
+            "summary": "The following papers have been published in the journal CISM."
+        },
+        {
+            "chunk_id": 138,
+            "summary": "An interpolation method for adapting reduced-order models and"
+        }
+    ]
+}

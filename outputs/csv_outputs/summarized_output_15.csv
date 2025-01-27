@@ -1,0 +1,149 @@
+Chunk Number,Original Text Chunk,Summary
+1,UNIVERSITE DR < YAHIA FARES > DE MEDEA Faculté des Sciences Département de Mathématique et Informatique Année universitaire : 2018-2019 Interrogatoire : Théorie et pratique du Datamining,Chunk 1: Researchers at the University of Rennes in France are developing new
+2,Durée : 75 mn Exercice 01 (03 pts : 10 Mn) : Répondez brièvement aux questions suivantes : 1. Expliquer le fonctionnement de la méthode de rééchantionnage Bootstrap ?. 2. Plusieurs domaines sont la base des techniques de Datamining. Citez cinq domaines ? 3. Es ce qu'une règle d' association avec un support et une confiance acceptable veut dire que cette règle,Chunk 2: Durée : 75 Exercice 01 (03 pts : 10 Mn) : Répondez aux questions suivantes
+3,est pertinente ? expliquez notamment avec des exemples ? Exercice 02 (08 pts : 40 Mn) : Le tableau suivant contient des données sur les No Doublant Série Mention Classe,Chunk 3: Le tableau suivant contient des dons sur les No
+4,résultats obtenus par des étudiants de Tronc Commun 01 Non Maths ABien Admis (première année à Université). Chaque étudiant est 02 Non,Chunk 4: Chaque étudiant s'est
+5,"Techniques ABien Admis décrit par 3 attributs : Est-il doublant ou non, la série 03 Oui Sciences ABien Non Admis",Chunk 5: Une Technique ABien Admis s'
+6,du Baccalauréat obtenu et la mention. Les étudiants 04 Oui Sciences Bien Admis sont répartis en deux classes : Admis et Non Admis. 05 Non,"Chunk 6: Bien Admis, nous avons "
+7,Maths Bien Admis On veut construire un arbre de décision à partir des 06 Non Techniques Bien,Chunk 7: Maths Bien Admis On veut construire
+8,"Admis données du tableau, pour rendre compte des éléments 07 Oui Sciences Passable Non Admis qui influent sur les résultats des étudiants en Tronc 08 Oui",Chunk 8: Une série de sciences passable non Ad
+9,Maths Passable Non Admis Commun. Les lignes de 1 à 12 sont utilisées comme 09 Oui Techniques Passable Non Admis données d'apprentissage. Les lignes restantes (de 13 à 10 Oui,"Chunk 9: Exam questions and answers for the GCSEs in maths, English and"
+10,Maths TBien Admis 11 Oui,Chunk 10: A look back at some of the key moments in
+11,Techniques TBien Admis 16) sont utilisées comme données de tests. 12 Non Sciences,Chunk 11: Tests for tuberculosis (TB) are increasingly being used
+12,TBien Admis 1. Utiliser les données d'apprentissage pour 13 Oui Maths Bien,Chunk 12: Une tte tte
+13,Admis construire I'(les) arbre(s) de décision en utilisant 14 Non Sciences ABien Non Admis l'algorithme ID3. Montrez toutes les étapes et 15 Non,Chunk 13: Montrez toutes les étapes et
+14,Maths TBien Admis formules de calcul. Dessinez l'arbre final. 16 Non,Chunk 14: The BBC's science and technology correspondent Tomi
+15,"Maths Passable Non Admis 2. Déduire de l'arbre trouvé la petite règle correspondante. 3. Classer l'instance N°17: Doublant-Oui, Série-Maths, Mention-ABien. Que remarquez-vous ? 4. Quels sont les résultats de test de l'arbre obtenu sur les données de tests ? déduisez le taux d'erreur ? En",Chunk 15: How many of the following do you remember from last year's exam?
+16,"comparant les résultats obtenus, que suggérez-vous concernant l'arbre résultante ? 5. En se basant sur la comparaison et la suggestion de la question 5, que pouvez dire sur la prédiction de l'avenir des étudiants de tronc commun par rapport aux résultats obtenus au baccalauréat. Exercice 03 (04 pts : 10 Mn). : Soit l'ensemble D des entiers suivants : D= £2,5,8, 10, 11, 18, 20 j. On veut répartir les données de D en",Chunk 16: Les entiers suivants ont t t t t t t t t 
+17,"trois (3) clusters en utilisant l'algorithme Kmeans et la distance de manhathan 1/ Appliquez Kmeans en choisissant comme centres initiaux des 3 clusters respectivement : 8, 10 et 11. Montrez toutes les étapes de calcul. 2/ Donnez le résultat final et précisez le nombre d'itérations qui ont été nécessaires. 3/ Peut-on avoir un nombre d'itérations inférieur pour ce problème ? Discutez.",Chunk 17: Une tte--tte de manhathan s'est utilisant  l'
+18,Good To succeed in life one must have the courage to pursue what he wants CK Enseignant : M' K. Boudjebbour Page 1/1 1,Chunk 18: Good To succeed in life one must have the courage
+19,UNIVERSITE: DR < YAHIA FARES > DE MEDEA Faculté des Sciences Département de Mathématiques et Informatique Année universitaire : 2018-2019 Corrigé type EFS S1 : Théorie et pratique du Datamining,Chunk 19: The European Bioinformatics Institute (EBI) at the University of Nottingham
+20,"Exercice 01 (06 Pts) : a) Appliquer la classification hiérarchique ascendante sur l'ensemble X X 1 2 9 12 20 On va utilisé la distance de Manhattan entre instances : D(X,Y) = Li-Xi - Yil Et la distance minimale entre toutes les paires de données des 2 clusters (single link method) :",Chunk 20: The BBC's science and technology team looks at the latest astronomical data from around the world.
+21,"Dsinglel(i.j) = MinxEi y€j D(X,Y) 0.5.PE Les tableaux suivants représentent les différentes distances Dsingle entre différents clusters : Etape 1 : 1 2 9 12 20",Chunk 21: Dsinglel(i.j) = Minx
+22,"1 1 8 11 19 2 7 10 18 Regroupement des clusters (1) et [2) en (1,2)",Chunk 22: Regroupement des clusters (1) et (2) en (1
+23,9 3 11 12 8 Etape 2 :,Chunk 23: BBC Sport takes a look back at some of the
+24,"1,2 9 12 20 3.Pt 1,2 7 10 18 Regroupement des clusters [9) et (12) en [9,12) 9",Chunk 24: BBC Sport outlines the key statistics behind England's
+25,"3 11 12 8 Etape 3: 1,2 9,12 20",Chunk 25: BBC Sport takes a look back at some of the
+26,"1,2 7 18 Regroupement des clusters (1,2) et [9,12) en (1,2,9,12) 9,12 8","Chunk 26: Regroupement des clusters (1,2) et en"
+27,"Etape 4 : 1,2,9,12 20 1,2,9,12 8 Regroupement des clusters (1,2,9,12) et (20) en (1,2,9,12,20)","Chunk 27: Regroupement des clusters (1,2,9,12)"
+28,"Dsingle Dendrogramme : b) L'inertie intra-cluster IA = Ek ENK D?(i,Gk) i: instance ; Gk : centroid du groupe k ; Nk : Nombre d'instance du groupe k",Chunk 28: The full text of the Dendrogramme can be found
+29,"1Pt Un regroupement en 2 clusters : CI=(1,2,9,12) centroid C1 =6 6 C2=(20) centroid C2 = 20 1.5.Pti",Chunk 29: Un regroupement en 2 clusters : CI=
+30,IA= ((1-6)2+ (2-6)2+ (9-6)2+ (12-6)2)+ (20-20)2-86 Données 1 2 9,Chunk 30: Match reports from the first round of the Irish Open
+31,"12 20 Uni regroupement en 3 clusters : Cl-(1,2)-centroid C1=1,5 C2-19,12)centroid C2 = 10,5 et C3-(20)centroid C3 = 20 IA= ((1-1,5)2+ 2-1,5)4(9-105)4 (12-10,5)2)+ (20-20)2-5",Chunk 31: The full set of results from this year's
+32,Donc le meilleur regroupement est celui de 3 clusters car son inertie intra-cluster IA est la plus petite. Enseignant : M' K. Boudjebbour Page 1/4 UNIVERSITE: DR < YAHIA FARES > DE MEDEA Faculté des Sciences,Chunk 32: Le meilleur regroupement de clusters car son inertie intra-cluster IA
+33,Département de Mathématiques et Informatique Année universitaire : 2018-2019 Exercice 02 (09 Pts) : 11 11 7,"Chunk 33: All photographs courtesy of AFP, EPA, Getty Images"
+34,"7 1) On calcul l'entropie sur l'ensemble des données : I(11,7)= log log - 0,964 0,5PE 18","Chunk 34: All photographs courtesy of AFP, EPA, Getty Images"
+35,18 18 18 Ensuite on calcul le gain de chaque attribut : 6 6,Chunk 35:  Subscribe to BBC News HERE: http://
+36,"6 Gain (DegStr)= d1,72EDe5-0964G I(3, 3)+ I(3,3) + I(5,1))= 0,081 18 18 18",Chunk 36: The winning numbers in Saturday evening's drawing of
+37,"6 6 6 Gain (HrSom)= d1,7-Edlisom)-096H I(6,0)+ I(1,5) + I(4,2))= 0,441 1Pt",Chunk 37: The winning numbers in Saturday evening's drawing of
+38,18 18 18 9 9,Chunk 38: BBC Sport takes a look back at some of the
+39,"Gain (Fum)= d17-E(um)-0.964-G I(4,5)+ I(7,2))= 0,086 18 18 Donc on choisit l'attribut < HrSom > avec le gain le plus grand (Gain-0.411) qui représente la racine de l'arbre, Donc l'arbre initial sera :",Chunk 39: L'arbre de l'at Som s
+40,HrSom 0.5.Pt Egal Supérieur Moins,Chunk 40: Egal Supérieur Moins - Egal
+41,"* Inst : 5, à 12 ??? - ??? Inst : 13 à 18 Yes",Chunk 41: The European Court of Human Rights (ECHR)
+42,"Les valeurs Egal et Supérieur donnent deux valeurs de la classe, donc, il faut refaire le même travail (calcul du gain) pour l'ensemble des données S#13.4.9.10,15,16) et 515.611,2.7.8. I(SEg) =I(1,5)-0,650 2 Gain (SEg, DegStr)= I(1,5)-E(SEg, DegStr)= 0,650-C I(0,2)+ I(0,2) + 2 I(1,1))= 0,317","Chunk 42: Les valeurs de la classe, donc, donnent deux valeurs de la"
+43,6 6 6 3 3,Chunk 43: BBC Sport takes a look back at some of the
+44,"Pt Gain (SEg: Fum)= I(1,5)-E(SEg Fum)= 0,650-C I(0,3)+ I(1,2))= 0,191 6 6 HrSom Donc on choisit l'attribut < DegStr > avec",Chunk 44: Pt Gain (SEg: Fum)=
+45,"Egal Supérieur K a le gain le plus grand (Gain-0.317), et l'arbre devient :",Chunk 45: Egal Supérieur K a le gain le
+46,DegStr Moins y ??? Petit ou Normal,Chunk 46: DegStr Moins y y Petit ou Normal
+47,Fort Yes Inst : 13 à 18 A No,Chunk 47:     
+48,"Fum Non Oui I(SSup) I(4,2)-0,919 4",Chunk 48: Fum Non Oui I(SSup)
+49,"No Yes Gain (SSup, DegStr)= I(4,2)-E(SSup, DegStr)= 0,919-614.1) 2 2","Chunk 49: No Yes Gain (SSup, DegStr"
+50,"- I(1,1)+ - I(2,0))= 0,252 HrSom 6 6 Gain (SSup, Fum)= I(4,2)-E(SSup: Fum) 1Pt",Chunk 50: The winning numbers in Saturday evening's drawing of
+51,Egal Supérieur 3 3 Moins,Chunk 51: Egal Supérieur 3 3 Moins
+52,"4 = 0,919-C I(1,2)+ = I(3,0))= 0,495 DegStr Fum 6",Chunk 52: Match reports from the weekend's Premier League and
+53,6 Petit ou Normal Fort Yes Oui,Chunk 53: A selection of photos from around the world this week
+54,Non Donc on choisit l'attribut < Fum > avec - 4 K,Chunk 54: Non Donc on choisit l'at
+55,"le gain le plus grand (Gain-0.495), No Fum Yes DegStr",Chunk 55: No Fum Yes DegStr No Fum
+56,et l'arbre final devient : Non Oui Petit ou Normal Fort K,"Chunk 56: All photographs  AFP, EPA, Getty Images"
+57,A No Yes No Yes,Chunk 57: A No Yes No Yes A No Yes No Yes
+58,2) Règle : (HrSom = Moins) ou ((HrSom + Moins) et (DegStr-Fort) et (Fum=Oui) ou ((Fum-Non) et (DegStr-Fort)) 1Pt Enseignant : M' K. Boudjebbour Page 2/4,Chunk 58: Match reports from the weekend's Premier League and Championship
+59,UNIVERSITE: DR < YAHIA FARES > DE MEDEA Faculté des Sciences Département de Mathématiques et Informatique Année universitaire : 2018-2019 3) On applique l'ensemble test' T sur l'arbre de décision et on trouve la classe prédite :,"Chunk 59: Researchers at the University of Rennes in Rennes, France, have developed a new method"
+60,Instance DegStr HrSom Fum Classe réelle Classe prédite,Chunk 60: BBC Sport outlines some of the key stories from the
+61,19 Petit Supérieur Oui Yes,Chunk 61: A selection of photographs from around the world this week
+62,Yes 20 Fort Superieur Non,Chunk 62: Do you agree with the BBC's decision to
+63,Yes Yes 21 Petit Egal,Chunk 63: Is it time to end the war in Syria
+64,Non No No 22 Fort,"Chunk 64: All photographs courtesy of AFP, EPA, Getty Images"
+65,Egal Non Yes No 23,Chunk 65: Egal Non Yes No 23 Egal Non Yes
+66,Normal Supérieur Oui No Yes,"Chunk 66: All photographs  AFP, EPA, Getty Images"
+67,24 Petit Egal Oui No,Chunk 67: A selection of photos from around the world this week
+68,No Matrice de 1Pt Prédite (Yes) Prédite (No) Total,Chunk 68: No Matrice de 1Pt Prédite
+69,confusion : Classe réelle (Yes) 2 1 3,Chunk 69: French voters go to the polls on Thursday to decide
+70,Classe réelle (No) 1 2 3 Total,"Chunk 70: All photographs  AFP, EPA, Getty Images"
+71,"3 3 6 Taux d'erreur = b+c / n, Donc le taux d'erreur est : 2/6 = 0,3333 = 33,33 % 0,5.Pt: Précision = a/(a+c) = 66,66 % : représente le pourcentage des colopathies positivement prédites",Chunk 71: The winning numbers in Saturday evening's drawing of the French Open were:
+72,"par rapport aux total des colopathies prédites 0.5.Pt. Spécificité = d/(c+d) = 66,66 % représente le pourcentage des non colopathies positivement prédite par rapport aux total des non colopathies réelles. 4) II faut calculer la distance entre l'instance No19 et les 18 autres instances tel que : D1(Xi,Yi)= (P-M) /1 P tel que : P est le nombre total d'attributs (-2) et M le nombre de",Chunk 72: The United Nations Population Fund (Unicef) has released the results of a study on the effects of climate change on children in the Democratic Republic of Congo
+73,"ressemblance entre les deux attributs énumératifs < DegStr > et < HrSom > D2(Xi,Yi)= 0 si Xi = Yi Concerne l'attribut binaire < Fum > 0,5 Pt 1 sinon",Chunk 73: L'attribut binaire  Fum s
+74,"Ensuite, calculer la distance global D avec une distance d'attributs numériques par exemple avec la distance de manhattan : D(X,Y)= Z-1Xi = Yil Donc : DX,Y)-DICX,) + D2(Xi,Yi) Instance 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 D1",Chunk 74: Find out how to calculate the distance between two points on the Earth.
+75,"0,5 0,5 0,5 0,5 0 0 1 1 1 1 0,5 0,5 1 1 1 1 0,5 0,5 D2 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 D 1,5 0,5 1,5 0,5 1 0 2 1 2 1 1,5 0,5 2 1 2 1 1,5 0,5","Chunk 75: D1 0,5 0,5 0,5 0,5 0,5 1 1 1 0,5 0,5"
+76,"rang 4 2 4 2 3 1 5 3 5 3 4 2 5 3 5 3 4 2 1,5 Pt Enseignant : M' K. Boudjebbour Page 3/4","Chunk 76: Match reports from the French Open, which saw Novak Djokovic beat"
+77,UNIVERSITE: DR < YAHIA FARES > DE MEDEA Faculté des Sciences Département de Mathématiques et Informatique Année universitaire : 2018-2019 Exercice 03 (06 Pts) :,Chunk 77: Université Libre de Bruxelles (ULB)
+78,On génère d'abord les itemsets fréquents de support minimum = 2: C1 itemset [A) (B) (C) (D) (E) Support 3 3,Chunk 78: On génre d'abord les
+79,4 1 4 F1 itemset Oui Oui Oui Non Oui 2Pt,Chunk 79: Oui Oui Oui Oui Nonui
+80,"C2 itemset [A,B) [A,C) [A,E) B,C) (B,E) C,E) Support 1 3 2",Chunk 80: BBC Sport looks at some of the key talking points
+81,2 3 3 F2 itemset Non Oui,Chunk 81: BBC Sport takes a look back at some of the
+82,"Oui Oui Oui Oui C3 itemset (A,B,C) [A,B,E) [A,C,E) B,C,E)",Chunk 82: Oui Oui Oui C3 itemset
+83,"C4 itemset A,B,C,E) Support / /","Chunk 83: C4 itemset A,B,C,"
+84,2 2 Support / 4,Chunk 84: BBC Sport takes a look back at some of the
+85,F3 itemset Non Non Oui Oui,Chunk 85: BBC Sport takes a look back at some of the
+86,"= F4 itemset Non Cause A,B) non Fréquent A,B,C)",Chunk 86:     
+87,"Cause non Fréquent On génère maintenant les règles d'associations d'une confiance minimale = 60 % pour tout sous ensembles non vides fréquents : Pour l'itemset fréquent A,C,E)",Chunk 87: Les rgles d'associations d'une
+88,"Règle (A,C)E (A,E)C [C,E)A A(C,E) C[A,E) E[A,C) Confiance 66,66 % 100 %",Chunk 88: BBC News NI takes a look at some of the
+89,"66,66 % 66,66 % 50 % 50 % Conclusion Acceptée",Chunk 89: The winning numbers in Saturday evening's drawing of
+90,Acceptée Acceptée Acceptée Rejetée Rejetée,"Chunk 90: All photographs  AFP, EPA, Getty Images"
+91,"Pour l'itemset fréquent [B,C,E) Règle (B,C)-E (B,E)-C (C,E)->B B[C,E) C(B,E) E>(B,C) Confiance 100 %","Chunk 91: L'itemset fréquent [B,"
+92,"66,66 % 66,66 % 66,66 % 50 % 50 %",Chunk 92: The winning numbers in Saturday evening's drawing of
+93,Pt: Conclusion Acceptée Acceptée Acceptée Acceptée Rejetée Rejetée Pour les autres itemset,"Chunk 93: All photographs courtesy of AFP, EPA, Getty Images"
+94,"AC,AE sont: redondantes par rapport à A[C,E) BC,BE sont redondantes par rapport à B[C,E) L Règle CA",Chunk 94: The European Court of Human Rights (ECHR)
+95,EA CB EB CE EC,Chunk 95: The European Commission (EC) has launched an investigation
+96,Confiance 75 % 50 % 50 % 75 %,Chunk 96: BBC Sport takes a look at some of the key
+97,75 % 75 % Conclusion Acceptée Rejetée Rejetée,Chunk 97: A selection of photos from around the world this week
+98,"Acceptée Acceptée Acceptée - Un motif fréquent est dit fermé s'il ne possède aucun sur-motif qui a le même support, exp : (A,C) Pt; Un motif fréquent est dit Maximal si aucun de ses sur-motifs immédiats n'est fréquent, exp:A,C,E!""",Chunk 98: Un motif fréquent est dit fermé s'il ne poss
+99,Enseignant : M' K. Boudjebbour Page 4/4 UNIVERSITE: DR < YAHIA FARES > DE MEDEA Faculté des Sciences Département de Mathématique et Informatique,Chunk 99: A selection of some of the most interesting papers published
+100,Année universitaire : 2017-2018 Interrogatoire : Théorie et pratique du Datamining Exercice 01 (02 pts) : Supposons qu'on veut utiliser des données binaires dans un processus de clustering. Citer (ou proposer) une (des) mesure(s) de similarité (distance(s)) pour ce type de données. Evaluer la (les) distance(s) entre les objets X = 0101010001 et Y = 0100011000. Que remarquez-vous ?,"Chunk 100: Researchers at the University of Montpellier, France, have developed a new method for the clustering of large groups of data."
+101,"Déduisez la distance de Hamming associée. A quoi la valeur trouvée correspond-elle ? Exercice 02 (03 pts) : Répondez brièvement aux questions suivantes : 1. Que signifie l'élagage et quel est son objectif ? 2. Quelle est la différence entre les techniques descriptives et les techniques prédictives de datamining ? 3. Dans le processus ECD, une phase de préparation des données est nécessaire. Que signifie la","Chunk 101: Dans le process de ECD, les dons de Hamming associées avaient  l'occasion d'un "
+102,transformation des données ? expliquer en donnant des exemples Exercice 03 (05 pts) : Soit l'ensemble d'apprentissage ci-dessous. La classe est < Edible >. No Shape Color Odor Edible 1 C B,Chunk 102: No Shape Color Odor Edible 1 C B : Soit l'
+103,1 Y 2 D B 1 Y 3 D,Chunk 103: The winning numbers in Saturday evening's drawing of
+104,W 1 Y 4 D W 2 Y,Chunk 104: The winning numbers in Saturday evening's drawing of
+105,5 C B 2 Y 6 D B,Chunk 105: The winning numbers in Saturday evening's drawing of
+106,2 N 7 D G 2 N 8 C,Chunk 106: Match reports from the weekend's Premier League games
+107,U 2 N 9 C B 3 N,Chunk 107: Match reports from the weekend's Premier League games
+108,10 C W 3 N 11 D W,Chunk 108: BBC Sport takes a look back at some of the
+109,"3 N 1. En utilisant l'algorithme ID3 et le gain d'information, construire l'arbre de décision du dataset. Donner les détails des calculs. 2. Déduire de l'arbre trouvé une seule règle comportant 2 disjonctions et 2 conjonctions au maximum. 3. En utilisant l'arbre construit, classer l'instance No12: Shape-C, Color-G, Odor-2.","Chunk 109: The following table presents the results of a study on the effects of shape- C, Color-G, and"
+110,"4. En utilisant l'ensemble des onze instances, et en supposant que les attributs < Color > et < Odor > sont des variables énumératives, dites lequel des instances est plus proche de l'instance No 12 ? quelle est la distance utilisée ? Que représentent ces calculs (donner le nom de ces calculs) ? BON - To succeed in life one must have the courage to pursue what he wants",Chunk 110: C'est un peu t--tre un peu t--tre un peu t--t
+111,CRRIG Enseignant : M' K. Boudjebbour Page 1/1 UNIVERSITE: DR < YAHIA FARES > DE MEDEA Faculté des Sciences,Chunk 111: A selection of some of the best images from the
+112,"Département de Mathématique et Informatique Année universitaire : 2017-2018 Corrigé Interrogatoire : Théorie et pratique du Datamining Exercice 01 (02,50 Pts): il faut dessiner la table de dissimilarité (contingence) Y",Chunk 112: The French government has announced that it will introduce a new data mining
+113,"on a trois cas 0,5Pt possibles : 1 0 1. Similarité invariante, si toutes les variables sont symétriques (Coefficient de",Chunk 113: Les variables sont symétriques (
+114,"correspondance simple) : b+c 3 1 2 2 D1(X,Y) 0,3 0.5Pt",Chunk 114:     
+115,"a+b+c+d 10 X 2. Similarité non invariante, si toutes les variables sont asymétriques (Coefficient 0 1 5 de Jaccard):",Chunk 115: The following table shows the coefficients for the following variables
+116,"b+c 3 D2(X,Y) 0,6 0,5PL a+b+c 5 3. Si les variables sont symétriques et asymétriques : il faut spécifier la nature de chaque variable. 0,25Pt.",Chunk 116: Une spécifier de chaque
+117,"E0.5.P:Malgré que D1 et D2 représentent deux distances entre les mêmes instances, on remarque que qu'elles sont très éloignées car D2=2*D1 Distance de hamming = b+c = 3. Elle représente le nombre de caractéristiques différentes entre X et y.:0,25 Pt Exercice 02 (03 Pts). : 1. L'élagage est la suppression de quelques sous-arbres dans la l'arbre de décision. Son objectif","Chunk 117: Le nombre de caractéristiques différentes entre D1 et D2 resentent deux mmes instances,"
+118,principal est la réduction de l'arbre afin d'améliorer le taux d'erreur. 2. les techniques descriptives de datamining visent à mettre en évidence des informations présentes mais cachées par le volume de données alors que les techniques prédictives visent à extrapoler de nouvelles informations à partir des informations présentes. Elles se basent essentiellement sur des modèles qui utilisent des données présentes ou passées pour construire des scénarios futurs.,Chunk 118: The following are some of the main points of the paper:
+119,"3. La transformation des données est la transformation d'un attribut A en une autre variable A' qui serait selon les objectifs de l'étude, plus appropriée. Exp 1: Variable continue en variable discrète et vice versa Exp 2: La construction d'agrégats par exemple, le prix au mètre-carré d'un appartement Exercice 03 (05,50 Pts):","Chunk 119: La construction d'agrégats par exemple, le prix au m'tre-carré d'"
+120,"- 5 6 1) On calcul l'entropie sur l'ensemble des données : I(5,6)= log",Chunk 120: A selection of photographs from around the world this week
+121,"log = 0,994 0,5Pt 11 11 11 11",Chunk 121: The winning numbers in Saturday evening's drawing of
+122,"Ensuite on calcul le gain de chaque attribut : 5 6 Gain (Shape)= (5,6)-E(Shape)- I(5,6)-( I(2,3)+ I(3,3))-0,008 11","Chunk 122: All photographs courtesy of AFP, EPA, Getty Images"
+123,11 5 4 1 1,Chunk 123: BBC Sport takes a look back at some of the
+124,"Gain (Color)= (5,6)-E(Color)- I(5,6)-( I(3,2)+ I(2,2)+ I(0,1)+ I(0,1)-0,189 11 11 11 11",Chunk 124: The winning numbers in Saturday's drawing of the
+125,"3 5 3 Gain (Odor)= (5,6)-E(Odor)- I(5,6)-( I(3,0)+ I(2,3)+ I(0,3))-0,553 11",Chunk 125: The winning numbers in Saturday evening's drawing of
+126,"11 11 Donc on choisit l'attribut < Odor > avec le gain le plus grand (Gain-0.553) qui représente le noeud la racine de l'arbre, Donc l'arbre initial sera : Odor",Chunk 126: Donc on choisit l'attribut  Odor
+127,1Pt: 2 3 1 ?????,Chunk 127: The winning numbers in Saturday evening's drawing of
+128,"N Y Instances : 4,5,6,7,8 Instance : 9,10,11 Instances : 1,2,3",Chunk 128: BBC Sport takes a look at some of the key
+129,Page 1/2 UNIVERSITE: DR < YAHIA FARES > DE MEDEA Faculté des Sciences Département de Mathématique et Informatique Année universitaire : 2017-2018,Chunk 129: A selection of some of the best news photographs from
+130,"La valeur Odor = 2 donne plusieurs valeurs de l'attribut classe, donc, il faut refaire le même travail (calcul du gain) pour l'ensemble des données S2 (4,5,6,7,8). I(S2) =I(2,3)-0,971 1 2 1",Chunk 130: La valeur Odor = 2 donne valeurs de l'at
+131,"1 Gain (S2, Color)= I(2, 3)-E(S2, Color)-0,971-E I(1,0) + I(1,1)+ I(0,1)+ - I(0,1))-0,571 5 5 5",Chunk 131: The winning numbers in Saturday evening's drawing of
+132,"3 Z Gain (S2, Shape)= I(2, 3)-E(S2, Shape)-0,971-E I(1,2) + I(1,1))-0,020 5 Donc on choisit l'attribut < Color> avec le gain le plus grand (Gain=0,571). On aura deux branches",Chunk 132: The results of a study on the effect of shape on the
+133,avec des noeuds terminaux et la branche B qui sera nécessairement départagée par le seul attribut restant à savoir <<Shapex et l'arbre final sera : Odor 2 3,Chunk 133: C'est un peu t--t
+134,"1 Color N Y Instance : 9,10,11",Chunk 134: BBC Sport takes a look back at some of the
+135,"B G ou U W Instances : 1,2,3 - Shape",Chunk 135: BBC Sport takes a look back at some of the
+136,"N Y Pt D Instances : 7,8 Instance : 4 -",Chunk 136: BBC Sport takes a look back at some of the
+137,Y N Instance : 5 Instance : 6 2) La règle qu'on peut déduire est : (Odor = 1) V ((Odor = 2) A ((Color = W) V ((Color = B) A (Shape = C))),Chunk 137: C'est tre un peut tre 
+138,"Pt: 3) La classe est : N 0,25Pt 4) II faut calculer la distance entre l'instance No12 et les 11 autres instances : D,Y)-DICXi,Y) + D2(Xi,Yi) D1(Xi,Yi)= (P-M) /1 P tel que : P est le nombre total d'attributs et M le nombre de ressemblance",Chunk 138: The earthquake that struck off the coast of western Japan on Tuesday was the strongest to hit the country in
+139,"Qui concerne les deux attributs énumératifs < Odor > et < Color > D2(Xi,Yi)= 0 si Xi = Yi; 1 sinon Concerne l'attribut binaire < Shape > 01 Pt: No Instance D1 D2 D No Instance D1 D2 D 1",Chunk 139: L'attribut binaire  Shape  No Instance D1 D2 D
+140,"1 1 2 7 0,5 0",Chunk 140: BBC Sport takes a look back at some of the
+141,"0,5 2 1 0 1",Chunk 141: The winners of the BBC Sports Personality of the Year
+142,8 0 1 1 3,Chunk 142: BBC Sport takes a look back at some of the
+143,1 0 1 9 1,Chunk 143: The winning numbers in Saturday evening's drawing of
+144,"1 2 4 0,5 0 0,5",Chunk 144: The winning numbers in Saturday evening's drawing of
+145,10 1 1 2 5,Chunk 145: The winning numbers in Saturday evening's drawing of
+146,"0,5 1 1,5 11 1 0",Chunk 146: BBC Sport takes a look back at some of the
+147,"1 6 0,5 0 0,5 Donc, les instances les plus proches de l'instance No12 sont : l'instance No 4, No 6 et No 7. 0,25 Pt",Chunk 147: Les instances de l'instance No12 sont 
+148,"La distance utilisée est la distante mixte entre deux type d'attributs (dans notre cas, on a utilisé la distance de Manhattan) qui représente un calcul de similarité entre instantes afin d'appliquer une méthode de clustering. 0,5 Pt: Page 2/2",Chunk 148: La distance utilisée est la distante mixte entre deux type d'
