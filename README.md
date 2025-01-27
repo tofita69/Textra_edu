@@ -14,4 +14,4 @@ Textra-edu is an innovative project designed to automate the summarization of ed
 
 !["Textra-edu Pipeline"](pipeline.png) 
 
-!["Interface"](/home/yassine/Textra-edu-new/source/_static/interface.png)
+!["Interface"](interface.png)
