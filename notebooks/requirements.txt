@@ -1,0 +1,5 @@
+streamlit
+transformers
+torch
+langchain
+faiss-cpu  # or faiss-gpu

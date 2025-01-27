@@ -1,0 +1,6 @@
+[theme]
+base="light" # Or "dark" if you prefer a dark theme
+primaryColor="#F63366" # Your primary color
+secondaryBackgroundColor="#E0E0E0" # A light gray (adjust the hex code as you like)
+textColor="#31333F" # Your text color
+font="sans serif"
